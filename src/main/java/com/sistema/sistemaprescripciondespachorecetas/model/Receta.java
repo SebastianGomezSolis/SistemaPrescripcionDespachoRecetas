@@ -3,18 +3,20 @@ package com.sistema.sistemaprescripciondespachorecetas.model;
 import java.time.LocalDate;
 
 public class Receta {
-    Paciente paciente;
-    Medicamento medicamento;
-    int cantidad;
-    String indicaciones;
-    int duracion;
-    LocalDate fechaEntrega;
+    private String id;
+    private Paciente paciente;
+    private Medicamento medicamento;
+    private int cantidad;
+    private String indicaciones;
+    private int duracion;
+    private LocalDate fechaEntrega;
 
     // Constructor sin parametros
     public Receta() {}
 
     // Constructor con parametros
-    public Receta(Paciente paciente, Medicamento medicamento, int cantidad, String indicaciones, int duracion, LocalDate fechaEntrega) {
+    public Receta(String id,Paciente paciente, Medicamento medicamento, int cantidad, String indicaciones, int duracion, LocalDate fechaEntrega) {
+        this.id = id;
         this.paciente = paciente;
         this.medicamento = medicamento;
         this.cantidad = cantidad;
@@ -24,6 +26,7 @@ public class Receta {
     }
 
     // Getters y Setters
+    public String getId() { return id; }
     public Paciente getPaciente() { return paciente; }
     public Medicamento getMedicamento() { return medicamento; }
     public int getCantidad() { return cantidad; }
@@ -31,6 +34,7 @@ public class Receta {
     public int getDuracion() { return duracion; }
     public LocalDate getFechaEntrega() { return fechaEntrega; }
 
+    public void setId(String id) { this.id = id; }
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setMedicamento(Medicamento medicamento) { this.medicamento = medicamento; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
