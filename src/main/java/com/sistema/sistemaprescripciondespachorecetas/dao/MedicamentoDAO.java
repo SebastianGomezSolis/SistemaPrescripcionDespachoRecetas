@@ -1,7 +1,7 @@
 package com.sistema.sistemaprescripciondespachorecetas.dao;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataMedicamento;
-import com.sistema.sistemaprescripciondespachorecetas.model.XMLHelper;
+import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
 
 public class MedicamentoDAO {
     private static final String file = "medicamentos.xml";

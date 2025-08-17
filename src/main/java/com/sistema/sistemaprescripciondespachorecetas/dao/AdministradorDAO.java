@@ -1,7 +1,7 @@
 package com.sistema.sistemaprescripciondespachorecetas.dao;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataAdministrador;
-import com.sistema.sistemaprescripciondespachorecetas.model.XMLHelper;
+import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
 
 public class AdministradorDAO {
     private static final String file = "administradores.xml";

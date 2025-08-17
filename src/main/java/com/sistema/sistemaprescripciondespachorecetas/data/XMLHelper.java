@@ -1,4 +1,4 @@
-package com.sistema.sistemaprescripciondespachorecetas.model;
+package com.sistema.sistemaprescripciondespachorecetas.data;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.*;
 
