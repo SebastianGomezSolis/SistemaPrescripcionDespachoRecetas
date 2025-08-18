@@ -18,11 +18,17 @@
       </ImageView>
       <PasswordField id="pwdClaveActual" fx:id="pwdClaveActual" layoutX="63.0" layoutY="187.0" prefHeight="26.0" prefWidth="150.0" promptText="Clave actual">
          <font>
-            <Font name="Tahoma" size="12.0" />
+            <Font name="Calibri" size="12.0" />
          </font>
       </PasswordField>
-      <PasswordField id="pwdClaveNueva" fx:id="pwdClaveNueva" layoutX="64.0" layoutY="226.0" promptText="Clave nueva" />
-      <PasswordField id="pwdVerificarClaveNueva" fx:id="pwdVerificarClaveNueva" layoutX="64.0" layoutY="260.0" promptText="Verificar clave nueva" />
+      <PasswordField id="pwdClaveNueva" fx:id="pwdClaveNueva" layoutX="63.0" layoutY="226.0" prefHeight="26.0" prefWidth="150.0" promptText="Clave nueva">
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font></PasswordField>
+      <PasswordField id="pwdVerificarClaveNueva" fx:id="pwdVerificarClaveNueva" layoutX="63.0" layoutY="260.0" prefHeight="26.0" prefWidth="150.0" promptText="Verificar clave nueva">
+         <font>
+            <Font name="Calibri" size="12.0" />
+         </font></PasswordField>
       <ImageView id="img_claveActual" fx:id="img_claveActual" fitHeight="26.0" fitWidth="20.0" layoutX="36.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bloquear.png" />
@@ -40,30 +46,30 @@
       </ImageView>
       <Label id="txt_Titulo" layoutX="68.0" layoutY="28.0" text="FarmaApp" textFill="#413aaa">
          <font>
-            <Font name="Tahoma Bold" size="39.0" />
+            <Font name="Calibri Bold" size="39.0" />
          </font>
       </Label>
       <Label contentDisplay="CENTER" layoutX="68.0" layoutY="78.0" text="Gestión inteligente para tu farmacia" textFill="#b0dab6">
          <font>
-            <Font name="Tahoma Bold" size="10.0" />
+            <Font name="Calibri Bold" size="10.0" />
          </font>
       </Label>
       <Label layoutX="63.0" layoutY="124.0" text="Cambiar Clave" textFill="#413aaa">
          <font>
-            <Font name="Tahoma" size="24.0" />
+            <Font name="Calibri" size="24.0" />
          </font>
       </Label>
-      <Button id="btnAceptar" fx:id="btnAceptar" layoutX="56.0" layoutY="305.0" onAction="#funcionAceptarClave" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Aceptar" textAlignment="CENTER" textFill="WHITE">
+      <Button id="btnAceptar" fx:id="btnAceptar" layoutX="36.0" layoutY="318.0" onAction="#funcionAceptarClave" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Aceptar" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Calibri Bold" size="12.0" />
          </font>
          <effect>
             <DropShadow />
          </effect>
       </Button>
-      <Button id="btnCancelar" fx:id="btnCancelar" layoutX="148.0" layoutY="305.0" onAction="#funcionCancelar" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Cancelar" textAlignment="CENTER" textFill="WHITE">
+      <Button id="btnCancelar" fx:id="btnCancelar" layoutX="131.0" layoutY="318.0" onAction="#funcionCancelar" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Cancelar" textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font name="Calibri Bold" size="12.0" />
          </font>
          <effect>
             <DropShadow />
