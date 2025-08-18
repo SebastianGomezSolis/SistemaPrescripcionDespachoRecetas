@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CambiarClaveController">
    <children>
       <ImageView id="img_Password" fx:id="img_password" fitHeight="433.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
@@ -54,7 +53,7 @@
             <Font name="Tahoma" size="24.0" />
          </font>
       </Label>
-      <Button id="btnAceptar" fx:id="btnAceptar" layoutX="35.0" layoutY="318.0" onAction="#funcionAceptarClave" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Aceptar" textAlignment="CENTER" textFill="WHITE">
+      <Button id="btnAceptar" fx:id="btnAceptar" layoutX="56.0" layoutY="305.0" onAction="#funcionAceptarClave" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Aceptar" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
@@ -62,7 +61,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button id="btnCancelar" fx:id="btnCancelar" layoutX="131.0" layoutY="318.0" onAction="#funcionCancelar" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Cancelar" textAlignment="CENTER" textFill="WHITE">
+      <Button id="btnCancelar" fx:id="btnCancelar" layoutX="148.0" layoutY="305.0" onAction="#funcionCancelar" prefHeight="26.0" prefWidth="74.0" style="-fx-background-color: #413aaa;" text="Cancelar" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
