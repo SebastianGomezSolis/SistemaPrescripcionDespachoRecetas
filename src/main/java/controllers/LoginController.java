@@ -1,4 +1,5 @@
 package controllers;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -13,7 +14,7 @@ public class LoginController {
     private Label lblMensaje;
 
     @FXML
-    private void handleLogin() {
+    protected void handleLogin() {
         String usuario = txtUsuario.getText();
         String password = txtPassword.getText();
 

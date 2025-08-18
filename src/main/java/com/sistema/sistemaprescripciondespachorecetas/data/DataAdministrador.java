@@ -1,6 +1,6 @@
 package com.sistema.sistemaprescripciondespachorecetas.data;
 
-import com.sistema.sistemaprescripciondespachorecetas.model.Administrador;
+import com.sistema.sistemaprescripciondespachorecetas.logic.Administrador;
 
 import java.util.ArrayList;
 import java.util.List;

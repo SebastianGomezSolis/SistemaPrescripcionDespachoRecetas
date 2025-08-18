@@ -1,4 +1,4 @@
-package com.sistema.sistemaprescripciondespachorecetas.model;
+package com.sistema.sistemaprescripciondespachorecetas.logic;
 
 import java.time.LocalDate;
 

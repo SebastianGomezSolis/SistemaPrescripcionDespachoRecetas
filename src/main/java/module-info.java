@@ -1,9 +1,11 @@
 module com.sistema.sistemaprescripciondespachorecetas {
     requires javafx.controls;
     requires javafx.fxml;
-    requires com.sistema.sistemaprescripciondespachorecetas;
+    requires javafx.graphics;
+    requires java.xml;
+    requires jdk.compiler;
 
 
-    opens com.sistema.sistemaprescripciondespachorecetas to javafx.fxml;
-    exports com.sistema.sistemaprescripciondespachorecetas;
+    opens controllers to javafx.fxml;
+    exports controllers;
 }
