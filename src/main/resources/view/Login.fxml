@@ -19,7 +19,7 @@
             <Image url="@../images/fondo_login.png" />
         </image>
     </ImageView>
-     <PasswordField id="txtPassword" fx:id="txtPassword" layoutX="53.0" layoutY="220.0" prefHeight="25.0" prefWidth="174.0" promptText="Contraseña" />
+     <PasswordField id="pwdPassword" fx:id="pwdPassword" layoutX="53.0" layoutY="220.0" prefHeight="25.0" prefWidth="174.0" promptText="Contraseña" />
      <Button id="btt_iniciar" fx:id="btt_iniciar" layoutX="53.0" layoutY="287.0" onAction="#funcionIniciarSesion" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #413aaa;" text="Iniciar sesión" textAlignment="CENTER" textFill="WHITE">
       <font>
          <Font name="System Bold" size="12.0" />
