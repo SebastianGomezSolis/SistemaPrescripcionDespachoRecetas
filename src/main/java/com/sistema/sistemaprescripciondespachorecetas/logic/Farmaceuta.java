@@ -10,12 +10,12 @@ public class Farmaceuta  extends Usuario {
     }
 
     // Getters y Setters
-    public String getId() { return id; }
-    public String getClave() { return clave; }
+    @Override public String getId() { return id; }
+    @Override public String getClave() { return clave; }
     public String getNombre() { return nombre; }
 
-    public void setId(String id) { this.id = id; }
-    public void setClave(String clave) { this.clave = clave; }
+    @Override public void setId(String id) { this.id = id; }
+    @Override public void setClave(String clave) { this.clave = clave; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
 }
