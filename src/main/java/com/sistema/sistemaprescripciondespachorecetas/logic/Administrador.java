@@ -1,16 +1,10 @@
 package com.sistema.sistemaprescripciondespachorecetas.logic;
 
-public class Administrador {
-    private String id;
-    private String clave;
-
-    // Constructor sin parametros
-    public Administrador() {}
+public class Administrador extends Usuario {
 
     // Constructor con parametros
     public Administrador(String id, String clave) {
-        this.id = id;
-        this.clave = clave;
+        super(id, clave);
     }
 
     // Getters y Setters

@@ -1,17 +1,11 @@
 package com.sistema.sistemaprescripciondespachorecetas.logic;
 
-public class Farmaceuta {
-    private String id;
-    private String clave;
+public class Farmaceuta  extends Usuario {
     private String nombre;
-
-    // Constructor sin parametros
-    public Farmaceuta() {}
 
     // Constructor con parametros
     public Farmaceuta(String id, String clave, String nombre) {
-        this.id = id;
-        this.clave = clave;
+        super(id, clave);
         this.nombre = nombre;
     }
 

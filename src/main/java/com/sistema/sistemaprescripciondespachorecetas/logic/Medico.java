@@ -1,18 +1,12 @@
 package com.sistema.sistemaprescripciondespachorecetas.logic;
 
-public class Medico {
-    private String id;
-    private String clave;
+public class Medico extends Usuario {
     private String nombre;
     private String especialidad;
 
-    // Constructor sin parametros
-    public Medico() {}
-
     // Constructor con parametros
     public Medico(String id, String clave, String nombre, String especialidad) {
-        this.id = id;
-        this.clave = clave;
+        super(id, clave);
         this.nombre = nombre;
         this.especialidad = especialidad;
     }

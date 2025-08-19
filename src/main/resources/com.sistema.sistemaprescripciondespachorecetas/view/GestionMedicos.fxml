@@ -46,10 +46,10 @@
         </ImageView>
 
         <!-- TabPane principal -->
-        <TabPane layoutX="27.0" layoutY="64.0" prefHeight="368.0" prefWidth="746.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 5;" tabClosingPolicy="UNAVAILABLE">
+        <TabPane layoutX="27.0" layoutY="64.0" prefHeight="368.0" prefWidth="746.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 5;" styleClass="-fx-background-color" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <!-- Tab Médicos -->
-                <Tab fx:id="tab_Medicos" text="Médicos">
+                <Tab fx:id="tab_Medicos" style="-fx-background-color: #b1abff;" text="Médicos">
                     <graphic>
                         <ImageView fitHeight="18" fitWidth="18">
                             <image>
@@ -169,7 +169,7 @@
                 </Tab>
 
                 <!-- Tab Pacientes -->
-                <Tab fx:id="tab_pacientes" text="Pacientes">
+                <Tab fx:id="tab_pacientes" style="-fx-background-color: #b1abff;" text="Pacientes">
                     <graphic>
                         <ImageView fitHeight="18" fitWidth="18">
                             <image>
@@ -190,7 +190,7 @@
                 </Tab>
 
                 <!-- Tab Medicamentos -->
-                <Tab fx:id="tab_medicamentos" text="Medicamentos">
+                <Tab fx:id="tab_medicamentos" style="-fx-background-color: #b1abff;" text="Medicamentos">
                     <graphic>
                         <ImageView fitHeight="18" fitWidth="18">
                             <image>
@@ -209,7 +209,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-            <Tab fx:id="tab_farmaceutas" text="Farmaceutas">
+            <Tab fx:id="tab_farmaceutas" style="-fx-background-color: #b1abff;" text="Farmaceutas">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -225,7 +225,7 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab fx:id="tab_dashboard" text="Dashboard">
+            <Tab fx:id="tab_dashboard" style="-fx-background-color: #b1abff;" text="Dashboard">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
@@ -237,7 +237,7 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab fx:id="tab_historico" text="Historico">
+            <Tab fx:id="tab_historico" style="-fx-background-color: #b1abff;" text="Historico">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
@@ -249,7 +249,7 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab text="Acerca de">
+            <Tab style="-fx-background-color: #b1abff;" text="Acerca de">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -310,7 +310,7 @@
                                     <Font name="Calibri Bold" size="15.0" />
                                  </font>
                               </Text>
-                              <Text layoutX="547.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel: 1111- 1111                               Email: farmaApp@gmail.com" textAlignment="CENTER" wrappingWidth="192.58941650390625">
+                              <Text layoutX="547.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tel: 6589 -5565                          Email: farmaApp@gmail.com" textAlignment="CENTER" wrappingWidth="192.58941650390625">
                                  <font>
                                     <Font name="Calibri" size="15.0" />
                                  </font>
