@@ -2,6 +2,7 @@ package com.sistema.sistemaprescripciondespachorecetas.dao;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataMedicamento;
 import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
+import com.sistema.sistemaprescripciondespachorecetas.logic.Medicamento;
 
 public class MedicamentoDAO {
     private static final String file = "medicamentos.xml";
@@ -13,6 +14,35 @@ public class MedicamentoDAO {
     public DataMedicamento cargar() {
         DataMedicamento data = XMLHelper.getInstancia().cargarMedicamento(file);
         return data != null ? data : new DataMedicamento();
+    }
+
+    public void agregarMedicamento(Medicamento medicamento) {
+        DataMedicamento data = cargar();
+        data.agregarMedicamento(medicamento);
+        guardar(data);
+    }
+
+    public Medicamento buscarMedicamentoPorCodigo(String codigo) {
+        return cargar().buscarMedicamentoPorCodigo(codigo);
+    }
+
+    public Medicamento buscarMedicamentoPorNombre(String nombre) {
+        return cargar().buscarMedicamentoPorNombre(nombre);
+    }
+
+    public boolean actualizarMedicamento(Medicamento medicamentoModificado) {
+        DataMedicamento data = cargar();
+        if (data.modificarMedicamento(medicamentoModificado)) {
+            guardar(data);
+            return true;
+        }
+        return false;
+    }
+
+    public void eliminarMedicamento(String codigo) {
+        DataMedicamento data = cargar();
+        data.eliminarMedicamento(codigo);
+        guardar(data);
     }
 
 }

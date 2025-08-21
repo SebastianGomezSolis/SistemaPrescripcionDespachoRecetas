@@ -2,6 +2,7 @@ package com.sistema.sistemaprescripciondespachorecetas.dao;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataAdministrador;
 import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
+import com.sistema.sistemaprescripciondespachorecetas.logic.Administrador;
 
 public class AdministradorDAO {
     private static final String file = "administradores.xml";
@@ -13,6 +14,40 @@ public class AdministradorDAO {
     public DataAdministrador cargar() {
         DataAdministrador data = XMLHelper.getInstancia().cargarAdministrador(file);
         return data != null ? data : new DataAdministrador();
+    }
+
+    public void agregarAdministrador(Administrador admin) {
+        DataAdministrador data = cargar();
+        data.agregarAdministrador(admin);
+        guardar(data);
+    }
+
+    public Administrador buscarPorId(String id) {
+        return cargar().buscarAdministrador(id);
+    }
+
+    public boolean actualizarAdministrador(Administrador administradorModificado) {
+        DataAdministrador data = cargar();
+        if (data.modificarAdministrador(administradorModificado)) {
+            guardar(data);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean actualizarClave(String id, String claveActual, String nuevaClave) {
+        DataAdministrador data = cargar();
+        if (data.actualizarClave(id, claveActual, nuevaClave)) {
+            guardar(data);
+            return true;
+        }
+        return false;
+    }
+
+    public void eliminarAdministrador(String id) {
+        DataAdministrador data = cargar();
+        data.eliminarAdministrador(id);
+        guardar(data);
     }
 
 }

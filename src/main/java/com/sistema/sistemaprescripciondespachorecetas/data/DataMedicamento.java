@@ -14,7 +14,7 @@ public class DataMedicamento {
 
     public void eliminarMedicamento(String codigo) { medicamentos.removeIf(medicamento -> medicamento.getCodigo().equals(codigo)); }
 
-    public Medicamento buscarMedicamento(String codigo) {
+    public Medicamento buscarMedicamentoPorCodigo(String codigo) {
         for (Medicamento medicamento : medicamentos) {
             if (medicamento.getCodigo().equals(codigo)) {
                 return medicamento;
@@ -23,13 +23,23 @@ public class DataMedicamento {
         return null;
     }
 
-    public void modificarMedicamento(Medicamento medicamentoModificado) {
+    public Medicamento buscarMedicamentoPorNombre(String nombre) {
+        for (Medicamento medicamento : medicamentos) {
+            if (medicamento.getNombre().equals(nombre)) {
+                return medicamento;
+            }
+        }
+        return null;
+    }
+
+    public boolean modificarMedicamento(Medicamento medicamentoModificado) {
         for (int i = 0; i < medicamentos.size(); i++) {
             if (medicamentos.get(i).getCodigo().equals(medicamentoModificado.getCodigo())) {
                 medicamentos.set(i, medicamentoModificado);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public List<Medicamento> getMedicamentos() { return medicamentos; }

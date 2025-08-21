@@ -14,7 +14,7 @@ public class DataPaciente {
 
     public void eliminarPaciente(String id) { pacientes.removeIf(paciente -> paciente.getId().equals(id)); }
 
-    public Paciente buscarPaciente(String id) {
+    public Paciente buscarPacientePorID(String id) {
         for (Paciente paciente : pacientes) {
             if (paciente.getId().equals(id)) {
                 return paciente;
@@ -23,13 +23,23 @@ public class DataPaciente {
         return null;
     }
 
-    public void modificarPaciente(Paciente pacienteModificado) {
+    public Paciente buscarPacientePorNombre(String nombre) {
+        for (Paciente paciente : pacientes) {
+            if (paciente.getNombre().equals(nombre)) {
+                return paciente;
+            }
+        }
+        return null;
+    }
+
+    public boolean modificarPaciente(Paciente pacienteModificado) {
         for (int i = 0; i < pacientes.size(); i++) {
             if (pacientes.get(i).getId().equals(pacienteModificado.getId())) {
                 pacientes.set(i, pacienteModificado);
-                return;
+                return true;
             }
         }
+        return false;
     }
 
     public List<Paciente> getPacientes() { return pacientes; }

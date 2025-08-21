@@ -23,14 +23,37 @@ public class DataAdministrador {
         return null;
     }
 
-    public void modificarAdministrador(Administrador administradorModificado) {
+    public boolean modificarAdministrador(Administrador administradorModificado) {
         for (int i = 0; i < administradores.size(); i++) {
             if (administradores.get(i).getId().equals(administradorModificado.getId())) {
                 administradores.set(i, administradorModificado);
-                return;
+                return true;
             }
         }
+        return false;
     }
+
+    public boolean verificarClave(String id, String clave) {
+        for (Administrador administrador : administradores) {
+            if (administrador.getId().equals(id) && administrador.getClave().equals(clave)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean actualizarClave(String id, String claveActual, String nuevaClave) {
+        for (Administrador administrador : administradores) {
+            if (administrador.getId().equals(id)) {
+                if (verificarClave(id, claveActual)) {
+                    administrador.setClave(nuevaClave);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 
     public List<Administrador> getAdministradores() { return administradores; }
 

@@ -280,6 +280,10 @@ public class XMLHelper {
                 fechaEntregaElement.appendChild(document.createTextNode(receta.getFechaEntrega().toString()));
                 recetaElement.appendChild(fechaEntregaElement);
 
+                Element estadoElement = document.createElement("Estado");
+                estadoElement.appendChild(document.createTextNode(receta.getEstado()));
+                recetaElement.appendChild(estadoElement);
+
                 root.appendChild(recetaElement);
             }
 
@@ -454,8 +458,9 @@ public class XMLHelper {
                 String indicaciones = recetaElement.getElementsByTagName("Indicaciones").item(0).getTextContent();
                 int duracion = Integer.parseInt(recetaElement.getElementsByTagName("Duracion").item(0).getTextContent());
                 LocalDate fechaEntrega = LocalDate.parse(recetaElement.getElementsByTagName("FechaEntrega").item(0).getTextContent());
+                String estado = recetaElement.getElementsByTagName("Estado").item(0).getTextContent();
 
-                data.agregarReceta(new Receta(id, paciente, medicamento, cantidad, indicaciones, duracion, fechaEntrega));
+                data.agregarReceta(new Receta(id, paciente, medicamento, cantidad, indicaciones, duracion, fechaEntrega, estado));
             }
         } catch (Exception e) {
             e.printStackTrace();

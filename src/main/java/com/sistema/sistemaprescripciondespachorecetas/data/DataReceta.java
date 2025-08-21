@@ -23,13 +23,24 @@ public class DataReceta {
         return null;
     }
 
-    public void modificarReceta(Receta recetaModificada) {
+    public boolean modificarReceta(Receta recetaModificada) {
         for (int i = 0; i < recetas.size(); i++) {
             if (recetas.get(i).getId().equals(recetaModificada.getId())) {
                 recetas.set(i, recetaModificada);
-                return;
+                return true;
             }
         }
+        return false;
+    }
+
+    public boolean actualizarEstado(String id, String nuevoEstado) {
+        for (Receta receta : recetas) {
+            if (receta.getId().equals(id)) {
+                receta.setEstado(nuevoEstado);
+                return true;
+            }
+        }
+        return false;
     }
 
     public List<Receta> getRecetas() { return recetas; }
