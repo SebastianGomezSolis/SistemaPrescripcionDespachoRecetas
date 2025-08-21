@@ -1,10 +1,10 @@
-package com.sistema.sistemaprescripciondespachorecetas.dao;
+package com.sistema.sistemaprescripciondespachorecetas.access;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataMedicamento;
 import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
 import com.sistema.sistemaprescripciondespachorecetas.logic.Medicamento;
 
-public class MedicamentoDAO {
+public class MedicamentoAccess {
     private static final String file = "medicamentos.xml";
 
     public void guardar(DataMedicamento data) {

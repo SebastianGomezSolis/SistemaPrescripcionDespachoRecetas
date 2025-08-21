@@ -1,10 +1,10 @@
-package com.sistema.sistemaprescripciondespachorecetas.dao;
+package com.sistema.sistemaprescripciondespachorecetas.access;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataFarmauceuta;
 import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
 import com.sistema.sistemaprescripciondespachorecetas.logic.Farmaceuta;
 
-public class FarmaceutaDAO {
+public class FarmaceutaAccess {
     private static final String file = "farmaceutas.xml";
 
     public void guardar(DataFarmauceuta data) {
@@ -52,6 +52,10 @@ public class FarmaceutaDAO {
         DataFarmauceuta data = cargar();
         data.eliminarFarmaceuta(id);
         guardar(data);
+    }
+
+    public DataFarmauceuta listarFarmaceutas() {
+        return cargar();
     }
 
 }

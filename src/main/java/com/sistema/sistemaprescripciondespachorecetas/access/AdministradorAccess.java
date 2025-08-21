@@ -1,10 +1,10 @@
-package com.sistema.sistemaprescripciondespachorecetas.dao;
+package com.sistema.sistemaprescripciondespachorecetas.access;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataAdministrador;
 import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
 import com.sistema.sistemaprescripciondespachorecetas.logic.Administrador;
 
-public class AdministradorDAO {
+public class AdministradorAccess {
     private static final String file = "administradores.xml";
 
     public void guardar(DataAdministrador data) {
@@ -48,6 +48,10 @@ public class AdministradorDAO {
         DataAdministrador data = cargar();
         data.eliminarAdministrador(id);
         guardar(data);
+    }
+
+    public DataAdministrador listarAdministradores() {
+        return cargar();
     }
 
 }

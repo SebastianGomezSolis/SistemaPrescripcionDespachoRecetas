@@ -54,7 +54,7 @@ public class DataFarmauceuta {
     public boolean actualizarClave(String id, String claveActual, String nuevaClave) {
         for (Farmaceuta farmaceuta : farmaceutas) {
             if (farmaceuta.getId().equals(id)) {
-                if (verificarClave(id, nuevaClave)) {
+                if (verificarClave(id, claveActual)) {
                     farmaceuta.setClave(nuevaClave);
                     return true;
                 }

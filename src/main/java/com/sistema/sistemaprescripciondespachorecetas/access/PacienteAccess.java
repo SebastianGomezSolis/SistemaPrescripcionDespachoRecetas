@@ -1,10 +1,10 @@
-package com.sistema.sistemaprescripciondespachorecetas.dao;
+package com.sistema.sistemaprescripciondespachorecetas.access;
 
 import com.sistema.sistemaprescripciondespachorecetas.data.DataPaciente;
 import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
 import com.sistema.sistemaprescripciondespachorecetas.logic.Paciente;
 
-public class PacienteDAO {
+public class PacienteAccess {
     private static final String file = "pacientes.xml";
 
     public void guardar(DataPaciente data) {
@@ -43,6 +43,10 @@ public class PacienteDAO {
         DataPaciente data = cargar();
         data.eliminarPaciente(id);
         guardar(data);
+    }
+
+    public DataPaciente listarPacientes() {
+        return cargar();
     }
 
 }
