@@ -1,8 +1,8 @@
-package com.sistema.sistemaprescripciondespachorecetas.access;
+package com.sistema.sistemaprescripciondespachorecetas.model.access;
 
-import com.sistema.sistemaprescripciondespachorecetas.data.DataPaciente;
-import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
-import com.sistema.sistemaprescripciondespachorecetas.logic.Paciente;
+import com.sistema.sistemaprescripciondespachorecetas.model.data.DataPaciente;
+import com.sistema.sistemaprescripciondespachorecetas.model.data.XMLHelper;
+import com.sistema.sistemaprescripciondespachorecetas.model.logic.Paciente;
 
 public class PacienteAccess {
     private static final String file = "pacientes.xml";

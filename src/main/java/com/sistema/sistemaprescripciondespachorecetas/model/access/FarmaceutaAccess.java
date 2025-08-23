@@ -1,8 +1,8 @@
-package com.sistema.sistemaprescripciondespachorecetas.access;
+package com.sistema.sistemaprescripciondespachorecetas.model.access;
 
-import com.sistema.sistemaprescripciondespachorecetas.data.DataFarmauceuta;
-import com.sistema.sistemaprescripciondespachorecetas.data.XMLHelper;
-import com.sistema.sistemaprescripciondespachorecetas.logic.Farmaceuta;
+import com.sistema.sistemaprescripciondespachorecetas.model.data.DataFarmauceuta;
+import com.sistema.sistemaprescripciondespachorecetas.model.data.XMLHelper;
+import com.sistema.sistemaprescripciondespachorecetas.model.logic.Farmaceuta;
 
 public class FarmaceutaAccess {
     private static final String file = "farmaceutas.xml";

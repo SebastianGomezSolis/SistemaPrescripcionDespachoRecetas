@@ -1,4 +1,4 @@
-package com.sistema.sistemaprescripciondespachorecetas.logic;
+package com.sistema.sistemaprescripciondespachorecetas.model.logic;
 
 public abstract class Usuario {
     protected String id;
