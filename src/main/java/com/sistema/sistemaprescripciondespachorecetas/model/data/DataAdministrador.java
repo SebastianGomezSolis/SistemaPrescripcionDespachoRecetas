@@ -54,7 +54,6 @@ public class DataAdministrador {
         return false;
     }
 
-
     public List<Administrador> getAdministradores() { return administradores; }
 
 }

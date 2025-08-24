@@ -1,4 +1,4 @@
 package com.sistema.sistemaprescripciondespachorecetas.model.service;
 
-public class AdministradorService {
+public class HistoricoService {
 }

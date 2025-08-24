@@ -32,14 +32,14 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="45.0" layoutX="27.0" layoutY="19.0" stroke="WHITE" width="746.0" />
 
         <!-- Título -->
-        <Text fill="#290382" layoutX="296.0" layoutY="54.0" text="FarmaApp  ">
+        <Text fill="#290382" layoutX="312.0" layoutY="54.0" text="FarmaApp  ">
             <font>
                 <Font name="Calibri Bold" size="44.0" />
             </font>
         </Text>
 
         <!-- Ícono principal -->
-        <ImageView fitHeight="33.0" fitWidth="30.0" layoutX="258.0" layoutY="28.0" preserveRatio="true">
+        <ImageView fitHeight="33.0" fitWidth="30.0" layoutX="276.0" layoutY="28.0" preserveRatio="true">
             <image>
                 <Image url="@../images/equipo-medico.png" />
             </image>
