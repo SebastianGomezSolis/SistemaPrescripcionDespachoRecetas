@@ -20,9 +20,6 @@ public class AutorizacionService {
         this.loginService = new LoginService();
     }
 
-    /**
-     * Verifica si un usuario tiene acceso a una funcionalidad específica
-     */
     public boolean tieneAcceso(Usuario usuario, String funcionalidad) {
         if (usuario == null || funcionalidad == null) {
             return false;
@@ -55,9 +52,6 @@ public class AutorizacionService {
         }
     }
 
-    /**
-     * Verifica acceso y lanza excepción si no tiene permisos
-     */
     public void validarAcceso(Usuario usuario, String funcionalidad) throws SecurityException {
         if (!tieneAcceso(usuario, funcionalidad)) {
             String tipoUsuario = usuario != null ? loginService.obtenerTipoUsuario(usuario) : "Desconocido";
@@ -66,9 +60,6 @@ public class AutorizacionService {
         }
     }
 
-    /**
-     * Obtiene mensaje explicativo de los permisos requeridos
-     */
     public String obtenerMensajePermisos(String funcionalidad) {
         switch (funcionalidad) {
             case funcionalidadPrescripcion:
@@ -103,9 +94,6 @@ public class AutorizacionService {
         }
     }
 
-    /**
-     * Obtiene lista de funcionalidades disponibles para un tipo de usuario
-     */
     public String[] obtenerFuncionalidadesDisponibles(Usuario usuario) {
         if (usuario == null) {
             return new String[0];
@@ -146,28 +134,18 @@ public class AutorizacionService {
         }
     }
 
-    /**
-     * Verifica si el usuario es válido y está autenticado
-     */
     public boolean esUsuarioValido(Usuario usuario) {
         return usuario != null &&
                 !LoginService.tipoDesconocido.equals(loginService.obtenerTipoUsuario(usuario));
     }
 
     // Métodos privados para verificar tipos de acceso
-    private boolean esAccesoAdministradores(String tipoUsuario) {
-        return LoginService.tipoAdministrador.equals(tipoUsuario);
-    }
+    private boolean esAccesoAdministradores(String tipoUsuario) { return LoginService.tipoAdministrador.equals(tipoUsuario);}
 
-    private boolean esAccesoMedicos(String tipoUsuario) {
-        return LoginService.tipoMedico.equals(tipoUsuario);
-    }
+    private boolean esAccesoMedicos(String tipoUsuario) { return LoginService.tipoMedico.equals(tipoUsuario); }
 
-    private boolean esAccesoFarmaceutas(String tipoUsuario) {
-        return LoginService.tipoFarmaceuta.equals(tipoUsuario);
-    }
+    private boolean esAccesoFarmaceutas(String tipoUsuario) { return LoginService.tipoFarmaceuta.equals(tipoUsuario); }
 
-    private boolean esAccesoTodos(String tipoUsuario) {
-        return LoginService.tipoAdministrador.equals(tipoUsuario) || LoginService.tipoMedico.equals(tipoUsuario) || LoginService.tipoFarmaceuta.equals(tipoUsuario);
-    }
+    private boolean esAccesoTodos(String tipoUsuario) { return LoginService.tipoAdministrador.equals(tipoUsuario) || LoginService.tipoMedico.equals(tipoUsuario) || LoginService.tipoFarmaceuta.equals(tipoUsuario); }
+
 }
