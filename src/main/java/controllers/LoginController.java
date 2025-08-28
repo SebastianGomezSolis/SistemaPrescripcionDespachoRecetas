@@ -24,4 +24,9 @@ public class LoginController {
             lblMensaje.setText("Credenciales incorrectas.");
         }
     }
+
+    @FXML
+    protected void salirLogin() {
+        System.exit(0);
+    }
 }

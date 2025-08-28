@@ -58,12 +58,12 @@
             <Font name="Tahoma Bold" size="10.0" />
         </font>
     </Label>
-   <Button layoutX="53.0" layoutY="308.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #413aaa;" text="Cambiar clave" textFill="WHITE">
+   <Button fx:id="btnCambiarClave" layoutX="53.0" layoutY="308.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="96.0" style="-fx-background-color: #413aaa;" text="Cambiar clave" textFill="WHITE">
       <font>
          <Font name="Calibri Bold" size="12.0" />
       </font>
    </Button>
-   <Button layoutX="157.0" layoutY="308.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #413aaa;" text="Salir" textFill="WHITE">
+   <Button fx:id="btnSalir" layoutX="157.0" layoutY="308.0" mnemonicParsing="false" onAction="#salirLogin" prefHeight="25.0" prefWidth="70.0" style="-fx-background-color: #413aaa;" text="Salir" textFill="WHITE">
       <font>
          <Font name="Calibri Bold" size="12.0" />
       </font>
