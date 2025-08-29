@@ -4,14 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class LoginController {
-    @FXML
-    private TextField txtUsuario;
-
-    @FXML
-    private PasswordField txtPassword;
-
-    @FXML
-    private Label lblMensaje;
+    @FXML private TextField txtUsuario;
+    @FXML private PasswordField txtPassword;
+    @FXML private Label lblMensaje;
 
     @FXML
     protected void handleLogin() {
@@ -24,6 +19,9 @@ public class LoginController {
             lblMensaje.setText("Credenciales incorrectas.");
         }
     }
+
+    @FXML
+    protected void funcionCambiarClave() {}
 
     @FXML
     protected void salirLogin() {

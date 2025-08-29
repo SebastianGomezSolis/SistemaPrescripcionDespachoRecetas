@@ -18,10 +18,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="450.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <!-- Fondo -->
-        <ImageView fitHeight="450.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fitHeight="500.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="false">
             <image>
                 <Image url="@../images/FondoMedico.png" />
             </image>
@@ -47,7 +47,7 @@
         </ImageView>
 
         <!-- TabPane principal -->
-        <TabPane layoutX="27.0" layoutY="64.0" prefHeight="368.0" prefWidth="746.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 5;" styleClass="-fx-background-color" tabClosingPolicy="UNAVAILABLE">
+        <TabPane layoutX="26.0" layoutY="64.0" prefHeight="418.0" prefWidth="747.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 5;" styleClass="-fx-background-color" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <!-- Tab Médicos -->
                 <Tab fx:id="tabMedicos" style="-fx-background-color: #b1abff;" text="Médicos">
@@ -59,7 +59,7 @@
                         </ImageView>
                     </graphic>
                     <content>
-                        <AnchorPane prefHeight="357.0" prefWidth="745.0">
+                        <AnchorPane prefHeight="387.0" prefWidth="760.0">
                             <!-- Sección Médico -->
                             <Pane layoutX="13.0" layoutY="15.0" prefHeight="107.0" prefWidth="720.0">
                                 <children>
@@ -76,16 +76,16 @@
                                     <TextField fx:id="txtIdMedico" layoutX="87.0" layoutY="25.0" prefWidth="150.0" />
                                     <Label layoutX="14.0" layoutY="72.0" text="Nombre:">
                                         <font>
-                                            <Font name="Calibri Bold" size="14.0" />
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
                                     <TextField fx:id="txtNombreMedico" layoutX="87.0" layoutY="68.0" prefWidth="150.0" />
-                                    <Label layoutX="260.0" layoutY="29.0" text="Especialidad:">
+                                    <Label layoutX="259.0" layoutY="51.0" text="Especialidad:">
                                         <font>
-                                            <Font name="Calibri Bold" size="14.0" />
+                                            <Font name="System Bold" size="13.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="txtEspecialidadMedico" layoutX="355.0" layoutY="26.0" prefHeight="25.0" prefWidth="171.0" />
+                                    <TextField fx:id="txtEspecialidadMedico" layoutX="360.0" layoutY="48.0" prefHeight="25.0" prefWidth="171.0" />
                                     <Button fx:id="btnGuardarMedico" layoutX="589.0" layoutY="5.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
                                         <effect>
                                             <DropShadow blurType="ONE_PASS_BOX">
@@ -136,30 +136,30 @@
                             </Pane>
 
                             <!-- Sección Búsqueda -->
-                            <Pane layoutX="13.0" layoutY="120.0" prefHeight="46.0" prefWidth="720.0">
+                            <Pane layoutX="12.0" layoutY="122.0" prefHeight="71.0" prefWidth="720.0">
                                 <children>
-                                    <Text fill="#290382" layoutY="28.0" text="Búsqueda">
+                                    <Text fill="#290382" layoutY="19.0" text="Búsqueda">
                                         <font>
                                             <Font name="Calibri Bold" size="20.0" />
                                         </font>
                                     </Text>
-                                    <Label layoutX="126.0" layoutY="15.0" text="Nombre:">
+                                    <Label layoutX="74.0" layoutY="41.0" text="Nombre:">
                                         <font>
                                             <Font name="Calibri Bold" size="14.0" />
                                         </font>
                                     </Label>
-                                    <TextField fx:id="txtBuscarMedico" layoutX="190.0" layoutY="11.0" prefHeight="25.0" prefWidth="203.0" />
-                                    <Button fx:id="btnBuscarMedico" layoutX="446.0" layoutY="12.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
+                                    <TextField fx:id="txtBuscarMedico" layoutX="157.0" layoutY="37.0" prefHeight="25.0" prefWidth="203.0" />
+                                    <Button fx:id="btnBuscarMedico" layoutX="425.0" layoutY="38.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
                                         <font>
                                             <Font name="Calibri Bold" size="12.0" />
                                         </font>
                                     </Button>
-                                    <Button fx:id="btnReporteMedico" layoutX="567.0" layoutY="12.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
+                                    <Button fx:id="btnReporteMedico" layoutX="541.0" layoutY="38.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
                                         <font>
                                             <Font name="Calibri Bold" size="12.0" />
                                         </font>
                                     </Button>
-                           <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="526.0" layoutY="14.0">
+                           <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="501.0" layoutY="40.0">
                               <image>
                                  <Image url="@../images/logo-buscar.png" />
                               </image>
@@ -168,12 +168,12 @@
                             </Pane>
 
                             <!-- Tabla Listado -->
-                            <Text fill="#290382" layoutX="14.0" layoutY="184.0" text="Listado">
+                            <Text fill="#290382" layoutX="14.0" layoutY="208.0" text="Listado">
                                 <font>
                                     <Font name="Calibri Bold" size="20.0" />
                                 </font>
                             </Text>
-                            <TableView fx:id="tablaMedicos" layoutX="13.0" layoutY="188.0" prefHeight="143.0" prefWidth="718.0" style="-fx-border-color: #6257e3;">
+                            <TableView fx:id="tablaMedicos" layoutX="13.0" layoutY="222.0" prefHeight="151.0" prefWidth="718.0" style="-fx-border-color: #6257e3;">
                                 <columns>
                                     <TableColumn fx:id="colIdMedico" prefWidth="100.0" text="Id" />
                                     <TableColumn fx:id="colNombreMedico" prefWidth="278.0" text="Nombre" />
@@ -274,49 +274,49 @@
                            <DatePicker fx:id="dtpFechaNacimientoPaciente" layoutX="414.0" layoutY="67.0" prefHeight="25.0" prefWidth="154.0" />
                         </children>
                      </Pane>
-                     <Pane layoutX="12.0" layoutY="120.0" prefHeight="46.0" prefWidth="720.0">
+                     <Pane layoutX="12.0" layoutY="120.0" prefHeight="75.0" prefWidth="720.0">
                         <children>
-                           <Text fill="#290382" layoutY="28.0" text="Búsqueda">
+                           <Text fill="#290382" layoutY="20.0" text="Búsqueda">
                               <font>
                                  <Font name="Calibri Bold" size="20.0" />
                               </font>
                            </Text>
-                           <Label layoutX="126.0" layoutY="15.0" text="Nombre:">
+                           <Label layoutX="74.0" layoutY="44.0" text="Nombre:">
                               <font>
                                  <Font name="Calibri Bold" size="14.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtBuscarPaciente" layoutX="190.0" layoutY="11.0" prefHeight="25.0" prefWidth="203.0" />
-                           <Button fx:id="btnBuscarPaciente" layoutX="446.0" layoutY="12.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
+                           <TextField fx:id="txtBuscarPaciente" layoutX="163.0" layoutY="40.0" prefHeight="25.0" prefWidth="203.0" />
+                           <Button fx:id="btnBuscarPaciente" layoutX="426.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
                               <font>
                                  <Font name="Calibri Bold" size="12.0" />
                               </font>
                            </Button>
-                           <Button fx:id="btnReportePaciente" layoutX="567.0" layoutY="12.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
+                           <Button fx:id="btnReportePaciente" layoutX="544.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
                               <font>
                                  <Font name="Calibri Bold" size="12.0" />
                               </font>
                            </Button>
-                           <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="526.0" layoutY="14.0">
+                           <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="502.0" layoutY="44.0">
                               <image>
                                  <Image url="@../images/logo-buscar.png" />
                               </image>
                            </ImageView>
                         </children>
                      </Pane>
-                     <Text fill="#290382" layoutX="12.0" layoutY="184.0" text="Listado">
+                     <Text fill="#290382" layoutX="14.0" layoutY="209.0" text="Listado">
                         <font>
                            <Font name="Calibri Bold" size="20.0" />
                         </font>
                      </Text>
-                     <TableView fx:id="tablaMedicos1" layoutX="13.0" layoutY="189.0" prefHeight="143.0" prefWidth="718.0" style="-fx-border-color: #6257e3;">
+                     <TableView fx:id="tablaPacientes" layoutX="13.0" layoutY="223.0" prefHeight="150.0" prefWidth="718.0" style="-fx-border-color: #6257e3;">
                         <columns>
-                           <TableColumn fx:id="colIdPaciente" prefWidth="100.0" text="Id" />
-                           <TableColumn fx:id="colNombrePaciente" prefWidth="278.0" text="Nombre" />
-                           <TableColumn fx:id="colEspecialidadPaciente" prefWidth="342.4000122070313" text="Especialidad" />
+                           <TableColumn fx:id="colIdPaciente" prefWidth="72.0" text="Id" />
+                           <TableColumn fx:id="colNombrePaciente" prefWidth="203.0" text="Nombre" />
+                           <TableColumn fx:id="colTelefonoPaciente" prefWidth="227.0" text="Telefono" />
+                           <TableColumn fx:id="colFachaNacimientoPaciente" prefWidth="214.0" text="Fecha de Nacimiento" />
                         </columns>
                      </TableView>
-                            <!-- Aquí puedes agregar campos, botones y tabla para pacientes -->
                         </AnchorPane>
                     </content>
                 </Tab>
@@ -332,12 +332,123 @@
                     </graphic>
                     <content>
                         <AnchorPane>
-                            <Text fill="#290382" layoutX="20.0" layoutY="30.0" text="Sección de Medicamentos">
-                                <font>
+                     <children>
+                        <Pane layoutX="13.0" layoutY="119.0" prefHeight="75.0" prefWidth="720.0">
+                           <children>
+                              <Text fill="#290382" layoutY="20.0" text="Búsqueda">
+                                 <font>
                                     <Font name="Calibri Bold" size="20.0" />
-                                </font>
-                            </Text>
-                            <!-- Aquí puedes agregar campos, botones y tabla para medicamentos -->
+                                 </font>
+                              </Text>
+                              <Label layoutX="74.0" layoutY="44.0" text="Nombre:">
+                                 <font>
+                                    <Font name="Calibri Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtBuscarPaciente1" layoutX="163.0" layoutY="40.0" prefHeight="25.0" prefWidth="203.0" />
+                              <Button fx:id="btnBuscarPaciente1" layoutX="426.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Calibri Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnReportePaciente1" layoutX="544.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
+                                 <font>
+                                    <Font name="Calibri Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="502.0" layoutY="44.0">
+                                 <image>
+                                    <Image url="@../images/logo-buscar.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Pane layoutX="13.0" layoutY="14.0" prefHeight="106.0" prefWidth="720.0">
+                           <children>
+                              <Text fill="#290382" layoutY="20.0" text="Medicamentos">
+                                 <font>
+                                    <Font name="Calibri Bold" size="20.0" />
+                                 </font>
+                              </Text>
+                              <Label layoutX="14.0" layoutY="29.0" text="Codigo:">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtIdPaciente1" editable="false" layoutX="86.0" layoutY="26.0" prefWidth="150.0" />
+                              <Label layoutX="14.0" layoutY="71.0" text="Nombre:">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtNombrePaciente1" layoutX="86.0" layoutY="69.0" prefWidth="150.0" />
+                              <Label layoutX="269.0" layoutY="51.0" text="Decripcion:">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="txtTelefonoPaciente1" layoutX="360.0" layoutY="48.0" prefHeight="14.0" prefWidth="154.0" />
+                              <Button fx:id="btnGuardarPaciente1" layoutX="589.0" layoutY="5.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
+                                 <effect>
+                                    <DropShadow blurType="ONE_PASS_BOX">
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <font>
+                                    <Font name="Calibri Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnLimpiarPaciente1" layoutX="589.0" layoutY="38.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
+                                 <effect>
+                                    <DropShadow blurType="ONE_PASS_BOX">
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <font>
+                                    <Font name="Calibri Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Button fx:id="btnBorrarPaciente1" layoutX="589.0" layoutY="70.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Borrar" textFill="WHITE">
+                                 <effect>
+                                    <DropShadow blurType="ONE_PASS_BOX">
+                                       <color>
+                                          <Color red="1.0" green="1.0" blue="1.0" />
+                                       </color>
+                                    </DropShadow>
+                                 </effect>
+                                 <font>
+                                    <Font name="Calibri Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <ImageView fitHeight="20.0" fitWidth="19.0" layoutX="669.0" layoutY="71.0">
+                                 <image>
+                                    <Image url="@../images/logo-borrar.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="18.0" fitWidth="18.0" layoutX="669.0" layoutY="7.0">
+                                 <image>
+                                    <Image url="@../images/logo-guardar.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                        <Text fill="#290382" layoutX="14.0" layoutY="209.0" text="Listado">
+                           <font>
+                              <Font name="Calibri Bold" size="20.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="tablaPacientes1" layoutX="14.0" layoutY="223.0" prefHeight="150.0" prefWidth="718.0" style="-fx-border-color: #6257e3;">
+                           <columns>
+                              <TableColumn fx:id="colIdPaciente1" prefWidth="109.0" text="Codigo" />
+                              <TableColumn fx:id="colNombrePaciente1" prefWidth="253.0" text="Nombre" />
+                              <TableColumn fx:id="colTelefonoPaciente1" prefWidth="354.0" text="Decripcion" />
+                           </columns>
+                        </TableView>
+                     </children>
                         </AnchorPane>
                     </content>
                 </Tab>
