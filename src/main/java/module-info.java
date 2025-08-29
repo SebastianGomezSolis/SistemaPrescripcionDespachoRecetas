@@ -6,6 +6,8 @@ module com.sistema.sistemaprescripciondespachorecetas {
     requires jdk.compiler;
 
 
-    opens controllers to javafx.fxml;
-    exports controllers;
+    opens com.sistema.sistemaprescripciondespachorecetas.controller to javafx.fxml;
+    exports com.sistema.sistemaprescripciondespachorecetas.controller;
+    exports com.sistema.sistemaprescripciondespachorecetas.view;
+    opens com.sistema.sistemaprescripciondespachorecetas.view to javafx.fxml;
 }
