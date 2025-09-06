@@ -13,12 +13,10 @@ public class Receta {
     private DetalleReceta detalleReceta;
 
     // Constructor sin parametros
-    public Receta() {
-
-    }
+    public Receta() {}
 
     // Constructor con parametros
-    public Receta(String id,Paciente paciente, Medico medicoAsociado, Medicamento medicamento, LocalDate fechaConfeccion, DetalleReceta detalleReceta) {
+    public Receta(String id, Paciente paciente, Medico medicoAsociado, Medicamento medicamento, LocalDate fechaConfeccion, DetalleReceta detalleReceta) {
         this.id = id;
         this.paciente = paciente;
         this.medicoAsociado = medicoAsociado;
