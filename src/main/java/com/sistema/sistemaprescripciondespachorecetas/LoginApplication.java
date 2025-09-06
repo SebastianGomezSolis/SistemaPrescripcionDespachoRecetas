@@ -1,4 +1,4 @@
-package com.sistema.sistemaprescripciondespachorecetas.view;
+package com.sistema.sistemaprescripciondespachorecetas;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,5 +15,9 @@ public class LoginApplication extends Application {
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 }
