@@ -660,7 +660,7 @@
                                     <Font name="Calibri Bold" size="14.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="btnLimpiarMedico11" layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
+                              <Button fx:id="btnLimpiarMedico" layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
                                  <effect>
                                     <DropShadow blurType="ONE_PASS_BOX">
                                        <color>
