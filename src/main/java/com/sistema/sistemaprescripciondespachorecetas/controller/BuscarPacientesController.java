@@ -1,4 +1,4 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
-public class MedicoController {
+public class BuscarPacientesController {
 }

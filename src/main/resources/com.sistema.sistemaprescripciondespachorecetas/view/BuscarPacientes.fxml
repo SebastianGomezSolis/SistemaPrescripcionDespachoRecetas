@@ -14,9 +14,9 @@
 <?import javafx.scene.text.Text?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="349.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sistema.sistemaprescripciondespachorecetas.controller.BuscarPacientesController"
    <children>
-      <ImageView fitHeight="349.0" fitWidth="660.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight=com.sistema.sistemaprescripciondespachorecetas.controller.BuscarPacientesController"349.0" fitWidth="660.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/FondoMedico.png" />
          </image>
