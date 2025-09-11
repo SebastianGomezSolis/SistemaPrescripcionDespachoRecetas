@@ -14,4 +14,6 @@ public abstract class Usuario {
 
     public abstract void setId(String id);
     public abstract void setClave(String clave);
+
+    public abstract String getTipoUsuario();
 }

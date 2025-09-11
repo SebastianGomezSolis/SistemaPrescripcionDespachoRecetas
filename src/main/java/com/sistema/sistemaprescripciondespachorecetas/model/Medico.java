@@ -22,4 +22,6 @@ public class Medico extends Usuario {
     public void setNombre(String nombre) { this.nombre = nombre; }
     public void setEspecialidad(String especialidad) { this.especialidad = especialidad; }
 
+    @Override public String getTipoUsuario() { return "Medico"; }
+
 }

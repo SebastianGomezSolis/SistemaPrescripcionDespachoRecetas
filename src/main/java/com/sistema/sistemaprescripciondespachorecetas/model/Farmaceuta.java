@@ -18,4 +18,6 @@ public class Farmaceuta  extends Usuario {
     @Override public void setClave(String clave) { this.clave = clave; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
+    @Override public String getTipoUsuario() { return "Farmaceuta"; }
+
 }

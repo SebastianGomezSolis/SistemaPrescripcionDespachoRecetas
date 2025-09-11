@@ -14,8 +14,7 @@ import javafx.scene.control.*;
 public class GestionMedicosController {
 
     private static final String PREFIJO_ID = "00"; // para médicos
-
-
+    private static final String PREFIJO_ID_FARMACEUTA = "01"; // para médicos
 
     // Tabla y columnas
     @FXML private TableView<Medico> tablaMedicos;

@@ -14,4 +14,6 @@ public class Administrador extends Usuario {
     @Override public void setId(String id) { this.id = id; }
     @Override public void setClave(String clave) { this.clave = clave; }
 
+    @Override public String getTipoUsuario() { return "Administrador"; }
+
 }
