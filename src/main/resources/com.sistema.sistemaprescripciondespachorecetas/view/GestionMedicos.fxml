@@ -47,7 +47,7 @@
         </ImageView>
 
         <!-- TabPane principal -->
-        <TabPane layoutX="21.0" layoutY="64.0" prefHeight="418.0" prefWidth="771.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 5;" styleClass="-fx-background-color" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="tabPane" layoutX="21.0" layoutY="64.0" prefHeight="418.0" prefWidth="771.0" style="-fx-background-color: white; -fx-border-color: white; -fx-border-radius: 5;" styleClass="-fx-background-color" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <!-- Tab Médicos -->
                 <Tab fx:id="tabMedicos" style="-fx-background-color: #b1abff;" text="Médicos">
@@ -575,7 +575,7 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-            <Tab fx:id="tabMedicos1" style="-fx-background-color: #b1abff;" text="Prescribir">
+            <Tab fx:id="tabPrescribir" style="-fx-background-color: #b1abff;" text="Prescribir">
                <graphic>
                   <ImageView fitHeight="18" fitWidth="18">
                      <image>
@@ -743,7 +743,7 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab style="-fx-background-color: #b1abff;" text="Acerca de">
+            <Tab fx:id="tabAcercaDe" style="-fx-background-color: #b1abff;" text="Acerca de">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="387.0" prefWidth="771.0">
                      <children>
