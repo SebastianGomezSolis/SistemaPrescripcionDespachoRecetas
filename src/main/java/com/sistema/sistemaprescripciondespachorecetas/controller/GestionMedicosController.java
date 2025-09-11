@@ -2,7 +2,6 @@ package com.sistema.sistemaprescripciondespachorecetas.controller;
 
 import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicoLogica;
 import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
-
 import com.sistema.sistemaprescripciondespachorecetas.utilitarios.Sesion;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -10,11 +9,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class GestionMedicosController {
 
-    private static final String PREFIJO_ID = "00"; // para médicos
-    private static final String PREFIJO_ID_FARMACEUTA = "01"; // para médicos
+    private static final String PREFIJO_ID = "MED";
+    private static final String PREFIJO_ID_FARMACEUTA = "FAR";
 
     // Tabla y columnas
     @FXML private TableView<Medico> tablaMedicos;
@@ -30,8 +31,9 @@ public class GestionMedicosController {
 
     private ObservableList<Medico> listaMedicos;
     private MedicoLogica medicoLogica;
+    private boolean xmlMode = false; // Flag para controlar modo XML
 
-    //Tabs
+    // Tabs
     @FXML private TabPane tabPane;
     @FXML private Tab tabMedicos;
     @FXML private Tab tabPacientes;
@@ -42,26 +44,25 @@ public class GestionMedicosController {
     @FXML private Tab tabAcercaDe;
     @FXML private Tab tabFarmaceutas;
 
+    // Lista temporal para fallback
+    private static final List<Medico> medicosFallback = new ArrayList<>();
 
     @FXML
     public void initialize() {
-        medicoLogica = new MedicoLogica();
+        System.out.println("[DEBUG] Iniciando GestionMedicosController...");
 
-        //SECCION DE MEDICOS
-
+        // Configuración básica que siempre funciona
         colIdMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
         colNombreMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         colEspecialidadMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEspecialidad()));
 
         listaMedicos = FXCollections.observableArrayList();
 
-        // Inicializar el campo de ID con el prefijo del módulo
+        // Inicializar campo ID
         txtIdMedico.setText(PREFIJO_ID);
-
-        // colocar el cursor al final
         txtIdMedico.positionCaret(PREFIJO_ID.length());
 
-        // Evitar que el usuario borre el prefijo
+        // Listener para prefijo
         txtIdMedico.textProperty().addListener((obs, oldVal, newVal) -> {
             if (!newVal.startsWith(PREFIJO_ID)) {
                 txtIdMedico.setText(PREFIJO_ID);
@@ -69,12 +70,56 @@ public class GestionMedicosController {
             }
         });
 
+        // Intentar inicializar XML, pero sin fallar si no funciona
+        inicializarSistemaPersistencia();
+
+        // Cargar datos iniciales
         refrescarTabla();
+
+        System.out.println("[DEBUG] GestionMedicosController inicializado correctamente");
+    }
+
+    private void inicializarSistemaPersistencia() {
+        try {
+            // Intentar modo XML
+            String rutaXML = java.nio.file.Paths
+                    .get(System.getProperty("user.dir"), "bd", "medicos.xml")
+                    .toString();
+
+            System.out.println("[DEBUG] Intentando inicializar XML en: " + rutaXML);
+            medicoLogica = new MedicoLogica(rutaXML);
+
+            // Probar que funciona haciendo una operación simple
+            medicoLogica.findAll();
+            xmlMode = true;
+            System.out.println("[DEBUG] Modo XML activado correctamente");
+
+        } catch (Exception e) {
+            System.err.println("[WARNING] No se pudo inicializar modo XML: " + e.getMessage());
+            System.err.println("[INFO] Usando modo de memoria temporal");
+            medicoLogica = null;
+            xmlMode = false;
+        }
+    }
+
+    // Método para obtener médicos de forma segura
+    private List<Medico> obtenerMedicos() {
+        if (xmlMode && medicoLogica != null) {
+            try {
+                return medicoLogica.findAll();
+            } catch (Exception e) {
+                System.err.println("[ERROR] Fallo en XML, cambiando a modo memoria: " + e.getMessage());
+                xmlMode = false;
+                medicoLogica = null;
+            }
+        }
+        // Modo fallback con memoria
+        return new ArrayList<>(medicosFallback);
     }
 
     private void ocultarSiNoTienePermiso(Tab tab, String codigo) {
         if (!Sesion.puedeAccederModulo(codigo)) {
-            tabPane.getTabs().remove(tab); // lo elimina de la vista
+            tabPane.getTabs().remove(tab);
         }
     }
 
@@ -94,7 +139,7 @@ public class GestionMedicosController {
         String id = txtIdMedico.getText().trim();
         String nombre = txtNombreMedico.getText().trim();
         String especialidad = txtEspecialidadMedico.getText().trim();
-        String numero = id.substring(PREFIJO_ID.length()); // lo que viene después del prefijo
+        String numero = id.substring(PREFIJO_ID.length());
 
         if (id.isEmpty() || nombre.isEmpty() || especialidad.isEmpty()) {
             mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
@@ -106,26 +151,32 @@ public class GestionMedicosController {
             return;
         }
 
-        Medico existente = medicoLogica.findById(id);
+        Medico nuevoMedico = new Medico(id, id, nombre, especialidad);
 
-        if (existente != null) {
-
+        if (xmlMode && medicoLogica != null) {
+            // Modo XML
             try {
-                medicoLogica.update(new Medico(id, id, nombre, especialidad));
-                mostrarAlerta("Éxito", "Médico modificado.", Alert.AlertType.INFORMATION);
+                Medico existente = medicoLogica.findById(id);
+                if (existente != null) {
+                    medicoLogica.update(nuevoMedico);
+                    mostrarAlerta("Éxito", "Médico modificado correctamente.", Alert.AlertType.INFORMATION);
+                } else {
+                    medicoLogica.create(nuevoMedico);
+                    mostrarAlerta("Éxito", "Médico agregado correctamente.", Alert.AlertType.INFORMATION);
+                }
             } catch (Exception e) {
                 mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+                return;
             }
         } else {
+            // Modo memoria (fallback)
+            boolean existe = medicosFallback.removeIf(m -> m.getId().equals(id));
+            medicosFallback.add(nuevoMedico);
 
-            try {
-                medicoLogica.create(new Medico(id, id, nombre, especialidad));
-                mostrarAlerta("Éxito", "Médico agregado.", Alert.AlertType.INFORMATION);
-                // Reiniciar ID para el próximo
-                txtIdMedico.setText(PREFIJO_ID);
-                txtIdMedico.positionCaret(PREFIJO_ID.length());
-            } catch (Exception e) {
-                mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+            if (existe) {
+                mostrarAlerta("Éxito", "Médico modificado (modo memoria).", Alert.AlertType.INFORMATION);
+            } else {
+                mostrarAlerta("Éxito", "Médico agregado (modo memoria).", Alert.AlertType.INFORMATION);
             }
         }
 
@@ -141,17 +192,29 @@ public class GestionMedicosController {
             return;
         }
 
+        Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
+        confirm.setTitle("Confirmar eliminación");
+        confirm.setHeaderText("Eliminar médico");
+        confirm.setContentText("¿Está seguro que desea eliminar al médico con ID " + id + "?");
+
+        if (confirm.showAndWait().get() != ButtonType.OK) {
+            return;
+        }
+
         try {
-            Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
-            confirm.setTitle("Confirmar eliminación");
-            confirm.setHeaderText("Eliminar médico");
-            confirm.setContentText("¿Está seguro que desea eliminar al médico con ID " + id + "?");
-            if (confirm.showAndWait().get() == ButtonType.OK) {
+            if (xmlMode && medicoLogica != null) {
                 medicoLogica.deleteById(id);
-                refrescarTabla();
-                limpiarCampos();
-                mostrarAlerta("Éxito", "Médico eliminado correctamente.", Alert.AlertType.INFORMATION);
+            } else {
+                boolean removed = medicosFallback.removeIf(m -> m.getId().equals(id));
+                if (!removed) {
+                    throw new Exception("No existe un médico con este ID");
+                }
             }
+
+            refrescarTabla();
+            limpiarCampos();
+            mostrarAlerta("Éxito", "Médico eliminado correctamente.", Alert.AlertType.INFORMATION);
+
         } catch (Exception e) {
             mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -159,43 +222,71 @@ public class GestionMedicosController {
 
     @FXML
     private void buscarMedico() {
-        String id = txtBuscarMedico.getText().trim();
-        if (id.isEmpty()) {
-            mostrarAlerta("Error", "Debe ingresar un ID.", Alert.AlertType.ERROR);
+        String criterio = txtBuscarMedico.getText().trim();
+
+        if (criterio.isEmpty()) {
+            refrescarTabla();
             return;
         }
 
-        Medico medico = medicoLogica.findById(id);
-        if (medico == null) {
-            mostrarAlerta("Error", "Médico no encontrado.", Alert.AlertType.ERROR);
-        } else {
-            txtNombreMedico.setText(medico.getNombre());
-            txtEspecialidadMedico.setText(medico.getEspecialidad());
-            txtIdMedico.setText(String.valueOf(medico.getId()));
-            txtIdMedico.setDisable(true);
-            txtNombreMedico.setDisable(false);
-            txtEspecialidadMedico.setDisable(false);
+        try {
+            List<Medico> resultados;
+
+            if (xmlMode && medicoLogica != null) {
+                resultados = medicoLogica.searchByNombreOEspecialidad(criterio);
+            } else {
+                // Búsqueda en memoria
+                String busqueda = criterio.toLowerCase();
+                resultados = medicosFallback.stream()
+                        .filter(m -> m.getId().toLowerCase().contains(busqueda) ||
+                                m.getNombre().toLowerCase().contains(busqueda) ||
+                                m.getEspecialidad().toLowerCase().contains(busqueda))
+                        .toList();
+            }
+
+            listaMedicos.setAll(resultados);
+            tablaMedicos.setItems(listaMedicos);
+
+            if (listaMedicos.isEmpty()) {
+                mostrarAlerta("Sin resultados", "No se encontraron médicos con el criterio: " + criterio, Alert.AlertType.INFORMATION);
+            }
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al buscar: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     @FXML
     private void mostrarReporte() {
-        listaMedicos.setAll(medicoLogica.findAll());
-        tablaMedicos.setItems(listaMedicos);
-        limpiarCampos();
+        refrescarTabla();
+
+        String modo = xmlMode ? "XML" : "Memoria";
+        int total = listaMedicos.size();
+
+        mostrarAlerta("Reporte",
+                "Total de médicos: " + total + "\nModo de almacenamiento: " + modo,
+                Alert.AlertType.INFORMATION);
     }
 
     @FXML
     private void limpiarCampos() {
-        txtIdMedico.clear();
+        txtIdMedico.setText(PREFIJO_ID);
+        txtIdMedico.positionCaret(PREFIJO_ID.length());
         txtNombreMedico.clear();
         txtEspecialidadMedico.clear();
+        txtBuscarMedico.clear();
         refrescarTabla();
     }
 
     private void refrescarTabla() {
-        listaMedicos.setAll(medicoLogica.findAll());
-        tablaMedicos.setItems(listaMedicos);
+        try {
+            List<Medico> medicos = obtenerMedicos();
+            listaMedicos.setAll(medicos);
+            tablaMedicos.setItems(listaMedicos);
+        } catch (Exception e) {
+            System.err.println("Error refrescando tabla: " + e.getMessage());
+            listaMedicos.clear();
+            tablaMedicos.setItems(listaMedicos);
+        }
     }
 
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
@@ -205,6 +296,4 @@ public class GestionMedicosController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
-
 }

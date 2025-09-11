@@ -100,19 +100,19 @@ public class LoginController {
     // Método simple de validación (puedes reemplazar con tu lógica)
     private boolean validarCredenciales(String usuario, String password) {
         // Ejemplo simple: usuario no vacío y password '001234' para todos
-        return !usuario.isEmpty() && password.equals("021234");
+        return !usuario.isEmpty() && password.equals("ADM1234");
     }
 
     private List<String> asignarPermisosPorPrefijo(String usuario) {
-        if (usuario.length() < 2) {
+        if (usuario.length() < 3) {
             return List.of();
         }
-        String prefijo = txtPassword.getText().substring(0, 2);
+        String prefijo = txtPassword.getText().substring(0, 3);
 
         List<String> permisos = switch (prefijo) {
-            case "00" -> List.of("PRESCRIBIR", "HISTORICO", "DASHBOARD", "ACERCA"); // Médico
-            case "01" -> List.of("DESPACHAR", "HISTORICO", "DASHBOARD", "ACERCA");  // Farmacéutico
-            case "02" -> List.of("GESTION_MEDICOS", "GESTION_FARMACEUTAS" ,"GESTION_PACIENTES", "GESTION_MEDICAMENTOS", "DASHBOARD", "HISTORICO", "ACERCA"); // Admin
+            case "MED" -> List.of("PRESCRIBIR", "HISTORICO", "DASHBOARD", "ACERCA"); // Médico
+            case "FAR" -> List.of("DESPACHAR", "HISTORICO", "DASHBOARD", "ACERCA");  // Farmacéutico
+            case "ADM" -> List.of("GESTION_MEDICOS", "GESTION_FARMACEUTAS" ,"GESTION_PACIENTES", "GESTION_MEDICAMENTOS", "DASHBOARD", "HISTORICO", "ACERCA"); // Admin
             default -> List.of();
         };
         System.out.println("Permisos asignados: " + permisos);
