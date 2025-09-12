@@ -12,13 +12,16 @@ public class MedicamentoMapper {
         me.setDescripcion(a.getDescripcion());
         return me;
     }
-    public static com.sistema.sistemaprescripciondespachorecetas.model.Medicamento toModel(MedicamentoEntity a) {
+    public static Medicamento toModel(MedicamentoEntity a) {
         if (a == null) return null;
         Medicamento me = new Medicamento(
                 a.getCodigo(),
                 a.getNombre(),
                 a.getDescripcion()
         );
+        me.setCodigo(a.getCodigo());
+        me.setDescripcion(a.getDescripcion());
+        me.setNombre(a.getNombre());
         return me;
     }
 }

@@ -26,26 +26,26 @@
             <Font name="Calibri Bold" size="15.0" />
          </font>
       </Text>
-      <SplitMenuButton fx:id="SPB_NombreMedicamento" layoutX="130.0" layoutY="49.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Nombre">
+      <SplitMenuButton id="SPB_NombreMedicamento" fx:id="SPB_NombreMedicamento" layoutX="130.0" layoutY="49.0" mnemonicParsing="false" onAction="#buscarMedicamento" prefHeight="25.0" prefWidth="87.0" text="Nombre">
          <items>
             <MenuItem mnemonicParsing="false" text="Action 1" />
             <MenuItem mnemonicParsing="false" text="Action 2" />
          </items>
       </SplitMenuButton>
-      <TextField fx:id="TXF_NombreMedicamento" layoutX="238.0" layoutY="49.0" prefHeight="25.0" prefWidth="232.0" />
-      <TableView fx:id="TV_Medicamento" layoutX="54.0" layoutY="99.0" prefHeight="184.0" prefWidth="426.0">
+      <TextField id="TXF_NombreMedicamento" fx:id="TXF_NombreMedicamento" layoutX="238.0" layoutY="49.0" prefHeight="25.0" prefWidth="232.0" />
+      <TableView id="TV_Medicamento" fx:id="TV_Medicamento" layoutX="54.0" layoutY="99.0" prefHeight="184.0" prefWidth="426.0">
          <columns>
-            <TableColumn prefWidth="67.33331680297852" text="Código" />
-            <TableColumn prefWidth="266.00000762939453" text="Nombre" />
-            <TableColumn prefWidth="92.0" text="Presentación" />
+            <TableColumn id="colCodigo" fx:id="colCodigo" prefWidth="67.33331680297852" text="Código" />
+            <TableColumn id="colNombre" fx:id="colNombre" prefWidth="266.00000762939453" text="Nombre" />
+            <TableColumn id="colPresentacion" fx:id="colPresentacion" prefWidth="92.0" text="Presentación" />
          </columns>
       </TableView>
-      <Button fx:id="BTT_CancelarMedicamento" layoutX="421.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-color: #756aff;" text="Cancelar" textFill="WHITE">
+      <Button id="BTT_CancelarMedicamento" fx:id="BTT_CancelarMedicamento" layoutX="421.0" layoutY="294.0" mnemonicParsing="false" onAction="#cancelarMedicamento" style="-fx-background-color: #756aff;" text="Cancelar" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="BTT_AceptarMedicamento" layoutX="349.0" layoutY="294.0" mnemonicParsing="false" style="-fx-background-color: #756aff;" text="Aceptar" textFill="WHITE">
+      <Button id="BTT_AceptarMedicamento" fx:id="BTT_AceptarMedicamento" layoutX="349.0" layoutY="294.0" mnemonicParsing="false" onAction="#aceptarMedicamento" style="-fx-background-color: #756aff;" text="Aceptar" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="12.0" />
          </font>
