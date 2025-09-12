@@ -121,11 +121,11 @@ public class LoginController implements Initializable {
                     return medico;
                 }
 
-//            } else if (id.startsWith("FAR")) {
-//                Farmaceuta farma = new FarmaceutaLogica(RutasArchivos.FARMACEUTAS).findById(id);
-//                if (farma != null && farma.getClave().equals(password)) {
-//                    return farma;
-//                }
+            } else if (id.startsWith("FAR")) {
+                Farmaceuta farma = new FarmaceutaLogica(RutasArchivos.FARMACEUTAS).findById(id);
+                if (farma != null && farma.getClave().equals(password)) {
+                    return farma;
+                }
 
             } else if (id.startsWith("ADM")) {
                 Administrador admin = new AdministradorLogica(RutasArchivos.ADMINISTRADORES).findById(id);

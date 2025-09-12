@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<pacientesData>
+    <pacientes>
+        <paciente>
+            <id>PAC001</id>
+            <nombre>Santi</nombre>
+            <telefono>11121545</telefono>
+            <fechaNacimiento>2025-09-04</fechaNacimiento>
+        </paciente>
+        <paciente>
+            <id>PAC002</id>
+            <nombre>Ines</nombre>
+            <telefono>145156115</telefono>
+            <fechaNacimiento>2024-06-21</fechaNacimiento>
+        </paciente>
+    </pacientes>
+</pacientesData>

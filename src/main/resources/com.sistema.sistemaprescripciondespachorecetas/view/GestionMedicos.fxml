@@ -98,7 +98,7 @@
                                             <Font name="Calibri Bold" size="12.0" />
                                         </font>
                                     </Button>
-                                    <Button fx:id="btnLimpiarMedico" layoutX="589.0" layoutY="38.0" onAction="#limpiarCampos" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
+                                    <Button fx:id="btnLimpiarMedico" layoutX="589.0" layoutY="38.0" onAction="#limpiarCamposMedico" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
                                         <effect>
                                             <DropShadow blurType="ONE_PASS_BOX">
                                                 <color>
@@ -159,7 +159,7 @@
                                             <Font name="Calibri Bold" size="12.0" />
                                         </font>
                                     </Button>
-                                    <Button fx:id="btnReporteMedico" layoutX="541.0" layoutY="38.0" onAction="#mostrarReporte" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
+                                    <Button fx:id="btnReporteMedico" layoutX="541.0" layoutY="38.0" onAction="#mostrarReporteMedico" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
                                         <font>
                                             <Font name="Calibri Bold" size="12.0" />
                                         </font>
@@ -204,14 +204,14 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="txtIdFarmaceutas" editable="false" layoutX="105.0" layoutY="44.0" prefWidth="150.0" />
+                              <TextField fx:id="txtIdFarmaceutas" layoutX="105.0" layoutY="44.0" prefWidth="150.0" />
                               <Label layoutX="322.0" layoutY="47.0" text="Nombre:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="txtNombreFarmaceutas" layoutX="404.0" layoutY="44.0" prefWidth="150.0" />
-                              <Button fx:id="btnGuardarFamaceutas" layoutX="589.0" layoutY="13.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
+                              <Button fx:id="btnGuardarFamaceutas" layoutX="589.0" layoutY="13.0" onAction="#agregarFarmaceuta" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
                                  <effect>
                                     <DropShadow blurType="ONE_PASS_BOX">
                                        <color>
@@ -223,7 +223,7 @@
                                     <Font name="Calibri Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnLimpiarFarmaceutas" layoutX="589.0" layoutY="45.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
+                              <Button fx:id="btnLimpiarFarmaceutas" layoutX="589.0" layoutY="45.0" onAction="#limpiarCamposFarmaceuta" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
                                  <effect>
                                     <DropShadow blurType="ONE_PASS_BOX">
                                        <color>
@@ -235,7 +235,7 @@
                                     <Font name="Calibri Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnBorrarFarmaceutas" layoutX="589.0" layoutY="80.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Borrar" textFill="WHITE">
+                              <Button fx:id="btnBorrarFarmaceutas" layoutX="589.0" layoutY="80.0" onAction="#eliminarFarmaceuta" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Borrar" textFill="WHITE">
                                  <effect>
                                     <DropShadow blurType="ONE_PASS_BOX">
                                        <color>
@@ -282,12 +282,12 @@
                                  </font>
                               </Label>
                               <TextField fx:id="txtBuscarFarmaceutas" layoutX="163.0" layoutY="40.0" prefHeight="25.0" prefWidth="203.0" />
-                              <Button fx:id="btnBuscarFarmaceutas" layoutX="426.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
+                              <Button fx:id="btnBuscarFarmaceutas" layoutX="426.0" layoutY="42.0" onAction="#buscarFarmaceuta" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
                                  <font>
                                     <Font name="Calibri Bold" size="12.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="btnReporteFarmaceutas" layoutX="544.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
+                              <Button fx:id="btnReporteFarmaceutas" layoutX="544.0" layoutY="42.0" onAction="#mostrarReporteFarmaceuta" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
                                  <font>
                                     <Font name="Calibri Bold" size="12.0" />
                                  </font>
@@ -309,7 +309,7 @@
                               <Font name="Calibri Bold" size="20.0" />
                            </font>
                         </Text>
-                        <TableView fx:id="tablaPacientes11" layoutX="14.0" layoutY="223.0" prefHeight="150.0" prefWidth="746.0" style="-fx-border-color: #6257e3;">
+                        <TableView fx:id="tablaFarmaceutas" layoutX="14.0" layoutY="223.0" prefHeight="150.0" prefWidth="746.0" style="-fx-border-color: #6257e3;">
                            <columns>
                               <TableColumn fx:id="colIdFarmaceutas" prefWidth="371.0" text="ID" />
                               <TableColumn fx:id="colNombreFarmaceutas" prefWidth="373.0" text="Nombre" />
@@ -350,7 +350,7 @@
                                  <Font name="System Bold" size="13.0" />
                               </font>
                            </Label>
-                           <TextField fx:id="txtIdPaciente" editable="false" layoutX="86.0" layoutY="26.0" prefWidth="150.0" />
+                           <TextField fx:id="txtIdPaciente" layoutX="86.0" layoutY="26.0" prefWidth="150.0" />
                            <Label layoutX="14.0" layoutY="71.0" text="Nombre:">
                               <font>
                                  <Font name="System Bold" size="13.0" />
@@ -363,7 +363,7 @@
                               </font>
                            </Label>
                            <TextField fx:id="txtTelefonoPaciente" layoutX="414.0" layoutY="26.0" prefHeight="25.0" prefWidth="154.0" />
-                           <Button fx:id="btnGuardarPaciente" layoutX="589.0" layoutY="5.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
+                           <Button fx:id="btnGuardarPaciente" layoutX="589.0" layoutY="5.0" onAction="#agregarPaciente" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
                               <effect>
                                  <DropShadow blurType="ONE_PASS_BOX">
                                     <color>
@@ -375,7 +375,7 @@
                                  <Font name="Calibri Bold" size="12.0" />
                               </font>
                            </Button>
-                           <Button fx:id="btnLimpiarPaciente" layoutX="589.0" layoutY="38.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
+                           <Button fx:id="btnLimpiarPaciente" layoutX="589.0" layoutY="38.0" onAction="#limpiarCamposPaciente" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
                               <effect>
                                  <DropShadow blurType="ONE_PASS_BOX">
                                     <color>
@@ -387,7 +387,7 @@
                                  <Font name="Calibri Bold" size="12.0" />
                               </font>
                            </Button>
-                           <Button fx:id="btnBorrarPaciente" layoutX="589.0" layoutY="70.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Borrar" textFill="WHITE">
+                           <Button fx:id="btnBorrarPaciente" layoutX="589.0" layoutY="70.0" onAction="#eliminarPaciente" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Borrar" textFill="WHITE">
                               <effect>
                                  <DropShadow blurType="ONE_PASS_BOX">
                                     <color>
@@ -435,12 +435,12 @@
                               </font>
                            </Label>
                            <TextField fx:id="txtBuscarPaciente" layoutX="163.0" layoutY="40.0" prefHeight="25.0" prefWidth="203.0" />
-                           <Button fx:id="btnBuscarPaciente" layoutX="426.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
+                           <Button fx:id="btnBuscarPaciente" layoutX="426.0" layoutY="42.0" onAction="#buscarPaciente" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar" textFill="WHITE">
                               <font>
                                  <Font name="Calibri Bold" size="12.0" />
                               </font>
                            </Button>
-                           <Button fx:id="btnReportePaciente" layoutX="544.0" layoutY="42.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
+                           <Button fx:id="btnReportePaciente" layoutX="544.0" layoutY="42.0" onAction="#mostrarReportePaciente" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Reporte" textFill="WHITE">
                               <font>
                                  <Font name="Calibri Bold" size="12.0" />
                               </font>
@@ -467,7 +467,7 @@
                            <TableColumn fx:id="colIdPaciente" prefWidth="87.0" text="Id" />
                            <TableColumn fx:id="colNombrePaciente" prefWidth="211.0" text="Nombre" />
                            <TableColumn fx:id="colTelefonoPaciente" prefWidth="227.0" text="Telefono" />
-                           <TableColumn fx:id="colFachaNacimientoPaciente" prefWidth="219.0" text="Fecha de Nacimiento" />
+                           <TableColumn fx:id="colFechaNacimientoPaciente" prefWidth="219.0" text="Fecha de Nacimiento" />
                         </columns>
                      </TableView>
                         </AnchorPane>
@@ -710,7 +710,7 @@
                                     <Font name="Calibri Bold" size="14.0" />
                                  </font>
                               </Text>
-                              <Button fx:id="btnLimpiarMedico" layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
+                              <Button fx:id="btnGuardarPrescripcion" layoutX="14.0" layoutY="32.0" prefHeight="26.0" prefWidth="111.0" style="-fx-background-color: #756aff;" text="Guardar" textFill="WHITE">
                                  <effect>
                                     <DropShadow blurType="ONE_PASS_BOX">
                                        <color>

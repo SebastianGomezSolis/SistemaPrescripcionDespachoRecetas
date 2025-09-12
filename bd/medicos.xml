@@ -4,8 +4,14 @@
         <medico>
             <id>MED001</id>
             <clave>12345</clave>
-            <nombre>Dr. Oreo</nombre>
-            <especialidad>Cirujano</especialidad>
+            <nombre>Dr. Gomez</nombre>
+            <especialidad>Cardiologia</especialidad>
+        </medico>
+        <medico>
+            <id>MED002</id>
+            <clave>MED002</clave>
+            <nombre>Dr. Ramirez</nombre>
+            <especialidad>Vascubilidad</especialidad>
         </medico>
     </medicos>
 </medicosData>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<farmaceutasData>
+    <farmaceutas>
+        <farmaceuta>
+            <id>FAR001</id>
+            <clave>FAR001</clave>
+            <nombre>Camila</nombre>
+        </farmaceuta>
+    </farmaceutas>
+</farmaceutasData>

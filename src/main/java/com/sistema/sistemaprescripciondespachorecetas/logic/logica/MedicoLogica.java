@@ -11,9 +11,8 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-/** CRUD para Medico usando un archivo XML como almacenamiento. */
+// CRUD para Medico usando un archivo XML como almacenamiento.
 public class MedicoLogica {
-
     private final MedicoDatos store;
 
     /** Constructor con ruta personalizada */
