@@ -13,5 +13,11 @@
             <nombre>Dr. Ramirez</nombre>
             <especialidad>Vascubilidad</especialidad>
         </medico>
+        <medico>
+            <id>MED002</id>
+            <clave>MED002</clave>
+            <nombre>Dra.Pink</nombre>
+            <especialidad>General</especialidad>
+        </medico>
     </medicos>
 </medicosData>

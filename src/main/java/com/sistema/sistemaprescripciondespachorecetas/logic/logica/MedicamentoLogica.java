@@ -6,6 +6,8 @@ import com.sistema.sistemaprescripciondespachorecetas.datos.dato.MedicamentoDato
 import com.sistema.sistemaprescripciondespachorecetas.logic.Mapper.MedicamentoMapper;
 import com.sistema.sistemaprescripciondespachorecetas.model.Medicamento;
 import com.sistema.sistemaprescripciondespachorecetas.datos.entity.MedicamentoEntity;
+import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,13 +27,18 @@ public class MedicamentoLogica {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Medicamento> findById(String id) {
+    public Optional<Medicamento> findByIdOptional(String id) {
         MedicamentoConector data = store.load();
         return data.getMedicamentos().stream()
                 .filter(x -> x.getCodigo().equals(id))
                 .findFirst()
                 .map(MedicamentoMapper::toModel);
     }
+    // Metodo para compatibilidad con el controlador existente
+    public Medicamento findById(String id) {
+        return findByIdOptional(id).orElse(null);
+    }
+
 
     public List<Medicamento> searchByCodigNombre(String texto) {
         String q = (texto == null) ? "" : texto.trim().toLowerCase();
