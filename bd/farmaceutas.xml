@@ -6,5 +6,10 @@
             <clave>FAR001</clave>
             <nombre>Camila</nombre>
         </farmaceuta>
+        <farmaceuta>
+            <id>FAR002</id>
+            <clave>FAR002</clave>
+            <nombre>Jose</nombre>
+        </farmaceuta>
     </farmaceutas>
 </farmaceutasData>

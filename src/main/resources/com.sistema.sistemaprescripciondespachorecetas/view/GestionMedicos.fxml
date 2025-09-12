@@ -670,7 +670,7 @@
                               </ImageView>
                            </children>
                         </Pane>
-                        <Pane layoutX="14.0" layoutY="88.0" prefHeight="229.0" prefWidth="747.0">
+                        <Pane layoutX="7.0" layoutY="88.0" prefHeight="230.0" prefWidth="754.0">
                            <children>
                               <Text fill="#290382" layoutX="7.0" layoutY="17.0" text="Receta Medica">
                                  <font>
@@ -704,7 +704,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane layoutX="14.0" layoutY="307.0" prefHeight="72.0" prefWidth="624.0">
+                        <Pane layoutX="8.0" layoutY="307.0" prefHeight="72.0" prefWidth="630.0">
                            <children>
                               <Text fill="#290382" layoutX="7.0" layoutY="3.0" text="Ajustar Prescripcion" wrappingWidth="165.77734375">
                                  <font>
@@ -772,6 +772,11 @@
                               <ImageView fitHeight="20.0" fitWidth="19.0" layoutX="435.0" layoutY="16.0">
                                  <image>
                                     <Image url="@../images/logo-borrar.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="24.0" fitWidth="19.0" layoutX="578.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../images/detalles.png" />
                                  </image>
                               </ImageView>
                            </children>
@@ -953,5 +958,6 @@
             </Tab>
             </tabs>
         </TabPane>
+      <Button fx:id="btnVolver" layoutX="729.0" layoutY="30.0" mnemonicParsing="false" onAction="#volver" prefHeight="25.0" prefWidth="55.0" style="-fx-background-color: #756aff;" text="Volver" textFill="WHITE" />
     </children>
 </Pane>
