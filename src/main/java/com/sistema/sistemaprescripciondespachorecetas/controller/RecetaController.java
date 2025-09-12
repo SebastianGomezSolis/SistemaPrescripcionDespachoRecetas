@@ -22,7 +22,7 @@ public class RecetaController {
             .get(System.getProperty("user.dir"), "bd", "recetas.xml")
             .toString();
     {
-        System.out.println("[DEBUG] RUTA_Medicamentos controller = " + RUTA_RECETA);
+        System.out.println("[DEBUG] RUTA_RECETA controller = " + RUTA_RECETA);
     }
 
     private final RecetaLogica recetaLogica = new RecetaLogica(RUTA_RECETA);

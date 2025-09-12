@@ -38,6 +38,13 @@ public class AgregarMedicamentoController implements Initializable {
     @FXML private ObservableList<Medicamento> listaMedicamentos;
     private MedicamentoLogica medicamentoLogica;
 
+    private static final String RUTA_MEDICAMENTOS= java.nio.file.Paths
+            .get(System.getProperty("user.dir"), "bd", "medicamentos.xml")
+            .toString();
+    {
+        System.out.println("[DEBUG] RUTA_MEDICAMENTOS controller = " + RUTA_MEDICAMENTOS);
+    }
+
 
     @FXML
     public void initialize(URL location, ResourceBundle resources) {
