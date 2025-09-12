@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <medicosData>
-    <medicos/>
+    <medicos>
+        <medico>
+            <id>MED001</id>
+            <clave>MED001</clave>
+            <nombre>Dr. Oreo</nombre>
+            <especialidad>Cirujano</especialidad>
+        </medico>
+    </medicos>
 </medicosData>

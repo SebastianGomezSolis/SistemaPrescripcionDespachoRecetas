@@ -18,19 +18,9 @@ public class MedicoLogica {
 
     /** Constructor con ruta personalizada */
     public MedicoLogica(String rutaArchivo) {
-        try {
-            this.store = new MedicoDatos(rutaArchivo);
-        } catch (Exception e) {
-            throw new RuntimeException("Error inicializando MedicoLogica con ruta: " + rutaArchivo, e);
-        }
+        this.store = new MedicoDatos(rutaArchivo);
     }
 
-    /** Constructor por defecto que usa ruta estándar */
-    public MedicoLogica() {
-        this(java.nio.file.Paths
-                .get(System.getProperty("user.dir"), "bd", "medicos.xml")
-                .toString());
-    }
 
     // --------- Lectura ---------
 
@@ -153,25 +143,6 @@ public class MedicoLogica {
         }
     }
 
-    // --------- Estadísticas y utilidades ---------
-
-    public long contarMedicos() {
-        return findAll().size();
-    }
-
-    public long contarPorEspecialidad(String especialidad) {
-        return findByEspecialidad(especialidad).size();
-    }
-
-    public List<String> obtenerEspecialidadesUnicas() {
-        MedicoConector data = store.load();
-        return data.getMedicos().stream()
-                .map(MedicoEntity::getEspecialidad)
-                .filter(esp -> esp != null && !esp.isBlank())
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
-    }
 
     // --------- Validaciones ---------
 
