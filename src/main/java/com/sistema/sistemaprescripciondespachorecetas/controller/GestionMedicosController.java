@@ -33,47 +33,80 @@ public class GestionMedicosController implements Initializable {
     private static final String PREFIJO_ID_PACIENTE = "PAC";
 
     // Tabla y columnas
-    @FXML private TableView<Medico> tablaMedicos;
-    @FXML private TableColumn<Medico, String> colIdMedico;
-    @FXML private TableColumn<Medico, String> colNombreMedico;
-    @FXML private TableColumn<Medico, String> colEspecialidadMedico;
+    @FXML
+    private TableView<Medico> tablaMedicos;
+    @FXML
+    private TableColumn<Medico, String> colIdMedico;
+    @FXML
+    private TableColumn<Medico, String> colNombreMedico;
+    @FXML
+    private TableColumn<Medico, String> colEspecialidadMedico;
 
-    @FXML private TableView<Farmaceuta> tablaFarmaceutas;
-    @FXML private TableColumn<Farmaceuta, String> colIdFarmaceutas;
-    @FXML private TableColumn<Farmaceuta, String> colNombreFarmaceutas;
+    @FXML
+    private TableView<Farmaceuta> tablaFarmaceutas;
+    @FXML
+    private TableColumn<Farmaceuta, String> colIdFarmaceutas;
+    @FXML
+    private TableColumn<Farmaceuta, String> colNombreFarmaceutas;
 
-    @FXML private TableView<Paciente> tablaPacientes;
-    @FXML private TableColumn<Paciente, String> colIdPaciente;
-    @FXML private TableColumn<Paciente, String> colNombrePaciente;
-    @FXML private TableColumn<Paciente, String> colTelefonoPaciente;
-    @FXML private TableColumn<Paciente, String> colFechaNacimientoPaciente;
+    @FXML
+    private TableView<Paciente> tablaPacientes;
+    @FXML
+    private TableColumn<Paciente, String> colIdPaciente;
+    @FXML
+    private TableColumn<Paciente, String> colNombrePaciente;
+    @FXML
+    private TableColumn<Paciente, String> colTelefonoPaciente;
+    @FXML
+    private TableColumn<Paciente, String> colFechaNacimientoPaciente;
 
     // Campos de texto
-    @FXML private TextField txtIdMedico;
-    @FXML private TextField txtNombreMedico;
-    @FXML private TextField txtEspecialidadMedico;
-    @FXML private TextField txtBuscarMedico;
+    @FXML
+    private TextField txtIdMedico;
+    @FXML
+    private TextField txtNombreMedico;
+    @FXML
+    private TextField txtEspecialidadMedico;
+    @FXML
+    private TextField txtBuscarMedico;
 
-    @FXML private TextField txtIdFarmaceutas;
-    @FXML private TextField txtNombreFarmaceutas;
-    @FXML private TextField txtBuscarFarmaceutas;
+    @FXML
+    private TextField txtIdFarmaceutas;
+    @FXML
+    private TextField txtNombreFarmaceutas;
+    @FXML
+    private TextField txtBuscarFarmaceutas;
 
-    @FXML private TextField txtIdPaciente;
-    @FXML private TextField txtNombrePaciente;
-    @FXML private TextField txtTelefonoPaciente;
-    @FXML private DatePicker dtpFechaNacimientoPaciente;
-    @FXML private TextField txtBuscarPaciente;
+    @FXML
+    private TextField txtIdPaciente;
+    @FXML
+    private TextField txtNombrePaciente;
+    @FXML
+    private TextField txtTelefonoPaciente;
+    @FXML
+    private DatePicker dtpFechaNacimientoPaciente;
+    @FXML
+    private TextField txtBuscarPaciente;
 
     // Tabs
-    @FXML private TabPane tabPane;
-    @FXML private Tab tabMedicos;
-    @FXML private Tab tabPacientes;
-    @FXML private Tab tabMedicamentos;
-    @FXML private Tab tabDashboard;
-    @FXML private Tab tabPrescribir;
-    @FXML private Tab tabHistorico;
-    @FXML private Tab tabAcercaDe;
-    @FXML private Tab tabFarmaceutas;
+    @FXML
+    private TabPane tabPane;
+    @FXML
+    private Tab tabMedicos;
+    @FXML
+    private Tab tabPacientes;
+    @FXML
+    private Tab tabMedicamentos;
+    @FXML
+    private Tab tabDashboard;
+    @FXML
+    private Tab tabPrescribir;
+    @FXML
+    private Tab tabHistorico;
+    @FXML
+    private Tab tabAcercaDe;
+    @FXML
+    private Tab tabFarmaceutas;
 
 
     @FXML
@@ -88,18 +121,23 @@ public class GestionMedicosController implements Initializable {
     private static final String RUTA_MEDICOS = java.nio.file.Paths
             .get(System.getProperty("user.dir"), "bd", "medicos.xml")
             .toString();
+
     {
         System.out.println("[DEBUG] RUTA_MEDICOS controller = " + RUTA_MEDICOS);
     }
+
     private static final String RUTA_FARMACEUTAS = java.nio.file.Paths
             .get(System.getProperty("user.dir"), "bd", "farmaceutas.xml")
             .toString();
+
     {
         System.out.println("[DEBUG] RUTA_FARMACEUTAS controller = " + RUTA_FARMACEUTAS);
     }
+
     private static final String RUTA_PACIENTES = java.nio.file.Paths
             .get(System.getProperty("user.dir"), "bd", "pacientes.xml")
             .toString();
+
     {
         System.out.println("[DEBUG] RUTA_PACIENTES controller = " + RUTA_PACIENTES);
     }
@@ -187,6 +225,24 @@ public class GestionMedicosController implements Initializable {
         ocultarSiNoTienePermiso(tabFarmaceutas, "GESTION_FARMACEUTAS");
     }
 
+    public void volver() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com.sistema.sistemaprescripciondespachorecetas/view/Login.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Login");
+            stage.show();
+
+            // Cerrar la ventana actual
+            Stage ventanaActual = (Stage) tabPane.getScene().getWindow();
+            ventanaActual.close();
+        } catch (IOException e) {
+            mostrarAlerta("Error", "No se pudo volver al menú de login: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    // =========================== MEDICOS ===========================
     @FXML
     private void agregarMedico() {
         try {
@@ -217,76 +273,6 @@ public class GestionMedicosController implements Initializable {
 
             limpiarCamposMedico();
             refrescarTablaMedico();
-        } catch (Exception e) {
-            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
-    private void agregarFarmaceuta() {
-        try {
-            String id = txtIdFarmaceutas.getText().trim();
-            String nombre = txtNombreFarmaceutas.getText().trim();
-            String numero = id.substring(PREFIJO_ID_FARMACEUTA.length());
-
-            if (id.isEmpty() || nombre.isEmpty()) {
-                mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
-                return;
-            }
-
-            if (!numero.matches("\\d+")) {
-                mostrarAlerta("Error", "El ID debe contener solo números después de " + PREFIJO_ID_FARMACEUTA, Alert.AlertType.ERROR);
-                return;
-            }
-
-            Farmaceuta nueveFarmaceuta = new Farmaceuta(id, id, nombre);
-
-            if (farmaceutaLogica.findById(id) != null) {
-                farmaceutaLogica.update(nueveFarmaceuta);
-                mostrarAlerta("Farmaceuta modificado", "El farmaceuta ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
-            } else {
-                farmaceutaLogica.create(nueveFarmaceuta);
-                mostrarAlerta("Farmaceuta agregado", "El farmaceuta ha sido agregado con éxito.", Alert.AlertType.INFORMATION);
-            }
-
-            limpiarCamposFarmaceuta();
-            refrescarTablaMedico();
-        } catch (Exception e) {
-            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
-    private void agregarPaciente() {
-        try {
-            String id = txtIdPaciente.getText().trim();
-            String nombre = txtNombrePaciente.getText().trim();
-            String telefono = txtTelefonoPaciente.getText().trim();
-            LocalDate fechaNacimiento = dtpFechaNacimientoPaciente.getValue();
-            String numero = id.substring(PREFIJO_ID_PACIENTE.length());
-
-            if (id.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || fechaNacimiento == null) {
-                mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
-                return;
-            }
-
-            if (!numero.matches("\\d+")) {
-                mostrarAlerta("Error", "El ID debe contener solo números después de " + PREFIJO_ID_FARMACEUTA, Alert.AlertType.ERROR);
-                return;
-            }
-
-            Paciente nuevoPaciente = new Paciente(id, nombre, fechaNacimiento, telefono);
-
-            if (pacienteLogica.findById(id) != null) {
-                pacienteLogica.update(nuevoPaciente);
-                mostrarAlerta("Paciente modificado", "El paciente ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
-            } else {
-                pacienteLogica.create(nuevoPaciente);
-                mostrarAlerta("Paciente agregado", "El paciente ha sido agregado con éxito.", Alert.AlertType.INFORMATION);
-            }
-
-            limpiarCamposPaciente();
-            refrescarTablaPaciente();
         } catch (Exception e) {
             mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -332,6 +318,87 @@ public class GestionMedicosController implements Initializable {
     }
 
     @FXML
+    private void buscarMedico() {
+        try {
+            String criterio = txtBuscarMedico.getText().trim().toLowerCase();
+            if (criterio.isEmpty()) {
+                tablaMedicos.setItems(listaMedicos);
+                return;
+            }
+
+            ObservableList<Medico> filtrados =
+                    FXCollections.observableArrayList(
+                            listaMedicos.stream()
+                                    .filter(m -> m.getId().toLowerCase().contains(criterio)
+                                            || m.getNombre().toLowerCase().contains(criterio)
+                                            || m.getEspecialidad().toLowerCase().contains(criterio))
+                                    .collect(Collectors.toList())
+                    );
+
+            tablaMedicos.setItems(filtrados);
+        } catch (Exception error) {
+            mostrarAlerta("Error al buscar el cliente", "Volver a intentarlo", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void mostrarReporteMedico() {
+        listaMedicos.setAll(medicoLogica.findAll());
+        tablaMedicos.setItems(listaMedicos);
+        limpiarCamposMedico();
+    }
+
+    @FXML
+    private void limpiarCamposMedico() {
+        txtIdMedico.setText(PREFIJO_ID);
+        txtIdMedico.positionCaret(PREFIJO_ID.length());
+        txtNombreMedico.clear();
+        txtEspecialidadMedico.clear();
+        txtBuscarMedico.clear();
+        refrescarTablaMedico();
+    }
+
+    private void refrescarTablaMedico() {
+        listaMedicos.setAll(medicoLogica.findAll());
+        tablaMedicos.setItems(listaMedicos);
+    }
+
+    // =========================== FARMACEUTAS ===========================
+    @FXML
+    private void agregarFarmaceuta() {
+        try {
+            String id = txtIdFarmaceutas.getText().trim();
+            String nombre = txtNombreFarmaceutas.getText().trim();
+            String numero = id.substring(PREFIJO_ID_FARMACEUTA.length());
+
+            if (id.isEmpty() || nombre.isEmpty()) {
+                mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
+                return;
+            }
+
+            if (!numero.matches("\\d+")) {
+                mostrarAlerta("Error", "El ID debe contener solo números después de " + PREFIJO_ID_FARMACEUTA, Alert.AlertType.ERROR);
+                return;
+            }
+
+            Farmaceuta nueveFarmaceuta = new Farmaceuta(id, id, nombre);
+
+            if (farmaceutaLogica.findById(id) != null) {
+                farmaceutaLogica.update(nueveFarmaceuta);
+                mostrarAlerta("Farmaceuta modificado", "El farmaceuta ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
+            } else {
+                farmaceutaLogica.create(nueveFarmaceuta);
+                mostrarAlerta("Farmaceuta agregado", "El farmaceuta ha sido agregado con éxito.", Alert.AlertType.INFORMATION);
+            }
+
+            limpiarCamposFarmaceuta();
+            refrescarTablaMedico();
+        } catch (Exception e) {
+            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
     private void eliminarFarmaceuta() {
         try {
             Farmaceuta seleccionado = tablaFarmaceutas.getSelectionModel().getSelectedItem();
@@ -367,6 +434,87 @@ public class GestionMedicosController implements Initializable {
         } catch (Exception error) {
             mostrarAlerta("Error inesperado", "Ocurrió un error al intentar eliminar al médico. Inténtelo de nuevo.", Alert.AlertType.ERROR);
             error.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void buscarFarmaceuta() {
+        try {
+            String criterio = txtBuscarFarmaceutas.getText().trim().toLowerCase();
+            if (criterio.isEmpty()) {
+                tablaFarmaceutas.setItems(listaFarmaceutas);
+                return;
+            }
+
+            ObservableList<Farmaceuta> filtrados =
+                    FXCollections.observableArrayList(
+                            listaFarmaceutas.stream()
+                                    .filter(f -> f.getId().toLowerCase().contains(criterio)
+                                            || f.getNombre().toLowerCase().contains(criterio))
+                                    .collect(Collectors.toList())
+                    );
+
+            tablaFarmaceutas.setItems(filtrados);
+        } catch (Exception error) {
+            mostrarAlerta("Error al buscar el cliente", "Volver a intentarlo", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void mostrarReporteFarmaceuta() {
+        listaFarmaceutas.setAll(farmaceutaLogica.findAll());
+        tablaFarmaceutas.setItems(listaFarmaceutas);
+        limpiarCamposFarmaceuta();
+    }
+
+    @FXML
+    private void limpiarCamposFarmaceuta() {
+        txtIdFarmaceutas.setText(PREFIJO_ID_FARMACEUTA);
+        txtIdFarmaceutas.positionCaret(PREFIJO_ID_FARMACEUTA.length());
+        txtNombreFarmaceutas.clear();
+        txtBuscarFarmaceutas.clear();
+        refrescarTablaFarmaceuta();
+    }
+
+    private void refrescarTablaFarmaceuta() {
+        listaFarmaceutas.setAll(farmaceutaLogica.findAll());
+        tablaFarmaceutas.setItems(listaFarmaceutas);
+    }
+
+    // =========================== PACIENTES ===========================
+    @FXML
+    private void agregarPaciente() {
+        try {
+            String id = txtIdPaciente.getText().trim();
+            String nombre = txtNombrePaciente.getText().trim();
+            String telefono = txtTelefonoPaciente.getText().trim();
+            LocalDate fechaNacimiento = dtpFechaNacimientoPaciente.getValue();
+            String numero = id.substring(PREFIJO_ID_PACIENTE.length());
+
+            if (id.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || fechaNacimiento == null) {
+                mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
+                return;
+            }
+
+            if (!numero.matches("\\d+")) {
+                mostrarAlerta("Error", "El ID debe contener solo números después de " + PREFIJO_ID_FARMACEUTA, Alert.AlertType.ERROR);
+                return;
+            }
+
+            Paciente nuevoPaciente = new Paciente(id, nombre, fechaNacimiento, telefono);
+
+            if (pacienteLogica.findById(id) != null) {
+                pacienteLogica.update(nuevoPaciente);
+                mostrarAlerta("Paciente modificado", "El paciente ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
+            } else {
+                pacienteLogica.create(nuevoPaciente);
+                mostrarAlerta("Paciente agregado", "El paciente ha sido agregado con éxito.", Alert.AlertType.INFORMATION);
+            }
+
+            limpiarCamposPaciente();
+            refrescarTablaPaciente();
+        } catch (Exception e) {
+            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -410,62 +558,10 @@ public class GestionMedicosController implements Initializable {
     }
 
     @FXML
-    private void buscarMedico() {
-        try {
-            String criterio = txtBuscarMedico.getText().trim().toLowerCase();
-            if(criterio.isEmpty())
-            {
-                tablaMedicos.setItems(listaMedicos);
-                return;
-            }
-
-            ObservableList<Medico> filtrados =
-                    FXCollections.observableArrayList(
-                            listaMedicos.stream()
-                                    .filter(m -> m.getId().toLowerCase().contains(criterio)
-                                            || m.getNombre().toLowerCase().contains(criterio)
-                                            || m.getEspecialidad().toLowerCase().contains(criterio))
-                                    .collect(Collectors.toList())
-                    );
-
-            tablaMedicos.setItems(filtrados);
-        }
-        catch (Exception error)
-        {
-            mostrarAlerta("Error al buscar el cliente", "Volver a intentarlo",  Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
-    private void buscarFarmaceuta() {
-        try {
-            String criterio = txtBuscarFarmaceutas.getText().trim().toLowerCase();
-            if(criterio.isEmpty())
-            {
-                tablaFarmaceutas.setItems(listaFarmaceutas);
-                return;
-            }
-
-            ObservableList<Farmaceuta> filtrados =
-                    FXCollections.observableArrayList(
-                            listaFarmaceutas.stream()
-                                    .filter(f -> f.getId().toLowerCase().contains(criterio)
-                                            || f.getNombre().toLowerCase().contains(criterio))
-                                    .collect(Collectors.toList())
-                    );
-
-            tablaFarmaceutas.setItems(filtrados);
-        } catch (Exception error) {
-            mostrarAlerta("Error al buscar el cliente", "Volver a intentarlo", Alert.AlertType.ERROR);
-        }
-    }
-
-    @FXML
     private void buscarPaciente() {
         try {
             String criterio = txtBuscarPaciente.getText().trim().toLowerCase();
-            if(criterio.isEmpty())
-            {
+            if (criterio.isEmpty()) {
                 tablaPacientes.setItems(listaPacientes);
                 return;
             }
@@ -484,43 +580,10 @@ public class GestionMedicosController implements Initializable {
     }
 
     @FXML
-    private void mostrarReporteMedico() {
-        listaMedicos.setAll(medicoLogica.findAll());
-        tablaMedicos.setItems(listaMedicos);
-        limpiarCamposMedico();
-    }
-
-    @FXML
-    private void mostrarReporteFarmaceuta() {
-        listaFarmaceutas.setAll(farmaceutaLogica.findAll());
-        tablaFarmaceutas.setItems(listaFarmaceutas);
-        limpiarCamposFarmaceuta();
-    }
-
-    @FXML
     private void mostrarReportePaciente() {
         listaPacientes.setAll(pacienteLogica.findAll());
         tablaPacientes.setItems(listaPacientes);
         limpiarCamposPaciente();
-    }
-
-    @FXML
-    private void limpiarCamposMedico() {
-        txtIdMedico.setText(PREFIJO_ID);
-        txtIdMedico.positionCaret(PREFIJO_ID.length());
-        txtNombreMedico.clear();
-        txtEspecialidadMedico.clear();
-        txtBuscarMedico.clear();
-        refrescarTablaMedico();
-    }
-
-    @FXML
-    private void limpiarCamposFarmaceuta() {
-        txtIdFarmaceutas.setText(PREFIJO_ID_FARMACEUTA);
-        txtIdFarmaceutas.positionCaret(PREFIJO_ID_FARMACEUTA.length());
-        txtNombreFarmaceutas.clear();
-        txtBuscarFarmaceutas.clear();
-        refrescarTablaFarmaceuta();
     }
 
     @FXML
@@ -534,21 +597,12 @@ public class GestionMedicosController implements Initializable {
         refrescarTablaMedico();
     }
 
-    private void refrescarTablaMedico() {
-        listaMedicos.setAll(medicoLogica.findAll());
-        tablaMedicos.setItems(listaMedicos);
-    }
-
-    private void refrescarTablaFarmaceuta() {
-        listaFarmaceutas.setAll(farmaceutaLogica.findAll());
-        tablaFarmaceutas.setItems(listaFarmaceutas);
-    }
-
     private void refrescarTablaPaciente() {
         listaPacientes.setAll(pacienteLogica.findAll());
         tablaPacientes.setItems(listaPacientes);
     }
 
+    // =========================== ALERTAS ===========================
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -558,8 +612,7 @@ public class GestionMedicosController implements Initializable {
     }
 
 
-    //=========================== PRESCRIBIR =======================
-
+    // =========================== PRESCRIBIR =======================
     @FXML
     private void buscarPacientes() {
         try {
@@ -584,4 +637,6 @@ public class GestionMedicosController implements Initializable {
             mostrarAlerta("Error al abrir el formulario de búsqueda.", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    // =========================== DASHBOARD =======================
 }

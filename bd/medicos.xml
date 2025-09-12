@@ -19,5 +19,11 @@
             <nombre>Dra.Pink</nombre>
             <especialidad>General</especialidad>
         </medico>
+        <medico>
+            <id>MED003</id>
+            <clave>MED003</clave>
+            <nombre>Ervin</nombre>
+            <especialidad>Cardiologia</especialidad>
+        </medico>
     </medicos>
 </medicosData>

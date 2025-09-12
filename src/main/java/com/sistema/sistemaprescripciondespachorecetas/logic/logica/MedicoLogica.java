@@ -7,7 +7,6 @@ import com.sistema.sistemaprescripciondespachorecetas.logic.Mapper.MedicoMapper;
 import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 

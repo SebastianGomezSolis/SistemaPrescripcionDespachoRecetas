@@ -1,13 +1,9 @@
 package com.sistema.sistemaprescripciondespachorecetas.logic.logica;
 
-import com.sistema.sistemaprescripciondespachorecetas.datos.conector.MedicoConector;
 import com.sistema.sistemaprescripciondespachorecetas.datos.conector.PacienteConector;
 import com.sistema.sistemaprescripciondespachorecetas.datos.dato.PacienteDatos;
-import com.sistema.sistemaprescripciondespachorecetas.datos.entity.MedicoEntity;
 import com.sistema.sistemaprescripciondespachorecetas.datos.entity.PacienteEntity;
-import com.sistema.sistemaprescripciondespachorecetas.logic.Mapper.MedicoMapper;
 import com.sistema.sistemaprescripciondespachorecetas.logic.Mapper.PacienteMapper;
-import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
 import com.sistema.sistemaprescripciondespachorecetas.model.Paciente;
 
 import java.util.List;

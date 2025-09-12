@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -13,6 +17,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
@@ -697,11 +702,15 @@
                                     <TableColumn fx:id="colIdMedico11" prefWidth="103.0" text="Duracion" />
                                  </columns>
                               </TableView>
-                              <Label fx:id="LBL_Nombre" layoutX="31.0" layoutY="81.0" text="Nombre">
+                              <Label fx:id="LBL_Nombre" layoutX="204.0" layoutY="85.0" text="Nombre">
                                  <font>
-                                    <Font name="Calibri Bold" size="18.0" />
+                                    <Font name="Calibri" size="18.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="31.0" layoutY="85.0" text="Nombre del paciente:">
+                                 <font>
+                                    <Font name="Calibri Bold" size="18.0" />
+                                 </font></Label>
                            </children>
                         </Pane>
                         <Pane layoutX="8.0" layoutY="307.0" prefHeight="72.0" prefWidth="630.0">
@@ -789,9 +798,32 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="769.0">
                      <children>
-                        <Pane layoutX="14.0" layoutY="13.0" prefHeight="361.0" prefWidth="225.0" />
-                        <Pane layoutX="251.0" layoutY="13.0" prefHeight="361.0" prefWidth="264.0" />
-                        <Pane layoutX="526.0" layoutY="14.0" prefHeight="361.0" prefWidth="229.0" />
+                        <HBox layoutX="6.0" layoutY="6.0" prefHeight="12.0" prefWidth="757.0">
+                           <children>
+                              <Label prefHeight="29.0" prefWidth="213.0" text="Estadisticas de Recetas">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="30.0" prefWidth="36.0" text="Total:" />
+                              <Label prefHeight="35.0" prefWidth="28.0" text="0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label prefHeight="30.0" prefWidth="156.0" text="Dias de duracion promedio:" />
+                              <Label prefHeight="38.0" prefWidth="28.0" text="N/D" />
+                           </children>
+                        </HBox>
+                        <BarChart fx:id="chartEstado" layoutX="6.0" layoutY="28.0" prefHeight="352.0" prefWidth="378.0" title="Recetas por estado de confeccion">
+                          <xAxis>
+                            <CategoryAxis fx:id="rangosXAxis" label="Estado de la receta" prefHeight="18.0" prefWidth="321.0" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="rangosYAxis" label="Cantidad" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <PieChart fx:id="chartEstadoPie" layoutX="384.0" layoutY="28.0" prefHeight="353.0" prefWidth="378.0" title="Distribucion por rangos" />
                      </children></AnchorPane>
               </content>
                <graphic>
