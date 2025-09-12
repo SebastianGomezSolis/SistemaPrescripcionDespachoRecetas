@@ -3,7 +3,7 @@
     <medicos>
         <medico>
             <id>MED001</id>
-            <clave>MED001</clave>
+            <clave>12345</clave>
             <nombre>Dr. Oreo</nombre>
             <especialidad>Cirujano</especialidad>
         </medico>
