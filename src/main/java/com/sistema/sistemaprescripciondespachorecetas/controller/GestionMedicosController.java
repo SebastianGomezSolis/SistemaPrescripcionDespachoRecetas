@@ -11,15 +11,22 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class GestionMedicosController implements Initializable {
+
 
     private static final String PREFIJO_ID = "MED";
     private static final String PREFIJO_ID_FARMACEUTA = "FAR";
@@ -67,6 +74,11 @@ public class GestionMedicosController implements Initializable {
     @FXML private Tab tabHistorico;
     @FXML private Tab tabAcercaDe;
     @FXML private Tab tabFarmaceutas;
+
+
+    @FXML
+    private Label LBL_Nombre;
+
 
     // Alamacenamiento de datos
     private final ObservableList<Medico> listaMedicos = FXCollections.observableArrayList();
@@ -546,4 +558,30 @@ public class GestionMedicosController implements Initializable {
     }
 
 
+    //=========================== PRESCRIBIR =======================
+
+    @FXML
+    private void buscarPacientes() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com.sistema.sistemaprescripciondespachorecetas/view/BuscarPacientes.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Buscar Paciente");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            BuscarPacientesController controller = loader.getController();
+            Paciente pacienteSeleccionado = controller.getPacienteSeleccionado();
+
+            if (pacienteSeleccionado != null) {
+                LBL_Nombre.setText(pacienteSeleccionado.getNombre());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta("Error al abrir el formulario de búsqueda.", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
 }
