@@ -808,7 +808,7 @@
                         </Text>
                         <ComboBox fx:id="CB_Receta" layoutX="103.0" layoutY="28.0" prefHeight="25.0" prefWidth="126.0" promptText="ID Receta" />
                         <TextField fx:id="TXT_RecetaHistorico" layoutX="260.0" layoutY="28.0" prefHeight="25.0" prefWidth="305.0" />
-                        <Button fx:id="btnLimpiarMedico12" layoutX="621.0" layoutY="28.0" onAction="#buscarPacientes" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar " textFill="WHITE">
+                        <Button fx:id="btn_BuscarHistorico" layoutX="621.0" layoutY="28.0" onAction="#buscarRecetaHistorico" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Buscar " textFill="WHITE">
                            <effect>
                               <DropShadow blurType="ONE_PASS_BOX">
                                  <color>
@@ -834,7 +834,7 @@
                               <TableColumn fx:id="colEstadoHistorico" prefWidth="135.33331298828125" text="Estado" />
                           </columns>
                         </TableView>
-                        <Button fx:id="btn_DetallesHistorico" layoutX="17.0" layoutY="338.0" onAction="#buscarPacientes" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Ver Detalles" textFill="WHITE">
+                        <Button fx:id="btn_DetallesHistorico" layoutX="17.0" layoutY="338.0" onAction="#verDetallesReceta" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Ver Detalles" textFill="WHITE">
                            <effect>
                               <DropShadow blurType="ONE_PASS_BOX">
                                  <color>
@@ -846,7 +846,7 @@
                               <Font name="Calibri Bold" size="12.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btn_LimpiarHistorico" layoutX="146.0" layoutY="338.0" onAction="#buscarPacientes" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
+                        <Button fx:id="btn_LimpiarHistorico" layoutX="146.0" layoutY="338.0" onAction="#limpiarHistorico" prefHeight="26.0" prefWidth="100.0" style="-fx-background-color: #756aff;" text="Limpiar" textFill="WHITE">
                            <effect>
                               <DropShadow blurType="ONE_PASS_BOX">
                                  <color>

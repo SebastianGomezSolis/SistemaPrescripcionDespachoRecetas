@@ -112,4 +112,34 @@ public class RecetaController {
         alert.showAndWait();
     }
 
+    // Este método permite recibir la receta completa (desde el historial)
+    public void setRecetaH(Receta receta, boolean modoEdicion) {
+        this.recetaActual = receta;
+        this.modoEdicion = modoEdicion;
+
+        //inicializamos lista si está vacía
+        if (recetaActual.getMedicamentos() == null) {
+            recetaActual.setMedicamentos(new ArrayList<>());
+        }
+
+        // (modoEdicion = false)
+        if (!modoEdicion) {
+            spp_Cantidad.setDisable(true);
+            spp_duracion.setDisable(true);
+            txt_IndicacionesMedicamentos.setEditable(false);
+        }
+
+        // mostrar el primer medicamento automáticamente
+        if (!recetaActual.getMedicamentos().isEmpty()) {
+            RecetaDetalle detalle = recetaActual.getMedicamentos().get(0);
+            spp_Cantidad.getValueFactory().setValue(detalle.getCantidad());
+            spp_duracion.getValueFactory().setValue(detalle.getDiasDuracion());
+            txt_IndicacionesMedicamentos.setText(detalle.getIndicaciones());
+
+            this.medicamentoSeleccionado = detalle.getMedicamento();
+            this.recetaDetalleSeleccionado = detalle;
+        }
+    }
+
+
 }

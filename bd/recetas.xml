@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <recetasData>
     <recetas>
-        <receta>
-            <paciente>
-                <id>PAC002</id>
-                <nombre>Ines</nombre>
-                <telefono>145156115</telefono>
-                <fechaNacimiento>2024-06-21</fechaNacimiento>
-            </paciente>
-            <fechaEntrega>2025-09-12</fechaEntrega>
-            <medicamentos/>
-        </receta>
+   <receta>
+  <id>REC000</id>
+  <paciente>
+    <id>PAC002</id>
+    <nombre>Ines</nombre>
+    <telefono>145156115</telefono>
+    <fechaNacimiento>2024-06-21</fechaNacimiento>
+  </paciente>
+  <fechaEntrega>2025-09-12</fechaEntrega>
+  <medicamentos/>
+</receta>
+
         <receta>
             <id>REC001</id>
             <paciente>

@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -146,6 +147,15 @@ public class GestionMedicosController implements Initializable {
     @FXML
     private Tab tabFarmaceutas;
 
+    //Historico
+    @FXML private TableView<Receta> TV_Historico;
+    @FXML private TableColumn<Receta, String> colIdHistorico;
+    @FXML private TableColumn<Receta, String> colPacienteHistorico;
+    @FXML private TableColumn<Receta, String> colMedicoHistorico;
+    @FXML private TableColumn<Receta, String> colFechaHistorico;
+    @FXML private TableColumn<Receta, String> colEstadoHistorico;
+    @FXML private ComboBox<String> CB_Receta;
+    @FXML private TextField TXT_RecetaHistorico;
 
     @FXML
     private Label LBL_Nombre;
@@ -159,6 +169,8 @@ public class GestionMedicosController implements Initializable {
     private final ObservableList<Paciente> listaPacientes = FXCollections.observableArrayList();
     private final ObservableList<Medicamento> listaMedicamentos = FXCollections.observableArrayList();
     private final ObservableList<RecetaDetalle> listaRecetaDetalles = FXCollections.observableArrayList();
+    private final ObservableList<Receta> listaHistoricoRecetas = FXCollections.observableArrayList();
+
 
     private static final String RUTA_MEDICOS = java.nio.file.Paths
             .get(System.getProperty("user.dir"), "bd", "medicos.xml")
@@ -233,6 +245,26 @@ public class GestionMedicosController implements Initializable {
         colIndicaciones.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIndicaciones()));
         colDuracion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getDiasDuracion())));
 
+
+        colIdHistorico.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getId() != null ? r.getValue().getId() : "")
+        );
+        colPacienteHistorico.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getPaciente() != null ? r.getValue().getPaciente().getNombre() : "")
+        );
+        colMedicoHistorico.setCellValueFactory(r ->
+                new SimpleStringProperty(
+                        (r.getValue().getMedico() != null) ? r.getValue().getMedico().getNombre() : "Desconocido"
+                )
+        );
+        colFechaHistorico.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getFechaEntrega() != null ? r.getValue().getFechaEntrega().toString() : "")
+        );
+        colEstadoHistorico.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getEstado() != null ? r.getValue().getEstado() : "")
+        );
+
+
         // Inicializar campo ID
         txtIdMedico.setText(PREFIJO_ID);
         txtIdMedico.positionCaret(PREFIJO_ID.length());
@@ -277,6 +309,23 @@ public class GestionMedicosController implements Initializable {
 
         listaMedicamentos.addAll(medicamentoLogica.findAll());
         tablaMedicamentos.setItems(listaMedicamentos);
+
+        listaHistoricoRecetas.setAll(recetaLogica.findAll());
+        TV_Historico.setItems(listaHistoricoRecetas);
+
+
+        List<Receta> recetas = recetaLogica.findAll();
+        listaHistoricoRecetas.setAll(recetas);
+        TV_Historico.setItems(listaHistoricoRecetas);
+
+        // Cargar IDs únicos en el ComboBox
+        List<String> ids = recetas.stream()
+                .map(Receta::getId)
+                .distinct()
+                .collect(Collectors.toList());
+
+        CB_Receta.setItems(FXCollections.observableArrayList(ids));
+
 
         //listaRecetas.addAll(recetaLogica.findAll());
         refrescarTablaPrescripcion();
@@ -852,7 +901,9 @@ public class GestionMedicosController implements Initializable {
                 recetaActual.setFechaEntrega(LocalDate.now());
                 recetaActual.setEstado("Confeccionada");
                 recetaActual.setMedicamentos(new ArrayList<>());
+                recetaActual.setMedico(obtenerMedicoActual());
             }
+
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com.sistema.sistemaprescripciondespachorecetas/view/AgregarMedicamento.fxml"));
             Parent root = loader.load();
@@ -875,6 +926,11 @@ public class GestionMedicosController implements Initializable {
         } catch (IOException e) {
             mostrarAlerta("Error", "Error al cargar formulario: " + e.getMessage(), Alert.AlertType.ERROR);
         }
+    }
+
+
+    private Medico obtenerMedicoActual() {
+        return (Medico) Sesion.getUsuarioActual();
     }
 
     @FXML
@@ -968,6 +1024,65 @@ public class GestionMedicosController implements Initializable {
             tablaPrescripcion.getItems().addAll(recetaActual.getMedicamentos());
         }
     }
+
+
+    //HISTORICO
+
+    @FXML
+    private void limpiarHistorico() {
+        TXT_RecetaHistorico.clear();
+        TV_Historico.setItems(listaHistoricoRecetas);
+    }
+
+
+    @FXML
+    private void buscarRecetaHistorico() {
+        String criterioIdCombo = CB_Receta.getValue() != null ? CB_Receta.getValue().trim().toLowerCase() : "";
+        String criterioTexto = TXT_RecetaHistorico.getText().trim().toLowerCase();
+
+        List<Receta> resultados = listaHistoricoRecetas.stream()
+                .filter(r -> {
+                    if (r.getId() == null) return false;
+
+                    boolean coincideCombo = criterioIdCombo.isEmpty() || r.getId().toLowerCase().contains(criterioIdCombo);
+                    boolean coincideTexto = criterioTexto.isEmpty() || r.getId().toLowerCase().contains(criterioTexto);
+                    return coincideCombo && coincideTexto;
+                })
+                .collect(Collectors.toList());
+
+        TV_Historico.setItems(FXCollections.observableArrayList(resultados));
+    }
+
+
+    @FXML
+    private void verDetallesReceta() {
+        Receta seleccionada = TV_Historico.getSelectionModel().getSelectedItem();
+
+        if (seleccionada == null) {
+            mostrarAlerta("Aviso", "Debe seleccionar una receta de la tabla.", Alert.AlertType.INFORMATION);
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com.sistema.sistemaprescripciondespachorecetas/view/Receta.fxml"));
+            Parent root = loader.load();
+
+            RecetaController controller = loader.getController();
+
+            // Llamar al método para mostrar la receta completa
+            controller.setRecetaH(seleccionada, false);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Detalle de Receta");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException e) {
+            mostrarAlerta("Error", "No se pudo cargar la receta: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+
 
 
 

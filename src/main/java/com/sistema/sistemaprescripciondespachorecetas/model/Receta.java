@@ -10,7 +10,7 @@ public class Receta {
     private List<RecetaDetalle> medicamentos;;             // Medicamento que se receta
     private LocalDate fechaEntrega;
     private String estado;                       // Estado de la receta
-
+    private Medico medico;                       // Médico que la prescribe
 
     // Constructor sin parametros
     public Receta() {
@@ -23,6 +23,7 @@ public class Receta {
         this.paciente = paciente;
         this.fechaEntrega = fechaEntrega;
         this.estado = estado;
+        this.medico = medico;
         this.medicamentos = new ArrayList<>();
     }
 
@@ -41,6 +42,10 @@ public class Receta {
 
     public List<RecetaDetalle> getMedicamentos() { return medicamentos; }
     public void setMedicamentos(List<RecetaDetalle> medicamentos) { this.medicamentos = medicamentos; }
+
+    public Medico getMedico() { return medico; }               // 👈 nuevo
+    public void setMedico(Medico medico) { this.medico = medico; } // 👈 nuevo
+
 
     // Metodo para agregar un detalle (medicamento con cantidad e indicaciones)
     public void agregarMedicamento(RecetaDetalle detalle) {
