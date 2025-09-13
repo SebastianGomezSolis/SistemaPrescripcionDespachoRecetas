@@ -1,97 +1,108 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
+import com.sistema.sistemaprescripciondespachorecetas.model.Medicamento;
+import com.sistema.sistemaprescripciondespachorecetas.model.Paciente;
+import com.sistema.sistemaprescripciondespachorecetas.model.Receta;
+import com.sistema.sistemaprescripciondespachorecetas.logic.logica.RecetaLogica;
+import com.sistema.sistemaprescripciondespachorecetas.model.RecetaDetalle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
 import javafx.scene.control.SpinnerValueFactory;
-
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.RecetaLogica;
-import com.sistema.sistemaprescripciondespachorecetas.model.Receta;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class RecetaController {
 
-    @FXML private Spinner <Integer>spp_Cantidad;
-    @FXML private Spinner <Integer> spp_duracion;
+    @FXML private Spinner<Integer> spp_Cantidad;
+    @FXML private Spinner<Integer> spp_duracion;
     @FXML private TextField txt_IndicacionesMedicamentos;
 
-    private Receta receta;
-
-    private static final String RUTA_RECETA= java.nio.file.Paths
-            .get(System.getProperty("user.dir"), "bd", "recetas.xml")
-            .toString();
-    {
-        System.out.println("[DEBUG] RUTA_RECETA controller = " + RUTA_RECETA);
-    }
-
+    private static final String RUTA_RECETA = Paths.get(
+            System.getProperty("user.dir"), "bd", "recetas.xml").toString();
     private final RecetaLogica recetaLogica = new RecetaLogica(RUTA_RECETA);
-    private boolean modoEdicion = false;
+
+    private Receta recetaActual;
+    private RecetaDetalle recetaDetalleSeleccionado;
+    private Paciente pacienteSeleccionado;
+    private Medicamento medicamentoSeleccionado;
+    private Boolean modoEdicion = false;
 
     @FXML
     public void initialize() {
-        spp_Cantidad.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1)
-        );
-        spp_duracion.setValueFactory(
-                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 31, 1)
-        );
+        spp_Cantidad.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 1000, 1));
+        spp_duracion.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 60, 1));
     }
-    public void setCliente(Receta receta, boolean editar) {
-        this.receta = receta;
-        this.modoEdicion = editar;
 
-        if (editar && receta != null) {
-            spp_Cantidad.getValueFactory().setValue(receta.getCantidad());
-            spp_duracion.getValueFactory().setValue(receta.getDiasDuracion());
-            txt_IndicacionesMedicamentos.setText(receta.getIndicaciones());
+    public void setRecetaActual(Receta receta) {
+        this.recetaActual = receta;
+        if (recetaActual.getMedicamentos() == null) {
+            recetaActual.setMedicamentos(new ArrayList<>());
         }
     }
+
+    public void setReceta(RecetaDetalle detalle, boolean editar) {
+        this.recetaDetalleSeleccionado = detalle;
+        this.modoEdicion = editar;
+
+        if (editar && detalle != null) {
+            this.medicamentoSeleccionado = detalle.getMedicamento();
+
+            spp_Cantidad.getValueFactory().setValue(detalle.getCantidad());
+            spp_duracion.getValueFactory().setValue(detalle.getDiasDuracion());
+            txt_IndicacionesMedicamentos.setText(detalle.getIndicaciones());
+        }
+    }
+
+
+    public void setPacienteSeleccionado(Paciente paciente) {
+        this.pacienteSeleccionado = paciente;
+    }
+
+    public void setMedicamentoSeleccionado(Medicamento medicamento) {
+        this.medicamentoSeleccionado = medicamento;
+    }
+
     @FXML
     public void GuardarMedicamento() {
-        try{
-            int cantidad = spp_Cantidad.getValue();
-            int duracion = spp_duracion.getValue();
-            String indicaciones = txt_IndicacionesMedicamentos.getText().trim();
+        try {
 
-            if (cantidad <=0 || duracion <=0 || indicaciones.isEmpty()) {
-                mostrarAlerta("Campos incompletos", "Por favor, complete todos los campos del formulario.");
+            if (medicamentoSeleccionado == null || recetaActual == null) {
+                mostrarAlerta("Error", "Faltan datos para guardar el medicamento.");
                 return;
             }
-            if (!modoEdicion) {
-                receta = new Receta();
-                recetaLogica.create(receta); // aun no implementado
+            if (modoEdicion && recetaDetalleSeleccionado != null) {
+                recetaDetalleSeleccionado.setCantidad(spp_Cantidad.getValue());
+                recetaDetalleSeleccionado.setDiasDuracion(spp_duracion.getValue());
+                recetaDetalleSeleccionado.setIndicaciones(txt_IndicacionesMedicamentos.getText());
             } else {
-                // Editar receta existente
-                receta.setCantidad(cantidad);
-                receta.setDiasDuracion(duracion);
-                receta.setIndicaciones(indicaciones);
+                RecetaDetalle detalle = new RecetaDetalle();
+                detalle.setMedicamento(medicamentoSeleccionado);
+                detalle.setCantidad(spp_Cantidad.getValue());
+                detalle.setDiasDuracion(spp_duracion.getValue());
+                detalle.setIndicaciones(txt_IndicacionesMedicamentos.getText());
+                recetaActual.getMedicamentos().add(detalle);
             }
 
             Stage stage = (Stage) spp_Cantidad.getScene().getWindow();
-            stage.setUserData(receta);
+            stage.setUserData(recetaActual);
             stage.close();
-
         }
-        catch (Exception error){
-            mostrarAlerta("Error al guardar los datos", error.getMessage());
+        catch (Exception e) {
+            mostrarAlerta("Error al guardar los datos", e.getMessage());
         }
     }
+
 
     @FXML
     public void CancelarMedicamento() {
-        try
-        {
-            Stage stage = (Stage) spp_Cantidad.getScene().getWindow();
-            stage.setUserData(null);
-            stage.close();
-        }
-        catch (Exception error) {
-            mostrarAlerta("Error al guardar los datos", error.getMessage());
-        }
-
+        Stage stage = (Stage) spp_Cantidad.getScene().getWindow();
+        stage.setUserData(null);
+        stage.close();
     }
-
 
     private void mostrarAlerta(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -100,4 +111,5 @@ public class RecetaController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
 }

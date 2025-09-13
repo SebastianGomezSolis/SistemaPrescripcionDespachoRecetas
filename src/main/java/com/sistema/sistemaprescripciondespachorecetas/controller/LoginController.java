@@ -183,7 +183,7 @@ public class LoginController implements Initializable {
                 progressCambiarClave.setVisible(false);
                 btnCambiarClave.setVisible(true);
                 try {
-                    // Lista de todas las rutas posibles basadas en tu estructura
+                    // Lista de todas las rutas
                     String[] rutasPosibles = {
                             "/com/sistema/sistemaprescripciondespachorecetas/view/CambiarClave.fxml",
                             "/com.sistema.sistemaprescripciondespachorecetas/view/CambiarClave.fxml",

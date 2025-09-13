@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -26,12 +24,6 @@
             <Font name="Calibri Bold" size="15.0" />
          </font>
       </Text>
-      <SplitMenuButton id="SPB_NombreMedicamento" fx:id="SPB_NombreMedicamento" layoutX="130.0" layoutY="49.0" mnemonicParsing="false" onAction="#buscarMedicamento" prefHeight="25.0" prefWidth="87.0" text="Nombre">
-         <items>
-            <MenuItem mnemonicParsing="false" text="Action 1" />
-            <MenuItem mnemonicParsing="false" text="Action 2" />
-         </items>
-      </SplitMenuButton>
       <TextField id="TXF_NombreMedicamento" fx:id="TXF_NombreMedicamento" layoutX="238.0" layoutY="49.0" prefHeight="25.0" prefWidth="232.0" />
       <TableView id="TV_Medicamento" fx:id="TV_Medicamento" layoutX="54.0" layoutY="99.0" prefHeight="184.0" prefWidth="426.0">
          <columns>
@@ -50,5 +42,6 @@
             <Font name="Calibri Bold" size="12.0" />
          </font>
       </Button>
+      <Button fx:id="bttNombreMedicamento" layoutX="134.0" layoutY="49.0" mnemonicParsing="false" onAction="#buscarMedicamento" prefHeight="25.0" prefWidth="89.0" text="Nombre" />
    </children>
 </Pane>

@@ -6,6 +6,8 @@ import com.sistema.sistemaprescripciondespachorecetas.datos.dato.MedicamentoDato
 import com.sistema.sistemaprescripciondespachorecetas.logic.Mapper.MedicamentoMapper;
 import com.sistema.sistemaprescripciondespachorecetas.model.Medicamento;
 import com.sistema.sistemaprescripciondespachorecetas.datos.entity.MedicamentoEntity;
+import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,13 +27,19 @@ public class MedicamentoLogica {
                 .collect(Collectors.toList());
     }
 
-    public Optional<Medicamento> findById(String id) {
+    public Optional<Medicamento> findByIdOptional(String id) {
         MedicamentoConector data = store.load();
         return data.getMedicamentos().stream()
                 .filter(x -> x.getCodigo().equals(id))
                 .findFirst()
                 .map(MedicamentoMapper::toModel);
     }
+
+    // Metodo para compatibilidad con el controlador existente
+    public Medicamento findById(String id) {
+        return findByIdOptional(id).orElse(null);
+    }
+
 
     public List<Medicamento> searchByCodigNombre(String texto) {
         String q = (texto == null) ? "" : texto.trim().toLowerCase();
@@ -51,7 +59,7 @@ public class MedicamentoLogica {
         validarNuevo(nuevo); // // Verifica campos obligatorios
         MedicamentoConector data = store.load(); //  // Carga clientes existentes
 
-        // Unicidad por identificación (si aplica)
+        /*// Unicidad por identificación (si aplica)
         if (nuevo.getCodigo() != null && !nuevo.getCodigo().isBlank()) {
             boolean existsIdent = data.getMedicamentos().stream()
                     .anyMatch(x -> nuevo.getCodigo().equalsIgnoreCase(x.getCodigo()));
@@ -71,7 +79,25 @@ public class MedicamentoLogica {
         MedicamentoEntity x = MedicamentoMapper.toXml(nuevo);
         data.getMedicamentos().add(x);
         store.save(data);
-        return MedicamentoMapper.toModel(x);
+        return MedicamentoMapper.toModel(x);*/
+
+        // Generar código si viene vacío o null
+        if (nuevo.getCodigo() == null || nuevo.getCodigo().isBlank()) {
+            nuevo.setCodigo(generarCodigo(nuevo));
+        }
+
+        boolean idTaken = data.getMedicamentos().stream()
+                .anyMatch(x -> nuevo.getCodigo().equals(x.getCodigo()));
+        if (idTaken) {
+            throw new IllegalArgumentException("Ya existe un medicamento con código: " + nuevo.getCodigo());
+        }
+
+        MedicamentoEntity entity = MedicamentoMapper.toXml(nuevo);
+        data.getMedicamentos().add(entity);
+        store.save(data);
+
+        return MedicamentoMapper.toModel(entity);
+
     }
 
     public Medicamento update(Medicamento medi) {
@@ -82,11 +108,19 @@ public class MedicamentoLogica {
         MedicamentoConector data = store.load();
 
         // Validar codigo duplicada (si aplica)
-        if (medi.getCodigo() != null && !medi.getCodigo().isBlank()) {
+       /* if (medi.getCodigo() != null && !medi.getCodigo().isBlank()) {
             boolean conflict = data.getMedicamentos().stream()
                     .anyMatch(x -> !x.getCodigo().equals(medi.getCodigo())
                             && medi.getCodigo().equalsIgnoreCase(x.getCodigo()));
             if (conflict) throw new IllegalArgumentException("Otro medicamento ya tiene ese codigo.");
+        }
+*/
+
+        boolean conflict = data.getMedicamentos().stream()
+                .anyMatch(x -> !medi.getCodigo().equals(x.getCodigo()) &&
+                        medi.getCodigo().equalsIgnoreCase(x.getCodigo()));
+        if (conflict) {
+            throw new IllegalArgumentException("Otro medicamento ya tiene ese código.");
         }
 
         // Recorre la lista y reemplaza el medicamento que tenga el mismo codigo.
@@ -110,7 +144,6 @@ public class MedicamentoLogica {
         return removed;
     }
 
-
     // --------- Helpers ---------
 
     private void validarNuevo(Medicamento c) {
@@ -118,7 +151,7 @@ public class MedicamentoLogica {
         validarCampos(c);
     }
 
-    private void validarCampos(Medicamento c) {
+   /* private void validarCampos(Medicamento c) {
         if (c.getNombre() == null || c.getNombre().isBlank())
             throw new IllegalArgumentException("El nombre es obligatorio.");
         if (c.getCodigo() == null || c.getCodigo().isBlank())
@@ -134,6 +167,24 @@ public class MedicamentoLogica {
                .substring(0, Math.min(3, nuevo.getNombre().length()));
 
         return prefijo + "-" + nuevo.getDescripcion().trim();
+    }
+*/
+   private void validarCampos(Medicamento c) {
+       if (c.getNombre() == null || c.getNombre().isBlank())
+           throw new IllegalArgumentException("El nombre es obligatorio.");
+       if (c.getCodigo() == null || c.getCodigo().isBlank())
+           throw new IllegalArgumentException("El codigo es obligatorio.");
+       if (c.getDescripcion() == null || c.getDescripcion().isBlank())
+           throw new IllegalArgumentException("La descripcion es obligatoria.");
+   }
+
+    private String generarCodigo(Medicamento nuevo) {
+        String nombre = nuevo.getNombre() != null ? nuevo.getNombre().trim().toUpperCase() : "XXX";
+        String descripcion = nuevo.getDescripcion() != null ? nuevo.getDescripcion().trim() : "DES";
+
+        String prefijo = nombre.substring(0, Math.min(3, nombre.length()));
+
+        return prefijo + "-" + descripcion;
     }
 
 

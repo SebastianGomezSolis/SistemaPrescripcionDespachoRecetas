@@ -3,9 +3,10 @@ package com.sistema.sistemaprescripciondespachorecetas.controller;
 import com.sistema.sistemaprescripciondespachorecetas.logic.logica.FarmaceutaLogica;
 import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicoLogica;
 import com.sistema.sistemaprescripciondespachorecetas.logic.logica.PacienteLogica;
-import com.sistema.sistemaprescripciondespachorecetas.model.Farmaceuta;
-import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
-import com.sistema.sistemaprescripciondespachorecetas.model.Paciente;
+import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicamentoLogica;
+import com.sistema.sistemaprescripciondespachorecetas.logic.logica.RecetaLogica;
+
+import com.sistema.sistemaprescripciondespachorecetas.model.*;
 import com.sistema.sistemaprescripciondespachorecetas.utilitarios.Sesion;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -22,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -49,6 +51,7 @@ public class GestionMedicosController implements Initializable {
     @FXML
     private TableColumn<Farmaceuta, String> colNombreFarmaceutas;
 
+
     @FXML
     private TableView<Paciente> tablaPacientes;
     @FXML
@@ -59,6 +62,29 @@ public class GestionMedicosController implements Initializable {
     private TableColumn<Paciente, String> colTelefonoPaciente;
     @FXML
     private TableColumn<Paciente, String> colFechaNacimientoPaciente;
+
+    @FXML
+    private TableView<Medicamento> tablaMedicamentos;
+    @FXML
+    private TableColumn<Medicamento, String> colCodigoMedicamento;
+    @FXML
+    private TableColumn<Medicamento, String> colNombreMedicamento;
+    @FXML
+    private TableColumn<Medicamento, String> colDescripcionMedicamento;
+
+
+    @FXML
+    private TableView<RecetaDetalle> tablaPrescripcion;
+    @FXML
+    private TableColumn<RecetaDetalle, String> colMedicamento;
+    @FXML
+    private TableColumn<RecetaDetalle, String> colPresentacion;
+    @FXML
+    private TableColumn<RecetaDetalle, String> colCantidad;
+    @FXML
+    private TableColumn<RecetaDetalle, String> colIndicaciones;
+    @FXML
+    private TableColumn<RecetaDetalle, String> colDuracion;
 
     // Campos de texto
     @FXML
@@ -88,6 +114,18 @@ public class GestionMedicosController implements Initializable {
     @FXML
     private TextField txtBuscarPaciente;
 
+    @FXML
+    private TextField txtCodigoMedicamento;
+    @FXML
+    private TextField txtNombreMedicamento;
+    @FXML
+    private TextField txtDescripcionMedicamneto;
+    @FXML
+    private TextField txtBuscarMedicamento;
+
+    @FXML
+    private DatePicker dtpFechaRetiro;
+
     // Tabs
     @FXML
     private TabPane tabPane;
@@ -112,11 +150,15 @@ public class GestionMedicosController implements Initializable {
     @FXML
     private Label LBL_Nombre;
 
+    private Paciente pacienteSeleccionado;
+    private Receta recetaActual;
 
     // Alamacenamiento de datos
     private final ObservableList<Medico> listaMedicos = FXCollections.observableArrayList();
     private final ObservableList<Farmaceuta> listaFarmaceutas = FXCollections.observableArrayList();
     private final ObservableList<Paciente> listaPacientes = FXCollections.observableArrayList();
+    private final ObservableList<Medicamento> listaMedicamentos = FXCollections.observableArrayList();
+    private final ObservableList<RecetaDetalle> listaRecetaDetalles = FXCollections.observableArrayList();
 
     private static final String RUTA_MEDICOS = java.nio.file.Paths
             .get(System.getProperty("user.dir"), "bd", "medicos.xml")
@@ -142,9 +184,27 @@ public class GestionMedicosController implements Initializable {
         System.out.println("[DEBUG] RUTA_PACIENTES controller = " + RUTA_PACIENTES);
     }
 
+    private static final String RUTA_MEDICAMENTOS = java.nio.file.Paths
+            .get(System.getProperty("user.dir"), "bd", "medicamentos.xml")
+            .toString();
+
+    {
+        System.out.println("[DEBUG] RUTA_MEDICAMENTOS controller = " + RUTA_MEDICAMENTOS);
+    }
+
+    private static final String RUTA_RECETAS = java.nio.file.Paths
+            .get(System.getProperty("user.dir"), "bd", "recetas.xml")
+            .toString();
+
+    {
+        System.out.println("[DEBUG] RUTA_RECETAS controller = " + RUTA_RECETAS);
+    }
+
     private final MedicoLogica medicoLogica = new MedicoLogica(RUTA_MEDICOS);
     private final FarmaceutaLogica farmaceutaLogica = new FarmaceutaLogica(RUTA_FARMACEUTAS);
     private final PacienteLogica pacienteLogica = new PacienteLogica(RUTA_PACIENTES);
+    private final MedicamentoLogica medicamentoLogica = new MedicamentoLogica(RUTA_MEDICAMENTOS);
+    private final RecetaLogica recetaLogica = new RecetaLogica(RUTA_RECETAS);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -162,6 +222,16 @@ public class GestionMedicosController implements Initializable {
         colNombrePaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
         colTelefonoPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
         colFechaNacimientoPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaNacimiento() != null ? cellData.getValue().getFechaNacimiento().toString() : ""));
+
+        colCodigoMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+        colNombreMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        colDescripcionMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
+
+        colMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMedicamento().getNombre()));
+        colPresentacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMedicamento().getDescripcion()));
+        colCantidad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCantidad())));
+        colIndicaciones.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIndicaciones()));
+        colDuracion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getDiasDuracion())));
 
         // Inicializar campo ID
         txtIdMedico.setText(PREFIJO_ID);
@@ -204,6 +274,12 @@ public class GestionMedicosController implements Initializable {
 
         listaPacientes.addAll(pacienteLogica.findAll());
         tablaPacientes.setItems(listaPacientes);
+
+        listaMedicamentos.addAll(medicamentoLogica.findAll());
+        tablaMedicamentos.setItems(listaMedicamentos);
+
+        //listaRecetas.addAll(recetaLogica.findAll());
+        refrescarTablaPrescripcion();
 
     }
 
@@ -337,7 +413,7 @@ public class GestionMedicosController implements Initializable {
 
             tablaMedicos.setItems(filtrados);
         } catch (Exception error) {
-            mostrarAlerta("Error al buscar el cliente", "Volver a intentarlo", Alert.AlertType.ERROR);
+            mostrarAlerta("Error al buscar el medico", "Volver a intentarlo", Alert.AlertType.ERROR);
         }
     }
 
@@ -406,7 +482,7 @@ public class GestionMedicosController implements Initializable {
             if (seleccionado == null) {
                 mostrarAlerta(
                         "Selección requerida",
-                        "Por favor, seleccione un médico de la tabla para eliminar.",
+                        "Por favor, seleccione un farmaceuta de la tabla para eliminar.",
                         Alert.AlertType.WARNING
                 );
                 return;
@@ -432,7 +508,7 @@ public class GestionMedicosController implements Initializable {
             });
 
         } catch (Exception error) {
-            mostrarAlerta("Error inesperado", "Ocurrió un error al intentar eliminar al médico. Inténtelo de nuevo.", Alert.AlertType.ERROR);
+            mostrarAlerta("Error inesperado", "Ocurrió un error al intentar eliminar al farmaceuta. Inténtelo de nuevo.", Alert.AlertType.ERROR);
             error.printStackTrace();
         }
     }
@@ -456,7 +532,7 @@ public class GestionMedicosController implements Initializable {
 
             tablaFarmaceutas.setItems(filtrados);
         } catch (Exception error) {
-            mostrarAlerta("Error al buscar el cliente", "Volver a intentarlo", Alert.AlertType.ERROR);
+            mostrarAlerta("Error al buscar el farmaceuta", "Volver a intentarlo", Alert.AlertType.ERROR);
         }
     }
 
@@ -526,7 +602,7 @@ public class GestionMedicosController implements Initializable {
             if (seleccionado == null) {
                 mostrarAlerta(
                         "Selección requerida",
-                        "Por favor, seleccione un médico de la tabla para eliminar.",
+                        "Por favor, seleccione un paciente de la tabla para eliminar.",
                         Alert.AlertType.WARNING
                 );
                 return;
@@ -552,7 +628,7 @@ public class GestionMedicosController implements Initializable {
             });
 
         } catch (Exception error) {
-            mostrarAlerta("Error inesperado", "Ocurrió un error al intentar eliminar al médico. Inténtelo de nuevo.", Alert.AlertType.ERROR);
+            mostrarAlerta("Error inesperado", "Ocurrió un error al intentar eliminar al paciente. Inténtelo de nuevo.", Alert.AlertType.ERROR);
             error.printStackTrace();
         }
     }
@@ -575,7 +651,7 @@ public class GestionMedicosController implements Initializable {
                     );
             tablaPacientes.setItems(filtrados);
         } catch (Exception error) {
-            mostrarAlerta("Error al buscar el cliente", "Volver a intentarlo", Alert.AlertType.ERROR);
+            mostrarAlerta("Error al buscar el paciente", "Volver a intentarlo", Alert.AlertType.ERROR);
         }
     }
 
@@ -594,13 +670,129 @@ public class GestionMedicosController implements Initializable {
         txtTelefonoPaciente.clear();
         dtpFechaNacimientoPaciente.setValue(null);
         txtBuscarPaciente.clear();
-        refrescarTablaMedico();
+        refrescarTablaPaciente();
     }
 
     private void refrescarTablaPaciente() {
         listaPacientes.setAll(pacienteLogica.findAll());
         tablaPacientes.setItems(listaPacientes);
     }
+
+
+    // =========================== MEDICAMENTOS ===========================
+    @FXML
+    private void agregarMedicamento() {
+        try {
+            String codigo = txtCodigoMedicamento.getText().trim();
+            String nombre = txtNombreMedicamento.getText().trim();
+            String descripcion = txtDescripcionMedicamneto.getText().trim();
+
+            if (codigo.isEmpty() || nombre.isEmpty() || descripcion.isEmpty()) {
+                mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
+                return;
+            }
+
+            Medicamento nuevoMedicamento = new Medicamento(codigo,nombre, descripcion);
+
+            if (medicamentoLogica.findById(codigo) != null) {
+                medicamentoLogica.update(nuevoMedicamento);
+                mostrarAlerta("Medicamento modificado", "El medicamento ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
+            } else {
+                medicamentoLogica.create(nuevoMedicamento);
+                mostrarAlerta("Medicamento agregado", "El medicamento ha sido agregado con éxito.", Alert.AlertType.INFORMATION);
+            }
+
+            limpiarCampoMedicamento();
+            refrescarTablaMedicamento();
+        } catch (Exception e) {
+            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void eliminarMedicamento() {
+        try {
+            Medicamento seleccionado = tablaMedicamentos.getSelectionModel().getSelectedItem();
+
+            if (seleccionado == null) {
+                mostrarAlerta(
+                        "Selección requerida",
+                        "Por favor, seleccione un medicamento de la tabla para eliminar.",
+                        Alert.AlertType.WARNING
+                );
+                return;
+            }
+
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmacion.setTitle("Confirmar eliminación");
+            confirmacion.setHeaderText("¿Desea eliminar al medicamento seleccionado?");
+            confirmacion.setContentText("Medicamento: " + seleccionado.getNombre() + " (" + seleccionado.getCodigo() + ")");
+
+            // Mostrar y esperar confirmación
+            confirmacion.showAndWait().ifPresent(respuesta -> {
+                if (respuesta == ButtonType.OK) {
+                    try {
+                        medicamentoLogica.deleteById(seleccionado.getCodigo());
+                        mostrarAlerta("Éxito", "El médico ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
+                        refrescarTablaMedicamento();
+                        limpiarCampoMedicamento();
+                    } catch (Exception e) {
+                        mostrarAlerta("Error al eliminar", e.getMessage(), Alert.AlertType.ERROR);
+                    }
+                }
+            });
+
+        } catch (Exception error) {
+            mostrarAlerta("Error inesperado", "Ocurrió un error al intentar eliminar el medicamento. Inténtelo de nuevo.", Alert.AlertType.ERROR);
+            error.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void buscarMedicamento() {
+        try {
+            String criterio = txtBuscarMedicamento.getText().trim().toLowerCase();
+            if (criterio.isEmpty()) {
+                tablaMedicamentos.setItems(listaMedicamentos);
+                return;
+            }
+
+            ObservableList<Medicamento> filtrados =
+                    FXCollections.observableArrayList(
+                            listaMedicamentos.stream()
+                                    .filter(m -> m.getCodigo().toLowerCase().contains(criterio)
+                                            || m.getNombre().toLowerCase().contains(criterio)
+                                            || m.getDescripcion().toLowerCase().contains(criterio))
+                                    .collect(Collectors.toList())
+                    );
+
+            tablaMedicamentos.setItems(filtrados);
+        } catch (Exception error) {
+            mostrarAlerta("Error al buscar el medicamento", "Volver a intentarlo", Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void mostrarReporteMedicamento() {
+        listaMedicamentos.setAll(medicamentoLogica.findAll());
+        tablaMedicamentos.setItems(listaMedicamentos);
+        limpiarCampoMedicamento();
+    }
+
+    @FXML
+    private void limpiarCampoMedicamento() {
+        txtCodigoMedicamento.clear();
+        txtNombreMedicamento.clear();
+        txtDescripcionMedicamneto.clear();
+        txtBuscarMedicamento.clear();
+        refrescarTablaMedicamento();
+    }
+
+    private void refrescarTablaMedicamento() {
+        listaMedicamentos.setAll(medicamentoLogica.findAll());
+        tablaMedicamentos.setItems(listaMedicamentos);
+    }
+
 
     // =========================== ALERTAS ===========================
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
@@ -613,6 +805,7 @@ public class GestionMedicosController implements Initializable {
 
 
     // =========================== PRESCRIBIR =======================
+
     @FXML
     private void buscarPacientes() {
         try {
@@ -626,10 +819,18 @@ public class GestionMedicosController implements Initializable {
             stage.showAndWait();
 
             BuscarPacientesController controller = loader.getController();
-            Paciente pacienteSeleccionado = controller.getPacienteSeleccionado();
+            Paciente seleccionado = controller.getPacienteSeleccionado();
 
-            if (pacienteSeleccionado != null) {
+            if (seleccionado != null) {
+                this.pacienteSeleccionado = seleccionado;
+                this.recetaActual = new Receta();
+                recetaActual.setPaciente(pacienteSeleccionado);
+                recetaActual.setFechaEntrega(LocalDate.now());
+                recetaActual.setEstado("Confeccionada");
+                recetaActual.setMedicamentos(new ArrayList<>());
+
                 LBL_Nombre.setText(pacienteSeleccionado.getNombre());
+                refrescarTablaPrescripcion();
             }
 
         } catch (IOException e) {
@@ -637,4 +838,138 @@ public class GestionMedicosController implements Initializable {
             mostrarAlerta("Error al abrir el formulario de búsqueda.", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    @FXML
+    private void agregarMediPrescripcion() {
+        try {
+            if (pacienteSeleccionado == null) {
+                mostrarAlerta("Error", "Debe seleccionar un paciente primero antes de agregar medicamentos.", Alert.AlertType.WARNING);
+                return;
+            }
+            if (recetaActual == null) {
+                recetaActual = new Receta();
+                recetaActual.setPaciente(pacienteSeleccionado);
+                recetaActual.setFechaEntrega(LocalDate.now());
+                recetaActual.setEstado("Confeccionada");
+                recetaActual.setMedicamentos(new ArrayList<>());
+            }
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com.sistema.sistemaprescripciondespachorecetas/view/AgregarMedicamento.fxml"));
+            Parent root = loader.load();
+
+            AgregarMedicamentoController controller = loader.getController();
+            controller.setPacienteSeleccionado(pacienteSeleccionado);
+            controller.setRecetaActual(recetaActual);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Agregar Medicamento");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+
+            Object userData = stage.getUserData();
+            if (userData instanceof Receta) {
+                recetaActual = (Receta) userData;
+                refrescarTablaPrescripcion();
+            }
+        } catch (IOException e) {
+            mostrarAlerta("Error", "Error al cargar formulario: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void guardarReceta() {
+        try {
+            if (recetaActual == null || recetaActual.getMedicamentos().isEmpty()) {
+                mostrarAlerta("Error", "No hay medicamentos en la receta.", Alert.AlertType.WARNING);
+                return;
+            }
+            recetaLogica.create(recetaActual);
+            mostrarAlerta("Éxito", "Receta guardada correctamente.", Alert.AlertType.INFORMATION);
+            recetaActual = null;
+            refrescarTablaPrescripcion();;
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al guardar receta: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    @FXML
+    private void descartarMedicamento() {
+        RecetaDetalle seleccionado = tablaPrescripcion.getSelectionModel().getSelectedItem();
+
+        if (seleccionado == null) {
+            mostrarAlerta("Error", "Seleccione un medicamento para eliminar.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle("Confirmar eliminación");
+        confirmacion.setHeaderText("¿Desea eliminar el medicamento seleccionado?");
+        confirmacion.setContentText("Medicamento: " + seleccionado.getMedicamento().getNombre());
+
+        confirmacion.showAndWait().ifPresent(respuesta -> {
+            if (respuesta == ButtonType.OK) {
+                recetaActual.getMedicamentos().remove(seleccionado);
+                refrescarTablaPrescripcion();
+            }
+        });
+    }
+
+    @FXML
+    private void modificarDetalles() {
+        RecetaDetalle seleccionado = tablaPrescripcion.getSelectionModel().getSelectedItem();
+
+        if (seleccionado == null) {
+            mostrarAlerta("Error", "Seleccione un medicamento para modificar.", Alert.AlertType.WARNING);
+            return;
+        }
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com.sistema.sistemaprescripciondespachorecetas/view/Receta.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Modificar Detalle de Receta");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+
+            RecetaController controller = loader.getController();
+            controller.setRecetaActual(recetaActual);
+            controller.setReceta(seleccionado, true);
+
+            stage.showAndWait();
+
+            Object userData = stage.getUserData();
+            if (userData instanceof Receta) {
+                recetaActual = (Receta) userData;
+                refrescarTablaPrescripcion();
+            }
+        } catch (IOException e) {
+            mostrarAlerta("Error", "Error al abrir formulario de modificación: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+
+    @FXML
+    private void limpiarM() {
+        LBL_Nombre.setText("");
+        dtpFechaRetiro.setValue(null);
+        if (recetaActual != null && recetaActual.getMedicamentos() != null) {
+            recetaActual.getMedicamentos().clear();
+        }
+        refrescarTablaPrescripcion();
+    }
+
+
+    private void refrescarTablaPrescripcion() {
+        tablaPrescripcion.getItems().clear();
+        if (recetaActual != null && recetaActual.getMedicamentos() != null) {
+            tablaPrescripcion.getItems().addAll(recetaActual.getMedicamentos());
+        }
+    }
+
+
+
+
 }
