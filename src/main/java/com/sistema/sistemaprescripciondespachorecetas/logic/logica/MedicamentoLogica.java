@@ -39,13 +39,6 @@ public class MedicamentoLogica {
         return findByIdOptional(id).orElse(null);
     }
 
-
-    // Metodo para compatibilidad con el controlador existente
-    public Medicamento findById(String id) {
-        return findByIdOptional(id).orElse(null);
-    }
-
-
     public List<Medicamento> searchByCodigNombre(String texto) {
         String q = (texto == null) ? "" : texto.trim().toLowerCase();
         MedicamentoConector data = store.load();
