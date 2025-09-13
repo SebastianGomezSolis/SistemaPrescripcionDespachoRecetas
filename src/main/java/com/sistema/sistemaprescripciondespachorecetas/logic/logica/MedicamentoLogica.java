@@ -34,6 +34,11 @@ public class MedicamentoLogica {
                 .findFirst()
                 .map(MedicamentoMapper::toModel);
     }
+    // Metodo para compatibilidad con el controlador existente
+    public Medicamento findById(String id) {
+        return findByIdOptional(id).orElse(null);
+    }
+
 
     // Metodo para compatibilidad con el controlador existente
     public Medicamento findById(String id) {

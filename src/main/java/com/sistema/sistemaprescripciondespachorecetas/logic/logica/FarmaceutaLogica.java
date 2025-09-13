@@ -4,9 +4,7 @@ import com.sistema.sistemaprescripciondespachorecetas.datos.conector.FarmaceutaC
 import com.sistema.sistemaprescripciondespachorecetas.datos.dato.FarmaceutaDatos;
 import com.sistema.sistemaprescripciondespachorecetas.datos.entity.FarmaceutaEntity;
 import com.sistema.sistemaprescripciondespachorecetas.logic.Mapper.FarmaceutaMapper;
-import com.sistema.sistemaprescripciondespachorecetas.model.Administrador;
 import com.sistema.sistemaprescripciondespachorecetas.model.Farmaceuta;
-import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
 
 import java.util.List;
 import java.util.Optional;
