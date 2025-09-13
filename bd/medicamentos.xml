@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<medicamentosData>
+    <medicamentos>
+        <medicamento>
+            <codigo>ACE-100</codigo>
+            <nombre>Acetaminofen</nombre>
+            <descripcion>100mg</descripcion>
+        </medicamento>
+        <medicamento>
+            <codigo>ACE-500</codigo>
+            <nombre>Acetaminofen</nombre>
+            <descripcion>500mg</descripcion>
+        </medicamento>
+        <medicamento>
+            <codigo>CCC-101</codigo>
+            <nombre>CCCCC</nombre>
+            <descripcion>101</descripcion>
+        </medicamento>
+    </medicamentos>
+</medicamentosData>
