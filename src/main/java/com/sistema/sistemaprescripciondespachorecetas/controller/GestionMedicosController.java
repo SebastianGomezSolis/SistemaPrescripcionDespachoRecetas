@@ -1116,7 +1116,7 @@ public class GestionMedicosController implements Initializable {
             }
 
         } catch (Exception e) {
-            System.err.println("Error en cargarGraficos(): " + e.getMessage());
+            System.err.println("Error al cargar los graficos: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -1131,20 +1131,24 @@ public class GestionMedicosController implements Initializable {
 
     @FXML
     private void buscarRecetaHistorico() {
-        String criterioIdCombo = CB_Receta.getValue() != null ? CB_Receta.getValue().trim().toLowerCase() : "";
-        String criterioTexto = TXT_RecetaHistorico.getText().trim().toLowerCase();
+       try {
+           String criterioIdCombo = CB_Receta.getValue() != null ? CB_Receta.getValue().trim().toLowerCase() : "";
+           String criterioTexto = TXT_RecetaHistorico.getText().trim().toLowerCase();
 
-        List<Receta> resultados = listaHistoricoRecetas.stream()
-                .filter(r -> {
-                    if (r.getId() == null) return false;
+           List<Receta> resultados = listaHistoricoRecetas.stream()
+                   .filter(r -> {
+                       if (r.getId() == null) return false;
 
-                    boolean coincideCombo = criterioIdCombo.isEmpty() || r.getId().toLowerCase().contains(criterioIdCombo);
-                    boolean coincideTexto = criterioTexto.isEmpty() || r.getId().toLowerCase().contains(criterioTexto);
-                    return coincideCombo && coincideTexto;
-                })
-                .collect(Collectors.toList());
+                       boolean coincideCombo = criterioIdCombo.isEmpty() || r.getId().toLowerCase().contains(criterioIdCombo);
+                       boolean coincideTexto = criterioTexto.isEmpty() || r.getId().toLowerCase().contains(criterioTexto);
+                       return coincideCombo && coincideTexto;
+                   })
+                   .collect(Collectors.toList());
 
-        TV_Historico.setItems(FXCollections.observableArrayList(resultados));
+           TV_Historico.setItems(FXCollections.observableArrayList(resultados));
+       } catch (Exception e) {
+           mostrarAlerta("Error", "Error al buscar receta: " + e.getMessage(), Alert.AlertType.ERROR);
+       }
     }
 
     @FXML

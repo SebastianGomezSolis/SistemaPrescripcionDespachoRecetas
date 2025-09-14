@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -90,6 +91,7 @@ public class LoginController implements Initializable {
 
                         Stage stage = (Stage) txtUsuario.getScene().getWindow();
                         stage.setScene(new Scene(root));
+                        stage.getIcons().add(new Image(getClass().getResourceAsStream("/com.sistema.sistemaprescripciondespachorecetas/images/hospital.png")));
                         stage.setTitle("Menú principal");
 
                     } catch (Exception e) {

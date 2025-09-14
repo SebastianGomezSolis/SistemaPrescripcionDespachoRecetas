@@ -25,5 +25,11 @@
             <nombre>Marcos</nombre>
             <especialidad>Cirugía General</especialidad>
         </medico>
+        <medico>
+            <id>MED005</id>
+            <clave>MED005</clave>
+            <nombre>Ashley</nombre>
+            <especialidad>Cardiologia</especialidad>
+        </medico>
     </medicos>
 </medicosData>

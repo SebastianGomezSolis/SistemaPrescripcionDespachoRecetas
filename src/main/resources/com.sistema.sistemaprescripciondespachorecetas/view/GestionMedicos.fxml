@@ -188,11 +188,11 @@
                                     <Font name="Calibri Bold" size="20.0" />
                                 </font>
                             </Text>
-                            <TableView fx:id="tablaMedicos" layoutX="13.0" layoutY="222.0" prefHeight="151.0" prefWidth="776.0" style="-fx-border-color: #6257e3;">
+                            <TableView fx:id="tablaMedicos" layoutX="13.0" layoutY="222.0" prefHeight="151.0" prefWidth="784.0" style="-fx-border-color: #6257e3;">
                                 <columns>
                                     <TableColumn fx:id="colIdMedico" prefWidth="144.0" text="Id" />
-                                    <TableColumn fx:id="colNombreMedico" prefWidth="334.0" text="Nombre" />
-                                    <TableColumn fx:id="colEspecialidadMedico" prefWidth="296.0" text="Especialidad" />
+                                    <TableColumn fx:id="colNombreMedico" prefWidth="314.0" text="Nombre" />
+                                    <TableColumn fx:id="colEspecialidadMedico" prefWidth="325.0" text="Especialidad" />
                                 </columns>
                             </TableView>
                         </AnchorPane>
@@ -314,10 +314,10 @@
                               <Font name="Calibri Bold" size="20.0" />
                            </font>
                         </Text>
-                        <TableView fx:id="tablaFarmaceutas" layoutX="14.0" layoutY="223.0" prefHeight="150.0" prefWidth="774.0" style="-fx-border-color: #6257e3;">
+                        <TableView fx:id="tablaFarmaceutas" layoutX="14.0" layoutY="223.0" prefHeight="150.0" prefWidth="781.0" style="-fx-border-color: #6257e3;">
                            <columns>
                               <TableColumn fx:id="colIdFarmaceutas" prefWidth="386.0" text="ID" />
-                              <TableColumn fx:id="colNombreFarmaceutas" prefWidth="386.0" text="Nombre" />
+                              <TableColumn fx:id="colNombreFarmaceutas" prefWidth="393.0" text="Nombre" />
                            </columns>
                         </TableView>
                      </children>
@@ -467,12 +467,12 @@
                            <Font name="Calibri Bold" size="20.0" />
                         </font>
                      </Text>
-                     <TableView fx:id="tablaPacientes" layoutX="13.0" layoutY="223.0" prefHeight="150.0" prefWidth="775.0" style="-fx-border-color: #6257e3;">
+                     <TableView fx:id="tablaPacientes" layoutX="13.0" layoutY="223.0" prefHeight="150.0" prefWidth="782.0" style="-fx-border-color: #6257e3;">
                         <columns>
                            <TableColumn fx:id="colIdPaciente" prefWidth="103.0" text="Id" />
                            <TableColumn fx:id="colNombrePaciente" prefWidth="225.0" text="Nombre" />
                            <TableColumn fx:id="colTelefonoPaciente" prefWidth="257.0" text="Telefono" />
-                           <TableColumn fx:id="colFechaNacimientoPaciente" prefWidth="188.0" text="Fecha de Nacimiento" />
+                           <TableColumn fx:id="colFechaNacimientoPaciente" prefWidth="195.0" text="Fecha de Nacimiento" />
                         </columns>
                      </TableView>
                         </AnchorPane>
@@ -609,11 +609,11 @@
                               <Font name="Calibri Bold" size="20.0" />
                            </font>
                         </Text>
-                        <TableView fx:id="tablaMedicamentos" layoutX="14.0" layoutY="223.0" prefHeight="150.0" prefWidth="772.0" style="-fx-border-color: #6257e3;">
+                        <TableView fx:id="tablaMedicamentos" layoutX="14.0" layoutY="223.0" prefHeight="150.0" prefWidth="778.0" style="-fx-border-color: #6257e3;">
                            <columns>
                               <TableColumn fx:id="colCodigoMedicamento" prefWidth="131.0" text="Codigo" />
                               <TableColumn fx:id="colNombreMedicamento" prefWidth="299.0" text="Nombre" />
-                              <TableColumn fx:id="colDescripcionMedicamento" prefWidth="340.0" text="Descripcion" />
+                              <TableColumn fx:id="colDescripcionMedicamento" prefWidth="352.0" text="Descripcion" />
                            </columns>
                         </TableView>
                      </children>
