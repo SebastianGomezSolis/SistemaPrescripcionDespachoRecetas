@@ -821,10 +821,9 @@
                            <columns>
                               <TableColumn fx:id="colIDRecetaDespacho" prefWidth="75.0" text="ID Receta" />
                               <TableColumn fx:id="colPacienteDespacho" prefWidth="180.66667938232422" text="Paciente" />
-                              <TableColumn fx:id="colMedicoDespacho" prefWidth="159.0" text="Médico" />
-                              <TableColumn fx:id="colFechaDespacho" prefWidth="127.0" text="Fecha Confección" />
-                              <TableColumn fx:id="colFechaRetiroDespacho" prefWidth="107.0" text="Fecha Retiro" />
-                              <TableColumn fx:id="colEstadoDespacho" prefWidth="129.0" text="Estado Actual" />
+                              <TableColumn fx:id="colMedicoDespacho" prefWidth="170.0" text="Médico" />
+                              <TableColumn fx:id="colFechaRetiroDespacho" prefWidth="188.0" text="Fecha Retiro" />
+                              <TableColumn fx:id="colEstadoDespacho" prefWidth="164.0" text="Estado Actual" />
                            </columns>
                         </TableView>
                         <Text layoutX="14.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo estado:">
