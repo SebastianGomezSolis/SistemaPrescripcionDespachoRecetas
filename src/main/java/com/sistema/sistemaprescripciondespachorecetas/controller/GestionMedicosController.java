@@ -385,6 +385,7 @@ public class GestionMedicosController implements Initializable {
             System.err.println("[ERROR] Error al cargar gráficos: " + e.getMessage());
             e.printStackTrace();
         }
+
     }
 
 
@@ -909,7 +910,6 @@ public class GestionMedicosController implements Initializable {
 
 
     // =========================== PRESCRIBIR =======================
-
     @FXML
     private void buscarPacientes() {
         try {
@@ -997,7 +997,9 @@ public class GestionMedicosController implements Initializable {
             recetaLogica.create(recetaActual);
             mostrarAlerta("Éxito", "Receta guardada correctamente.", Alert.AlertType.INFORMATION);
             recetaActual = null;
-            refrescarTablaPrescripcion();;
+            refrescarTablaPrescripcion();
+            cargarGraficos();
+            refrescarTablaHistorico();
         } catch (Exception e) {
             mostrarAlerta("Error", "Error al guardar receta: " + e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -1173,7 +1175,22 @@ public class GestionMedicosController implements Initializable {
         }
     }
 
-    // Despacho
+    private void refrescarTablaHistorico() {
+        try {
+            listaHistoricoRecetas.clear();
+
+            List<Receta> recetas = recetaLogica.findAll();
+
+            listaHistoricoRecetas.addAll(recetas);
+            TV_Historico.refresh();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", "Error al refrescar la tabla de histórico: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+
+    // DESPACHO
     @FXML
     private void limpiarDespacho() {
         TXT_RecetaDespacho.clear();
@@ -1212,7 +1229,9 @@ public class GestionMedicosController implements Initializable {
             listaDespachoRecetas.setAll(recetaLogica.findAll());
             CB_NuevoEstadoDespacho.setValue(null);
             //limpiarDespacho();
-            TV_Despacho.refresh();
+            refrescarTablaHistorico();
+            cargarGraficos();
+
 
         } catch (Exception e) {
             mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);

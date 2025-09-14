@@ -44,7 +44,7 @@
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Entregada</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -67,7 +67,7 @@
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Entregada</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -90,7 +90,7 @@
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Lista</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -113,7 +113,7 @@
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Lista</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -159,7 +159,7 @@
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Proceso</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -360,7 +360,7 @@
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Lista</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -383,7 +383,7 @@
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Lista</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -406,7 +406,7 @@
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Proceso</estado>
+            <estado>Lista</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -429,7 +429,7 @@
                 <fechaNacimiento>2019-09-11</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-14</fechaEntrega>
-            <estado>Lista</estado>
+            <estado>Entregada</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -450,6 +450,98 @@
                     <cantidad>1</cantidad>
                     <indicaciones>Tomarla cada 8 horas </indicaciones>
                     <diasDuracion>5</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC018</id>
+            <paciente>
+                <id>PAC002</id>
+                <nombre>Ines</nombre>
+                <telefono>145156115</telefono>
+                <fechaNacimiento>2024-06-21</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Entregada</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>10</cantidad>
+                    <indicaciones>Tomar</indicaciones>
+                    <diasDuracion>5</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC019</id>
+            <paciente>
+                <id>PAC001</id>
+                <nombre>Santi</nombre>
+                <telefono>11121545</telefono>
+                <fechaNacimiento>2025-09-04</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Entregada</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-100</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>100mg</descripcion>
+                    </medicamento>
+                    <cantidad>5</cantidad>
+                    <indicaciones>ddd</indicaciones>
+                    <diasDuracion>4</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC020</id>
+            <paciente>
+                <id>PAC001</id>
+                <nombre>Santi</nombre>
+                <telefono>11121545</telefono>
+                <fechaNacimiento>2025-09-04</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Lista</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>6</cantidad>
+                    <indicaciones>Cambios</indicaciones>
+                    <diasDuracion>7</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC021</id>
+            <paciente>
+                <id>PAC001</id>
+                <nombre>Santi</nombre>
+                <telefono>11121545</telefono>
+                <fechaNacimiento>2025-09-04</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Lista</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>9</cantidad>
+                    <indicaciones>Tomar</indicaciones>
+                    <diasDuracion>4</diasDuracion>
                 </medicamentoDetalle>
             </medicamentos>
         </receta>
