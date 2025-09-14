@@ -375,5 +375,51 @@
                 </medicamentoDetalle>
             </medicamentos>
         </receta>
+        <receta>
+            <id>REC015</id>
+            <paciente>
+                <id>PAC002</id>
+                <nombre>Ines</nombre>
+                <telefono>145156115</telefono>
+                <fechaNacimiento>2024-06-21</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-13</fechaEntrega>
+            <estado>Confeccionada</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-100</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>100mg</descripcion>
+                    </medicamento>
+                    <cantidad>5</cantidad>
+                    <indicaciones>Tomela</indicaciones>
+                    <diasDuracion>5</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC016</id>
+            <paciente>
+                <id>PAC002</id>
+                <nombre>Ines</nombre>
+                <telefono>145156115</telefono>
+                <fechaNacimiento>2024-06-21</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-13</fechaEntrega>
+            <estado>Proceso</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-100</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>100mg</descripcion>
+                    </medicamento>
+                    <cantidad>5</cantidad>
+                    <indicaciones>Tomela</indicaciones>
+                    <diasDuracion>5</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
     </recetas>
 </recetasData>

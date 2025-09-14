@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -691,12 +695,17 @@
                                     <TableColumn fx:id="colDuracion" prefWidth="103.0" text="Duracion" />
                                  </columns>
                               </TableView>
-                              <Label fx:id="LBL_Nombre" layoutX="31.0" layoutY="81.0" text="Nombre">
+                              <Label fx:id="LBL_Nombre" layoutX="185.0" layoutY="84.0" text="Nombre">
                                  <font>
-                                    <Font name="Calibri Bold" size="18.0" />
+                                    <Font name="Calibri" size="18.0" />
                                  </font>
                               </Label>
                               <DatePicker fx:id="dtpFechaRetiro" layoutX="169.0" layoutY="37.0" prefHeight="25.0" prefWidth="185.0" />
+                              <Label layoutX="31.0" layoutY="85.0" text="Nombre del Paciente: ">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
                            </children>
                         </Pane>
                         <Pane layoutX="8.0" layoutY="307.0" prefHeight="72.0" prefWidth="630.0">
@@ -784,9 +793,30 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="769.0">
                      <children>
-                        <Pane layoutX="14.0" layoutY="13.0" prefHeight="361.0" prefWidth="225.0" />
-                        <Pane layoutX="251.0" layoutY="13.0" prefHeight="361.0" prefWidth="264.0" />
-                        <Pane layoutX="526.0" layoutY="14.0" prefHeight="361.0" prefWidth="229.0" />
+                        <BarChart fx:id="chartEstado" layoutY="28.0" prefHeight="359.0" prefWidth="382.0" title="Recetas por estado">
+                          <xAxis>
+                            <CategoryAxis fx:id="rangosXAxis" label="Estado de las recetas" side="BOTTOM" />
+                          </xAxis>
+                          <yAxis>
+                            <NumberAxis fx:id="rangosYAxis" label="Cantidad total" side="LEFT" />
+                          </yAxis>
+                        </BarChart>
+                        <PieChart fx:id="chartEstadoPie" layoutX="382.0" layoutY="27.0" prefHeight="362.0" prefWidth="387.0" title="Distribucion por estados" />
+                        <Pane layoutX="-3.0" layoutY="-1.0" prefHeight="30.0" prefWidth="771.0">
+                           <children>
+                              <Label layoutX="259.0" layoutY="-6.0" prefHeight="44.0" prefWidth="254.0" text="Estadisticas de las recetas">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="635.0" layoutY="-6.0" prefHeight="44.0" prefWidth="78.0" text="Total recetas:" />
+                              <Label fx:id="lblTotalRecetas" layoutX="713.0" layoutY="-6.0" prefHeight="44.0" prefWidth="49.0" text="0">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                      </children></AnchorPane>
               </content>
                <graphic>

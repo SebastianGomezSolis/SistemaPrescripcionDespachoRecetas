@@ -257,6 +257,7 @@ public class LoginController implements Initializable {
     protected void salirLogin() {
         System.exit(0);
     }
+
     private void verificarAdministradorPorDefecto() {
         try {
             AdministradorLogica logica = new AdministradorLogica(RutasArchivos.ADMINISTRADORES);

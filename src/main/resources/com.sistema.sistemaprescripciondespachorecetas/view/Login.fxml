@@ -54,7 +54,7 @@
             <Image url="@../images/bloquear.png" />
         </image>
     </ImageView>
-    <Label contentDisplay="CENTER" layoutX="70.0" layoutY="79.0" text="Gestión inteligente para tu farmacia" textFill="#b0dab6">
+    <Label contentDisplay="CENTER" layoutX="63.0" layoutY="79.0" text="Gestión inteligente para tu farmacia" textFill="#bc91cc">
         <font>
             <Font name="Tahoma Bold" size="10.0" />
         </font>

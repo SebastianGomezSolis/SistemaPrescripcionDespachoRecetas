@@ -13,5 +13,11 @@
             <telefono>145156115</telefono>
             <fechaNacimiento>2024-06-21</fechaNacimiento>
         </paciente>
+        <paciente>
+            <id>PAC003</id>
+            <nombre>Yariela</nombre>
+            <telefono>28854877</telefono>
+            <fechaNacimiento>2019-09-11</fechaNacimiento>
+        </paciente>
     </pacientes>
 </pacientesData>

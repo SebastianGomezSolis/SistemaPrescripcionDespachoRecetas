@@ -3,7 +3,7 @@
     <administradores>
         <administrador>
             <id>ADM001</id>
-            <clave>1111</clave>
+            <clave>1234</clave>
         </administrador>
     </administradores>
 </administradoresData>

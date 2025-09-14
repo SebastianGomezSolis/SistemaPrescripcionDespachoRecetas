@@ -1,10 +1,6 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.FarmaceutaLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicoLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.PacienteLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicamentoLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.RecetaLogica;
+import com.sistema.sistemaprescripciondespachorecetas.logic.logica.*;
 
 import com.sistema.sistemaprescripciondespachorecetas.model.*;
 import com.sistema.sistemaprescripciondespachorecetas.utilitarios.Sesion;
@@ -16,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,9 +20,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GestionMedicosController implements Initializable {
@@ -147,6 +142,13 @@ public class GestionMedicosController implements Initializable {
     @FXML
     private Tab tabFarmaceutas;
 
+    // DashBoard
+    @FXML private Label lblTotalRecetas;
+    @FXML private BarChart<String, Number> chartEstado;
+    @FXML private CategoryAxis rangosXAxis;
+    @FXML private NumberAxis rangosYAxis;
+    @FXML private PieChart chartEstadoPie;
+
     //Historico
     @FXML private TableView<Receta> TV_Historico;
     @FXML private TableColumn<Receta, String> colIdHistorico;
@@ -217,6 +219,8 @@ public class GestionMedicosController implements Initializable {
     private final PacienteLogica pacienteLogica = new PacienteLogica(RUTA_PACIENTES);
     private final MedicamentoLogica medicamentoLogica = new MedicamentoLogica(RUTA_MEDICAMENTOS);
     private final RecetaLogica recetaLogica = new RecetaLogica(RUTA_RECETAS);
+    private DashBoardLogica dashBoardLogica;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -329,6 +333,16 @@ public class GestionMedicosController implements Initializable {
 
         //listaRecetas.addAll(recetaLogica.findAll());
         refrescarTablaPrescripcion();
+
+        this.dashBoardLogica = new DashBoardLogica(recetaLogica);
+        try {
+            cargarGraficos();
+            System.out.println("[DEBUG] Gráficos cargados exitosamente");
+        } catch (Exception e) {
+            System.err.println("[ERROR] Error al cargar gráficos: " + e.getMessage());
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -842,7 +856,6 @@ public class GestionMedicosController implements Initializable {
         tablaMedicamentos.setItems(listaMedicamentos);
     }
 
-
     // =========================== ALERTAS ===========================
     private void mostrarAlerta(String titulo, String mensaje, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
@@ -928,7 +941,6 @@ public class GestionMedicosController implements Initializable {
         }
     }
 
-
     private Medico obtenerMedicoActual() {
         return (Medico) Sesion.getUsuarioActual();
     }
@@ -1006,7 +1018,6 @@ public class GestionMedicosController implements Initializable {
         }
     }
 
-
     @FXML
     private void limpiarM() {
         LBL_Nombre.setText("");
@@ -1017,7 +1028,6 @@ public class GestionMedicosController implements Initializable {
         refrescarTablaPrescripcion();
     }
 
-
     private void refrescarTablaPrescripcion() {
         tablaPrescripcion.getItems().clear();
         if (recetaActual != null && recetaActual.getMedicamentos() != null) {
@@ -1025,15 +1035,55 @@ public class GestionMedicosController implements Initializable {
         }
     }
 
+    // DASHBOARD
+    public void cargarGraficos() {
+        try {
+            if (dashBoardLogica == null) {
+                System.err.println("[ERROR] dashBoardLogica es null");
+                return;
+            }
 
-    //HISTORICO
+            // Totales
+            int total = dashBoardLogica.totalRecetas();
+            lblTotalRecetas.setText(String.valueOf(total));
 
+            // Rangos → Barras
+            LinkedHashMap<String, Long> estados = dashBoardLogica.recetasPorEstado();
+
+            if (chartEstado != null) {
+                chartEstado.getData().clear();
+                XYChart.Series<String, Number> serie = new XYChart.Series<>();
+                serie.setName("Recetas según estado");
+
+                for (Map.Entry<String, Long> e : estados.entrySet()) {
+                    serie.getData().add(new XYChart.Data<>(e.getKey(), e.getValue()));
+                }
+                chartEstado.getData().add(serie);
+            }
+
+            // Rangos → Pie
+            if (chartEstadoPie != null) {
+                chartEstadoPie.getData().clear();
+                for (Map.Entry<String, Long> e : estados.entrySet()) {
+                    if (e.getValue() > 0) { // evita sectores cero
+                        chartEstadoPie.getData().add(new PieChart.Data(e.getKey(), e.getValue()));
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error en cargarGraficos(): " + e.getMessage());
+            e.printStackTrace();
+        }
+
+    }
+
+    // HISTORICO
     @FXML
     private void limpiarHistorico() {
         TXT_RecetaHistorico.clear();
         TV_Historico.setItems(listaHistoricoRecetas);
     }
-
 
     @FXML
     private void buscarRecetaHistorico() {
@@ -1052,7 +1102,6 @@ public class GestionMedicosController implements Initializable {
 
         TV_Historico.setItems(FXCollections.observableArrayList(resultados));
     }
-
 
     @FXML
     private void verDetallesReceta() {
@@ -1081,10 +1130,5 @@ public class GestionMedicosController implements Initializable {
             mostrarAlerta("Error", "No se pudo cargar la receta: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
-
-
-
-
 
 }
