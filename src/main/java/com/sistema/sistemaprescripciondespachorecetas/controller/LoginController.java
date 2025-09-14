@@ -149,7 +149,7 @@ public class LoginController implements Initializable {
 
         List<String> permisos = switch (prefijo) {
             case "MED" -> List.of("PRESCRIBIR", "HISTORICO", "DASHBOARD", "ACERCA"); // Médico
-            case "FAR" -> List.of("DESPACHAR", "HISTORICO", "DASHBOARD", "ACERCA");  // Farmacéutico
+            case "FAR" -> List.of("HISTORICO", "DASHBOARD", "ACERCA", "GESTION_DESPACHO");  // Farmacéutico
             case "ADM" -> List.of("GESTION_MEDICOS", "GESTION_FARMACEUTAS" ,"GESTION_PACIENTES", "GESTION_MEDICAMENTOS", "DASHBOARD", "HISTORICO", "ACERCA"); // Admin
             default -> List.of();
         };

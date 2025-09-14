@@ -141,6 +141,7 @@ public class GestionMedicosController implements Initializable {
     private Tab tabAcercaDe;
     @FXML
     private Tab tabFarmaceutas;
+    @FXML private Tab tabDespacho;
 
     // DashBoard
     @FXML private Label lblTotalRecetas;
@@ -362,6 +363,7 @@ public class GestionMedicosController implements Initializable {
         ocultarSiNoTienePermiso(tabPacientes, "GESTION_PACIENTES");
         ocultarSiNoTienePermiso(tabMedicamentos, "GESTION_MEDICAMENTOS");
         ocultarSiNoTienePermiso(tabFarmaceutas, "GESTION_FARMACEUTAS");
+        ocultarSiNoTienePermiso(tabDespacho, "GESTION_DESPACHO");
     }
 
     public void volver() {
