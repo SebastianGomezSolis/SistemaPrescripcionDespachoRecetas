@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <recetasData>
     <recetas>
-   <receta>
-  <id>REC000</id>
-  <paciente>
-    <id>PAC002</id>
-    <nombre>Ines</nombre>
-    <telefono>145156115</telefono>
-    <fechaNacimiento>2024-06-21</fechaNacimiento>
-  </paciente>
-  <fechaEntrega>2025-09-12</fechaEntrega>
-  <medicamentos/>
-</receta>
-
+        <receta>
+            <id>REC000</id>
+            <paciente>
+                <id>PAC002</id>
+                <nombre>Ines</nombre>
+                <telefono>145156115</telefono>
+                <fechaNacimiento>2024-06-21</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-12</fechaEntrega>
+            <medicamentos/>
+        </receta>
         <receta>
             <id>REC001</id>
             <paciente>
@@ -22,7 +21,7 @@
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Confeccionada</estado>
+            <estado>Entregada</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -417,6 +416,39 @@
                     </medicamento>
                     <cantidad>5</cantidad>
                     <indicaciones>Tomela</indicaciones>
+                    <diasDuracion>5</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC017</id>
+            <paciente>
+                <id>PAC003</id>
+                <nombre>Yariela</nombre>
+                <telefono>28854877</telefono>
+                <fechaNacimiento>2019-09-11</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Lista</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-100</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>100mg</descripcion>
+                    </medicamento>
+                    <cantidad>1</cantidad>
+                    <indicaciones>Tomarla en la noche antes de dormir</indicaciones>
+                    <diasDuracion>10</diasDuracion>
+                </medicamentoDetalle>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>1</cantidad>
+                    <indicaciones>Tomarla cada 8 horas </indicaciones>
                     <diasDuracion>5</diasDuracion>
                 </medicamentoDetalle>
             </medicamentos>

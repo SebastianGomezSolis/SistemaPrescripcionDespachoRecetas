@@ -160,6 +160,19 @@ public class GestionMedicosController implements Initializable {
     @FXML private ComboBox<String> CB_Receta;
     @FXML private TextField TXT_RecetaHistorico;
 
+
+    //Despacho
+    @FXML private TableView<Receta> TV_Despacho;
+    @FXML private TableColumn<Receta, String> colIDRecetaDespacho;
+    @FXML private TableColumn<Receta, String> colPacienteDespacho;
+    @FXML private TableColumn<Receta, String> colMedicoDespacho;
+    @FXML private TableColumn<Receta, String> colFechaRetiroDespacho;
+    @FXML private TableColumn<Receta, String> colEstadoDespacho;
+    @FXML private ComboBox<String> CB_RecetaDespacho;
+    @FXML private ComboBox<String> CB_NuevoEstadoDespacho;
+    @FXML private TextField TXT_RecetaDespacho;
+
+
     @FXML
     private Label LBL_Nombre;
 
@@ -173,6 +186,7 @@ public class GestionMedicosController implements Initializable {
     private final ObservableList<Medicamento> listaMedicamentos = FXCollections.observableArrayList();
     private final ObservableList<RecetaDetalle> listaRecetaDetalles = FXCollections.observableArrayList();
     private final ObservableList<Receta> listaHistoricoRecetas = FXCollections.observableArrayList();
+    private final ObservableList<Receta> listaDespachoRecetas = FXCollections.observableArrayList();
 
 
     private static final String RUTA_MEDICOS = java.nio.file.Paths
@@ -270,6 +284,24 @@ public class GestionMedicosController implements Initializable {
         );
 
 
+        colIDRecetaDespacho.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getId() != null ? r.getValue().getId() : "")
+        );
+        colPacienteDespacho.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getPaciente() != null ? r.getValue().getPaciente().getNombre() : "")
+        );
+        colMedicoDespacho.setCellValueFactory(r ->
+                new SimpleStringProperty(
+                        (r.getValue().getMedico() != null) ? r.getValue().getMedico().getNombre() : "Desconocido"
+                )
+        );
+        colFechaRetiroDespacho.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getFechaEntrega() != null ? r.getValue().getFechaEntrega().toString() : "")
+        );
+        colEstadoDespacho.setCellValueFactory(r ->
+                new SimpleStringProperty(r.getValue().getEstado() != null ? r.getValue().getEstado() : "")
+        );
+
         // Inicializar campo ID
         txtIdMedico.setText(PREFIJO_ID);
         txtIdMedico.positionCaret(PREFIJO_ID.length());
@@ -318,10 +350,16 @@ public class GestionMedicosController implements Initializable {
         listaHistoricoRecetas.setAll(recetaLogica.findAll());
         TV_Historico.setItems(listaHistoricoRecetas);
 
+        listaDespachoRecetas.setAll(recetaLogica.findAll());
+        TV_Despacho.setItems(listaDespachoRecetas);
+
 
         List<Receta> recetas = recetaLogica.findAll();
         listaHistoricoRecetas.setAll(recetas);
         TV_Historico.setItems(listaHistoricoRecetas);
+
+        listaDespachoRecetas.setAll(recetas);
+        TV_Despacho.setItems(listaDespachoRecetas);
 
         // Cargar IDs únicos en el ComboBox
         List<String> ids = recetas.stream()
@@ -330,6 +368,10 @@ public class GestionMedicosController implements Initializable {
                 .collect(Collectors.toList());
 
         CB_Receta.setItems(FXCollections.observableArrayList(ids));
+        CB_RecetaDespacho.setItems(FXCollections.observableArrayList(ids));
+
+        CB_NuevoEstadoDespacho.setItems(FXCollections.observableArrayList(
+                "Proceso", "Lista", "Entregada"));
 
 
         //listaRecetas.addAll(recetaLogica.findAll());
@@ -343,8 +385,6 @@ public class GestionMedicosController implements Initializable {
             System.err.println("[ERROR] Error al cargar gráficos: " + e.getMessage());
             e.printStackTrace();
         }
-
-
     }
 
 
@@ -1120,7 +1160,7 @@ public class GestionMedicosController implements Initializable {
 
             RecetaController controller = loader.getController();
 
-            // Llamar al método para mostrar la receta completa
+            // Llamar al metodo para mostrar la receta completa
             controller.setRecetaH(seleccionada, false);
 
             Stage stage = new Stage();
@@ -1132,5 +1172,52 @@ public class GestionMedicosController implements Initializable {
             mostrarAlerta("Error", "No se pudo cargar la receta: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    // Despacho
+    @FXML
+    private void limpiarDespacho() {
+        TXT_RecetaDespacho.clear();
+        TV_Despacho.setItems(listaDespachoRecetas);
+    }
+
+    @FXML
+    private void buscarRecetaDespacho() {
+        String criterioIdCombo = CB_RecetaDespacho.getValue() != null ? CB_RecetaDespacho.getValue().trim().toLowerCase() : "";
+        String criterioTexto = TXT_RecetaDespacho.getText().trim().toLowerCase();
+
+        List<Receta> resultados = listaDespachoRecetas.stream()
+                .filter(r -> {
+                    if (r.getId() == null) return false;
+
+                    boolean coincideCombo = criterioIdCombo.isEmpty() || r.getId().toLowerCase().contains(criterioIdCombo);
+                    boolean coincideTexto = criterioTexto.isEmpty() || r.getId().toLowerCase().contains(criterioTexto);
+                    return coincideCombo && coincideTexto;
+                })
+                .collect(Collectors.toList());
+
+        TV_Despacho.setItems(FXCollections.observableArrayList(resultados));
+    }
+
+    @FXML
+    private void guardarDespacho(){
+        String estado = CB_NuevoEstadoDespacho.getValue();
+        Receta seleccionada = TV_Despacho.getSelectionModel().getSelectedItem();
+        if (seleccionada == null) {
+            mostrarAlerta("Error", "Seleccione una receta.", Alert.AlertType.WARNING);
+            return;
+        }
+        try{
+            seleccionada.setEstado(estado);
+            recetaLogica.update(seleccionada);
+            listaDespachoRecetas.setAll(recetaLogica.findAll());
+            CB_NuevoEstadoDespacho.setValue(null);
+            //limpiarDespacho();
+            TV_Despacho.refresh();
+
+        } catch (Exception e) {
+            mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
 
 }
