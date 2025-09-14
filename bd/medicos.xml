@@ -8,16 +8,22 @@
             <especialidad>Cardiologia</especialidad>
         </medico>
         <medico>
-            <id>MED002</id>
-            <clave>MED002</clave>
-            <nombre>Dr. Ramirez</nombre>
-            <especialidad>Vascubilidad</especialidad>
-        </medico>
-        <medico>
             <id>MED003</id>
             <clave>MED003</clave>
             <nombre>DR. Rodriguez</nombre>
             <especialidad>Pediatra</especialidad>
+        </medico>
+        <medico>
+            <id>MED002</id>
+            <clave>MED002</clave>
+            <nombre>Alvaro</nombre>
+            <especialidad>Psiquiatría</especialidad>
+        </medico>
+        <medico>
+            <id>MED004</id>
+            <clave>MED004</clave>
+            <nombre>Marcos</nombre>
+            <especialidad>Cirugía General</especialidad>
         </medico>
     </medicos>
 </medicosData>

@@ -19,5 +19,11 @@
             <telefono>28854877</telefono>
             <fechaNacimiento>2019-09-11</fechaNacimiento>
         </paciente>
+        <paciente>
+            <id>PAC004</id>
+            <nombre>Jose</nombre>
+            <telefono>25251485</telefono>
+            <fechaNacimiento>1994-04-14</fechaNacimiento>
+        </paciente>
     </pacientes>
 </pacientesData>
