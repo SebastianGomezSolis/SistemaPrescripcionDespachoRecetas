@@ -11,10 +11,5 @@
             <nombre>Acetaminofen</nombre>
             <descripcion>500mg</descripcion>
         </medicamento>
-        <medicamento>
-            <codigo>CCC-101</codigo>
-            <nombre>CCCCC</nombre>
-            <descripcion>101</descripcion>
-        </medicamento>
     </medicamentos>
 </medicamentosData>

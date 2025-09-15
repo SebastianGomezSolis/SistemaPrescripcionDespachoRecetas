@@ -3,13 +3,13 @@
     <medicos>
         <medico>
             <id>MED001</id>
-            <clave>12345</clave>
-            <nombre>Dr. Gomez</nombre>
+            <clave>MED001</clave>
+            <nombre>Cristopher</nombre>
             <especialidad>Cardiologia</especialidad>
         </medico>
         <medico>
             <id>MED003</id>
-            <clave>MED003</clave>
+            <clave>Rodriguez03</clave>
             <nombre>DR. Rodriguez</nombre>
             <especialidad>Pediatra</especialidad>
         </medico>
@@ -28,7 +28,7 @@
         <medico>
             <id>MED005</id>
             <clave>MED005</clave>
-            <nombre>Ashley</nombre>
+            <nombre>Samuel</nombre>
             <especialidad>Cardiologia</especialidad>
         </medico>
     </medicos>

@@ -67,7 +67,7 @@
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Entregada</estado>
+            <estado>Lista</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -90,7 +90,7 @@
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Lista</estado>
+            <estado>Entregada</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -360,7 +360,7 @@
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
             <fechaEntrega>2025-09-13</fechaEntrega>
-            <estado>Lista</estado>
+            <estado>Entregada</estado>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -588,6 +588,29 @@
                     <cantidad>20</cantidad>
                     <indicaciones>Tomar despues de comer</indicaciones>
                     <diasDuracion>15</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC024</id>
+            <paciente>
+                <id>PAC002</id>
+                <nombre>Ines</nombre>
+                <telefono>145156115</telefono>
+                <fechaNacimiento>2024-06-21</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Confeccionada</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-100</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>100mg</descripcion>
+                    </medicamento>
+                    <cantidad>20</cantidad>
+                    <indicaciones>Tomarla en la noche</indicaciones>
+                    <diasDuracion>3</diasDuracion>
                 </medicamentoDetalle>
             </medicamentos>
         </receta>

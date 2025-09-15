@@ -840,7 +840,7 @@ public class GestionMedicosController implements Initializable {
                 if (respuesta == ButtonType.OK) {
                     try {
                         medicamentoLogica.deleteById(seleccionado.getCodigo());
-                        mostrarAlerta("Éxito", "El médico ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
+                        mostrarAlerta("Éxito", "El medicamento ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
                         refrescarTablaMedicamento();
                         limpiarCampoMedicamento();
                     } catch (Exception e) {

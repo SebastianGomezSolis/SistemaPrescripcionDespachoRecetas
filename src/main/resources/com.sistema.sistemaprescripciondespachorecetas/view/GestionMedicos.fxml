@@ -38,14 +38,14 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="58.0" layoutX="21.0" layoutY="17.0" stroke="WHITE" width="855.0" />
 
         <!-- Título -->
-        <Text fill="#290382" layoutX="346.0" layoutY="54.0" text="FarmaApp  ">
+        <Text fill="#290382" layoutX="365.0" layoutY="54.0" text="FarmaApp  ">
             <font>
                 <Font name="Calibri Bold" size="44.0" />
             </font>
         </Text>
 
         <!-- Ícono principal -->
-        <ImageView fitHeight="33.0" fitWidth="30.0" layoutX="308.0" layoutY="28.0" preserveRatio="true">
+        <ImageView fitHeight="33.0" fitWidth="30.0" layoutX="329.0" layoutY="28.0" preserveRatio="true">
             <image>
                 <Image url="@../images/equipo-medico.png" />
             </image>
@@ -886,7 +886,7 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="382.0" prefWidth="769.0">
                      <children>
-                        <BarChart fx:id="chartEstado" layoutY="28.0" prefHeight="390.0" prefWidth="425.0" title="Recetas por estado">
+                        <BarChart fx:id="chartEstado" layoutY="32.0" prefHeight="403.0" prefWidth="425.0" title="Recetas por estado">
                           <xAxis>
                             <CategoryAxis fx:id="rangosXAxis" label="Estado de las recetas" side="BOTTOM" />
                           </xAxis>
@@ -894,10 +894,10 @@
                             <NumberAxis fx:id="rangosYAxis" label="Cantidad total" side="LEFT" />
                           </yAxis>
                         </BarChart>
-                        <PieChart fx:id="chartEstadoPie" layoutX="428.0" layoutY="27.0" prefHeight="391.0" prefWidth="426.0" title="Distribucion por estados" />
-                        <Pane layoutX="-3.0" layoutY="-1.0" prefHeight="30.0" prefWidth="856.0">
+                        <PieChart fx:id="chartEstadoPie" layoutX="427.0" layoutY="33.0" prefHeight="405.0" prefWidth="426.0" title="Distribucion por estados" />
+                        <Pane layoutX="-3.0" layoutY="-1.0" prefHeight="38.0" prefWidth="856.0">
                            <children>
-                              <Label layoutX="289.0" layoutY="-8.0" prefHeight="44.0" prefWidth="279.0" text="Estadisticas de las recetas" textFill="#290382">
+                              <Label layoutX="289.0" layoutY="9.0" prefHeight="30.0" prefWidth="279.0" text="Estadisticas de las recetas" textFill="#290382">
                                  <font>
                                     <Font name="Calibri Bold" size="24.0" />
                                  </font>
