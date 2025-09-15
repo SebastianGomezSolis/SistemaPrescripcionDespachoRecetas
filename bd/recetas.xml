@@ -9,6 +9,7 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
+            <estado>Entregada</estado>
             <fechaEntrega>2025-09-12</fechaEntrega>
             <medicamentos/>
         </receta>
@@ -20,8 +21,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Entregada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -43,8 +44,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Entregada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -66,8 +67,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Lista</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -89,8 +90,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Entregada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -112,8 +113,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Lista</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -135,8 +136,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -158,8 +159,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Proceso</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -181,8 +182,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -204,8 +205,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -227,8 +228,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -260,8 +261,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -303,8 +304,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -336,8 +337,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -359,8 +360,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Entregada</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -382,8 +383,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Lista</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -405,8 +406,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-13</fechaEntrega>
             <estado>Lista</estado>
+            <fechaEntrega>2025-09-13</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -428,8 +429,8 @@
                 <telefono>28854877</telefono>
                 <fechaNacimiento>2019-09-11</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Entregada</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -461,8 +462,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Entregada</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -484,8 +485,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Entregada</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -507,8 +508,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Lista</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -530,8 +531,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Lista</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -553,8 +554,8 @@
                 <telefono>11121545</telefono>
                 <fechaNacimiento>2025-09-04</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -576,8 +577,8 @@
                 <telefono>28854877</telefono>
                 <fechaNacimiento>2019-09-11</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Lista</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -599,8 +600,8 @@
                 <telefono>145156115</telefono>
                 <fechaNacimiento>2024-06-21</fechaNacimiento>
             </paciente>
-            <fechaEntrega>2025-09-14</fechaEntrega>
             <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-14</fechaEntrega>
             <medicamentos>
                 <medicamentoDetalle>
                     <medicamento>
@@ -611,6 +612,98 @@
                     <cantidad>20</cantidad>
                     <indicaciones>Tomarla en la noche</indicaciones>
                     <diasDuracion>3</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC025</id>
+            <paciente>
+                <id>PAC003</id>
+                <nombre>Yariela</nombre>
+                <telefono>28854877</telefono>
+                <fechaNacimiento>2019-09-11</fechaNacimiento>
+            </paciente>
+            <estado>Lista</estado>
+            <fechaEntrega>2025-09-15</fechaEntrega>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>5</cantidad>
+                    <indicaciones>De dia</indicaciones>
+                    <diasDuracion>10</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC026</id>
+            <paciente>
+                <id>PAC002</id>
+                <nombre>Ines</nombre>
+                <telefono>145156115</telefono>
+                <fechaNacimiento>2024-06-21</fechaNacimiento>
+            </paciente>
+            <estado>Lista</estado>
+            <fechaEntrega>2025-09-24</fechaEntrega>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>10</cantidad>
+                    <indicaciones>Tomar en la noche</indicaciones>
+                    <diasDuracion>10</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC027</id>
+            <paciente>
+                <id>PAC002</id>
+                <nombre>Ines</nombre>
+                <telefono>145156115</telefono>
+                <fechaNacimiento>2024-06-21</fechaNacimiento>
+            </paciente>
+            <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-30</fechaEntrega>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>1</cantidad>
+                    <indicaciones>Dormir</indicaciones>
+                    <diasDuracion>1</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC028</id>
+            <paciente>
+                <id>PAC001</id>
+                <nombre>Santi</nombre>
+                <telefono>11121545</telefono>
+                <fechaNacimiento>2025-09-04</fechaNacimiento>
+            </paciente>
+            <estado>Confeccionada</estado>
+            <fechaEntrega>2025-09-24</fechaEntrega>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>1</cantidad>
+                    <indicaciones>Prueba</indicaciones>
+                    <diasDuracion>1</diasDuracion>
                 </medicamentoDetalle>
             </medicamentos>
         </receta>

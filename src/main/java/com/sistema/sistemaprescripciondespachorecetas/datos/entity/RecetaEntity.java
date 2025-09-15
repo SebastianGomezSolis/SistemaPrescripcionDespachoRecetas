@@ -11,22 +11,18 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "receta")
 public class RecetaEntity {
-
     private String id;
-
     private PacienteEntity paciente;
+    private String estado;
 
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate fechaEntrega;
-
-    private String estado;
 
     @XmlElementWrapper(name = "medicamentos")
     @XmlElement(name = "medicamentoDetalle")
     private List<RecetaDetalleEntity> medicamentos = new ArrayList<>();
 
     // Getters y setters
-
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 

@@ -23,7 +23,6 @@ public class Receta {
         this.paciente = paciente;
         this.fechaEntrega = fechaEntrega;
         this.estado = "Confeccionada";
-        this.medico = medico;
         this.medicamentos = new ArrayList<>();
     }
 
@@ -48,7 +47,5 @@ public class Receta {
 
 
     // Metodo para agregar un detalle (medicamento con cantidad e indicaciones)
-    public void agregarMedicamento(RecetaDetalle detalle) {
-        this.medicamentos.add(detalle);
-    }
+    public void agregarMedicamento(RecetaDetalle detalle) { this.medicamentos.add(detalle); }
 }

@@ -25,8 +25,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GestionMedicosController implements Initializable {
-
-
     private static final String PREFIJO_ID = "MED";
     private static final String PREFIJO_ID_FARMACEUTA = "FAR";
     private static final String PREFIJO_ID_PACIENTE = "PAC";
@@ -996,6 +994,10 @@ public class GestionMedicosController implements Initializable {
             if (recetaActual == null || recetaActual.getMedicamentos().isEmpty()) {
                 mostrarAlerta("Error", "No hay medicamentos en la receta.", Alert.AlertType.WARNING);
                 return;
+            }
+            LocalDate fechaRetiro = dtpFechaRetiro.getValue();
+            if (fechaRetiro != null) {
+                recetaActual.setFechaEntrega(fechaRetiro);
             }
             recetaLogica.create(recetaActual);
             mostrarAlerta("Éxito", "Receta guardada correctamente.", Alert.AlertType.INFORMATION);

@@ -26,7 +26,7 @@
 <Pane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sistema.sistemaprescripciondespachorecetas.controller.GestionMedicosController">
     <children>
         <!-- Fondo -->
-        <ImageView fitHeight="550.0" fitWidth="900.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fitHeight="550.0" fitWidth="915.0" layoutX="-14.0" pickOnBounds="true" preserveRatio="false">
             <image>
                 <Image url="@../images/FondoMedico.png" />
             </image>
@@ -819,11 +819,11 @@
                         </Text>
                         <TableView fx:id="TV_Despacho" layoutX="14.0" layoutY="108.0" prefHeight="259.0" prefWidth="827.0" style="-fx-border-color: #6257e3;">
                            <columns>
-                              <TableColumn fx:id="colIDRecetaDespacho" prefWidth="91.0" text="ID Receta" />
-                              <TableColumn fx:id="colPacienteDespacho" prefWidth="177.0" text="Paciente" />
-                              <TableColumn fx:id="colMedicoDespacho" prefWidth="170.0" text="Médico" />
-                              <TableColumn fx:id="colFechaRetiroDespacho" prefWidth="188.0" text="Fecha Retiro" />
-                              <TableColumn fx:id="colEstadoDespacho" prefWidth="198.0" text="Estado Actual" />
+                              <TableColumn fx:id="colIDRecetaDespacho" minWidth="0.0" prefWidth="122.0" text="ID Receta" />
+                              <TableColumn fx:id="colPacienteDespacho" prefWidth="148.7999725341797" text="Paciente" />
+                              <TableColumn fx:id="colMedicoDespacho" prefWidth="204.800048828125" text="Medico" />
+                              <TableColumn fx:id="colFechaRetiroDespacho" prefWidth="169.60003662109375" text="Fecha Retiro" />
+                              <TableColumn fx:id="colEstadoDespacho" prefWidth="181.0" text="Estado" />
                            </columns>
                         </TableView>
                         <Text layoutX="14.0" layoutY="403.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nuevo estado:">
@@ -950,11 +950,11 @@
                         </Text>
                         <TableView fx:id="TV_Historico" layoutX="17.0" layoutY="108.0" prefHeight="264.0" prefWidth="821.0" style="-fx-border-color: #6257e3;">
                           <columns>
-                            <TableColumn fx:id="colIdHistorico" prefWidth="108.0" text="ID Receta" />
-                            <TableColumn fx:id="colPacienteHistorico" prefWidth="167.0" text="Paciente" />
-                              <TableColumn fx:id="colMedicoHistorico" prefWidth="175.0" text="Médico" />
-                              <TableColumn fx:id="colFechaHistorico" prefWidth="169.0" text="Fecha Confección" />
-                              <TableColumn fx:id="colEstadoHistorico" prefWidth="200.0" text="Estado" />
+                            <TableColumn fx:id="colIdHistorico" prefWidth="105.60000228881836" text="ID Receta" />
+                            <TableColumn fx:id="colPacienteHistorico" prefWidth="157.6000213623047" text="Paciente" />
+                              <TableColumn fx:id="colMedicoHistorico" prefWidth="228.79998779296875" text="Medico" />
+                              <TableColumn fx:id="colFechaHistorico" minWidth="0.0" prefWidth="155.99993896484375" text="Fecha Retiro" />
+                              <TableColumn fx:id="colEstadoHistorico" prefWidth="172.0001220703125" text="Estado" />
                           </columns>
                         </TableView>
                         <Button fx:id="btn_DetallesHistorico" layoutX="14.0" layoutY="395.0" onAction="#verDetallesReceta" prefHeight="26.0" prefWidth="125.0" style="-fx-background-color: #756aff;" text="Ver Detalles" textFill="WHITE">
