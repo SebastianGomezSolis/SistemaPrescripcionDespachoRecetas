@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -919,6 +920,7 @@ public class GestionMedicosController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Buscar Paciente");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/com.sistema.sistemaprescripciondespachorecetas/images/paciente-busqueda.png")));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
@@ -970,6 +972,7 @@ public class GestionMedicosController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Agregar Medicamento");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/com.sistema.sistemaprescripciondespachorecetas/images/medicamento-busqueda.png")));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
@@ -1043,6 +1046,7 @@ public class GestionMedicosController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Modificar Detalle de Receta");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/com.sistema.sistemaprescripciondespachorecetas/images/Detalle-medicamento-busqueda.png")));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setResizable(false);
 
@@ -1082,6 +1086,8 @@ public class GestionMedicosController implements Initializable {
     // DASHBOARD
     public void cargarGraficos() {
         try {
+            chartEstado.setLegendVisible(false);
+            chartEstadoPie.setLegendVisible(false);
             if (dashBoardLogica == null) {
                 System.err.println("[ERROR] dashBoardLogica es null");
                 return;
@@ -1097,10 +1103,22 @@ public class GestionMedicosController implements Initializable {
             if (chartEstado != null) {
                 chartEstado.getData().clear();
                 XYChart.Series<String, Number> serie = new XYChart.Series<>();
-                serie.setName("Recetas según estado");
 
                 for (Map.Entry<String, Long> e : estados.entrySet()) {
                     serie.getData().add(new XYChart.Data<>(e.getKey(), e.getValue()));
+                    XYChart.Data<String, Number> data = new XYChart.Data<>(e.getKey(), e.getValue());
+                    serie.getData().add(data);
+
+                    data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                        if (newNode != null) {
+                            switch (e.getKey()) {
+                                case "Confeccionada" -> newNode.setStyle("-fx-bar-fill: #7B2CBF;"); // morado fuerte pastel
+                                case "Proceso"       -> newNode.setStyle("-fx-bar-fill: #9D4EDD;"); // violeta suave
+                                case "Lista"         -> newNode.setStyle("-fx-bar-fill: #C77DFF;"); // lila claro
+                                case "Entregada"     -> newNode.setStyle("-fx-bar-fill: #E0AAFF;"); // lavanda pastel
+                            }
+                        }
+                    });
                 }
                 chartEstado.getData().add(serie);
             }
@@ -1109,8 +1127,31 @@ public class GestionMedicosController implements Initializable {
             if (chartEstadoPie != null) {
                 chartEstadoPie.getData().clear();
                 for (Map.Entry<String, Long> e : estados.entrySet()) {
-                    if (e.getValue() > 0) { // evita sectores cero
-                        chartEstadoPie.getData().add(new PieChart.Data(e.getKey(), e.getValue()));
+                    if (e.getValue() > 0) {
+                        PieChart.Data data = new PieChart.Data(e.getKey(), e.getValue());
+                        chartEstadoPie.getData().add(data);
+
+                        // Cuando el nodo se cree, aplica el color
+                        data.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                            if (newNode != null) {
+                                switch (e.getKey()) {
+                                    case "Confeccionada" -> newNode.setStyle("-fx-pie-color: #7B2CBF;"); // morado fuerte
+                                    case "Proceso"       -> newNode.setStyle("-fx-pie-color: #9D4EDD;"); // violeta suave
+                                    case "Lista"         -> newNode.setStyle("-fx-pie-color: #C77DFF;"); // lila claro
+                                    case "Entregada"     -> newNode.setStyle("-fx-pie-color: #E0AAFF;"); // lavanda
+                                }
+                            }
+                        });
+
+                        // Si ya está creado el nodo (caso raro, pero puede pasar), aplica el color directo
+                        if (data.getNode() != null) {
+                            switch (e.getKey()) {
+                                case "Confeccionada" -> data.getNode().setStyle("-fx-pie-color: #7B2CBF;");
+                                case "Proceso"       -> data.getNode().setStyle("-fx-pie-color: #9D4EDD;");
+                                case "Lista"         -> data.getNode().setStyle("-fx-pie-color: #C77DFF;");
+                                case "Entregada"     -> data.getNode().setStyle("-fx-pie-color: #E0AAFF;");
+                            }
+                        }
                     }
                 }
             }
@@ -1119,7 +1160,6 @@ public class GestionMedicosController implements Initializable {
             System.err.println("Error al cargar los graficos: " + e.getMessage());
             e.printStackTrace();
         }
-
     }
 
     // HISTORICO
@@ -1241,6 +1281,4 @@ public class GestionMedicosController implements Initializable {
             mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
-
-
 }

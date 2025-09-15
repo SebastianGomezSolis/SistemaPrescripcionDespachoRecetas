@@ -545,5 +545,51 @@
                 </medicamentoDetalle>
             </medicamentos>
         </receta>
+        <receta>
+            <id>REC022</id>
+            <paciente>
+                <id>PAC001</id>
+                <nombre>Santi</nombre>
+                <telefono>11121545</telefono>
+                <fechaNacimiento>2025-09-04</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Confeccionada</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-100</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>100mg</descripcion>
+                    </medicamento>
+                    <cantidad>5</cantidad>
+                    <indicaciones>Tomar despues de comer</indicaciones>
+                    <diasDuracion>10</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
+        <receta>
+            <id>REC023</id>
+            <paciente>
+                <id>PAC003</id>
+                <nombre>Yariela</nombre>
+                <telefono>28854877</telefono>
+                <fechaNacimiento>2019-09-11</fechaNacimiento>
+            </paciente>
+            <fechaEntrega>2025-09-14</fechaEntrega>
+            <estado>Lista</estado>
+            <medicamentos>
+                <medicamentoDetalle>
+                    <medicamento>
+                        <codigo>ACE-500</codigo>
+                        <nombre>Acetaminofen</nombre>
+                        <descripcion>500mg</descripcion>
+                    </medicamento>
+                    <cantidad>20</cantidad>
+                    <indicaciones>Tomar despues de comer</indicaciones>
+                    <diasDuracion>15</diasDuracion>
+                </medicamentoDetalle>
+            </medicamentos>
+        </receta>
     </recetas>
 </recetasData>

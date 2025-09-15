@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
@@ -94,6 +95,7 @@ public class AgregarMedicamentoController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Detalle del Medicamento");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/com.sistema.sistemaprescripciondespachorecetas/images/Detalle-medicamento-busqueda.png")));
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
 
