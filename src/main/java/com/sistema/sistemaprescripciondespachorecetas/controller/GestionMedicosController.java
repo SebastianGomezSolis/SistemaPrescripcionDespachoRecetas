@@ -1277,8 +1277,6 @@ public class GestionMedicosController implements Initializable {
             //limpiarDespacho();
             refrescarTablaHistorico();
             cargarGraficos();
-
-
         } catch (Exception e) {
             mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
         }

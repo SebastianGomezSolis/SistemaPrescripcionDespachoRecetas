@@ -256,9 +256,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    protected void salirLogin() {
-        System.exit(0);
-    }
+    protected void salirLogin() { System.exit(0); }
 
     private void verificarAdministradorPorDefecto() {
         try {
