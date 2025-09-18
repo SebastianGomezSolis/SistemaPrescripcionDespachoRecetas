@@ -7,11 +7,11 @@ Este proyecto implementa un **Sistema de Prescripción y Despacho de Recetas Mé
 ## 🏗️ Arquitectura del Sistema  
 
 El sistema está diseñado con una estructura modular que facilita la **escalabilidad, mantenibilidad y reutilización del código**.  
-
 ### 🔹 Capas principales  
 1. **Interfaz de Usuario (MVC)**  
    - **Vista:** componentes gráficos de interacción con el usuario.  
-   - **Controlador:** gestiona eventos y coordina el flujo de datos entre la vista y la lógica.  
+   - **Controlador:** gestiona eventos y coordina el flujo de datos entre la vista y la lógica.
+     
 
 2. **Lógica**  
    - Implementa el procesamiento central de las recetas (validaciones, cálculos y reglas de prescripción).  
