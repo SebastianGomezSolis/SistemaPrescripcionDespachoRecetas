@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sesion {
-    private static String usuarioId;
+    private static String usuarioIdentificacion;
     private static Usuario usuarioActual;
     private static List<String> codigosPermitidos = new ArrayList<>();
 
     public static void iniciarSesion(Usuario usuario, List<String> codigos) {
         usuarioActual = usuario;
-        usuarioId = usuario.getId();
+        usuarioIdentificacion = usuario.getIdentificacion();
         codigosPermitidos = codigos;
     }
 
@@ -20,8 +20,8 @@ public class Sesion {
         return codigosPermitidos.contains(codigoModulo);
     }
 
-    public static String getUsuarioId() {
-        return usuarioId;
+    public static String getUsuarioIdentificacion() {
+        return usuarioIdentificacion;
     }
 
     public static Usuario getUsuarioActual() {
@@ -30,7 +30,7 @@ public class Sesion {
 
     //Actualizar el usuario en la sesión actual
     public static void actualizarUsuario(Usuario usuarioActualizado) {
-        if (usuarioActual != null && usuarioActual.getId().equals(usuarioActualizado.getId())) {
+        if (usuarioActual != null && usuarioActual.getIdentificacion().equals(usuarioActualizado.getId())) {
             usuarioActual = usuarioActualizado;
         }
     }
@@ -38,7 +38,7 @@ public class Sesion {
     // Cerrar sesión
     public static void cerrarSesion() {
         usuarioActual = null;
-        usuarioId = null;
+        usuarioIdentificacion = null;
         codigosPermitidos.clear();
     }
 

@@ -1,14 +1,16 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.PacienteLogica;
+
+import com.sistema.sistemaprescripciondespachorecetas.logica.PacienteLogica;
 import com.sistema.sistemaprescripciondespachorecetas.model.Paciente;
-import com.sistema.sistemaprescripciondespachorecetas.utilitarios.RutasArchivos;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import java.time.format.DateTimeFormatter; //convierte en string
+
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BuscarPacientesController {
     @FXML private ComboBox<String>  CB_Nombre;
@@ -29,60 +31,72 @@ public class BuscarPacientesController {
 
     @FXML
     public void initialize() {
-        pacienteLogica = new PacienteLogica(RutasArchivos.PACIENTES);
+        try {
+            pacienteLogica = new PacienteLogica();
 
-        CB_Nombre.getItems().addAll("ID", "Nombre");
-        CB_Nombre.getSelectionModel().select("Nombre");
+            CB_Nombre.getItems().addAll("ID", "Nombre");
+            CB_Nombre.getSelectionModel().select("Nombre");
 
-        colId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getId()));
-        colNombre.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNombre()));
-        colTelefono.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTelefono()));
-        colFechaNacimiento.setCellValueFactory(data ->
-                new SimpleStringProperty(data.getValue().getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
-        );
+            colId.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getIdentificacion()));
+            colNombre.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getNombre()));
+            colTelefono.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getTelefono()));
+            colFechaNacimiento.setCellValueFactory(data ->
+                    new SimpleStringProperty(data.getValue().getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+            );
 
-        TV_Pacientes.setItems(listaObservable);
-        cargarPacientes();
+            TV_Pacientes.setItems(listaObservable);
+            cargarPacientes();
 
-        TXF_Nombre.textProperty().addListener((obs, oldVal, newVal) -> filtrar());
+            TXF_Nombre.textProperty().addListener((obs, oldVal, newVal) -> filtrar());
+        } catch (Exception e) {
+            Logger.getLogger(BuscarPacientesController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     private void cargarPacientes() {
-        listaObservable.setAll(pacienteLogica.findAll());
+        try {
+            listaObservable.setAll(pacienteLogica.findAll());
+        } catch (Exception e) {
+            Logger.getLogger(BuscarPacientesController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     private void filtrar() {
-        String texto = TXF_Nombre.getText().trim();
+        try {
+            String texto = TXF_Nombre.getText().trim();
 
-        if (texto.isEmpty()) {
-            cargarPacientes();
-            return;
-        }
+            if (texto.isEmpty()) {
+                cargarPacientes();
+                return;
+            }
 
-        String criterio = CB_Nombre.getSelectionModel().getSelectedItem();
+            String criterio = CB_Nombre.getSelectionModel().getSelectedItem();
 
-        if ("ID".equals(criterio)) {
-            listaObservable.setAll(
-                    pacienteLogica.findAll().stream()
-                            .filter(p -> p.getId().toLowerCase().contains(texto.toLowerCase()))
-                            .toList()
-            );
-        } else {
-            if (texto.length() == 1) {
-                // Con una letra: buscar nombres que EMPIECEN por esa letra
+            if ("ID".equals(criterio)) {
                 listaObservable.setAll(
                         pacienteLogica.findAll().stream()
-                                .filter(p -> p.getNombre().toLowerCase().startsWith(texto.toLowerCase()))
+                                .filter(p -> p.getIdentificacion().toLowerCase().contains(texto.toLowerCase()))
                                 .toList()
                 );
             } else {
-                // Con 2+ letras: buscar nombres que CONTENGAN el texto
-                listaObservable.setAll(
-                        pacienteLogica.findAll().stream()
-                                .filter(p -> p.getNombre().toLowerCase().contains(texto.toLowerCase()))
-                                .toList()
-                );
+                if (texto.length() == 1) {
+                    // Con una letra: buscar nombres que EMPIECEN por esa letra
+                    listaObservable.setAll(
+                            pacienteLogica.findAll().stream()
+                                    .filter(p -> p.getNombre().toLowerCase().startsWith(texto.toLowerCase()))
+                                    .toList()
+                    );
+                } else {
+                    // Con 2+ letras: buscar nombres que CONTENGAN el texto
+                    listaObservable.setAll(
+                            pacienteLogica.findAll().stream()
+                                    .filter(p -> p.getNombre().toLowerCase().contains(texto.toLowerCase()))
+                                    .toList()
+                    );
+                }
             }
+        } catch (Exception e) {
+            Logger.getLogger(BuscarPacientesController.class.getName()).log(Level.SEVERE, null, e);
         }
     }
 
@@ -109,6 +123,4 @@ public class BuscarPacientesController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
-
 }

@@ -1,32 +1,33 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicamentoLogica;
+import com.sistema.sistemaprescripciondespachorecetas.logica.MedicamentoLogica;
 import com.sistema.sistemaprescripciondespachorecetas.model.Medicamento;
 import com.sistema.sistemaprescripciondespachorecetas.model.Paciente;
 import com.sistema.sistemaprescripciondespachorecetas.model.Receta;
 import com.sistema.sistemaprescripciondespachorecetas.model.RecetaDetalle;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import java.time.LocalDate;
-import javafx.beans.property.ReadOnlyStringWrapper;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 
 public class AgregarMedicamentoController implements Initializable {
@@ -43,18 +44,20 @@ public class AgregarMedicamentoController implements Initializable {
     private Receta recetaActual;
 
     private ObservableList<Medicamento> listaMedicamentos = FXCollections.observableArrayList();
-    MedicamentoLogica logica = new MedicamentoLogica(
-            Paths.get(System.getProperty("user.dir"), "bd", "medicamentos.xml").toString()
-    );
+    MedicamentoLogica logica = new MedicamentoLogica();
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        colCodigo.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getCodigo()));
-        colNombre.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getNombre()));
-        colPresentacion.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getDescripcion()));
-        listaMedicamentos.addAll(logica.findAll());
-        TV_Medicamento.setItems(listaMedicamentos);
+        try {
+            colCodigo.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getCodigo()));
+            colNombre.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getNombre()));
+            colPresentacion.setCellValueFactory(cd -> new ReadOnlyStringWrapper(cd.getValue().getDescripcion()));
+            listaMedicamentos.addAll(logica.findAll());
+            TV_Medicamento.setItems(listaMedicamentos);
+        } catch (Exception e) {
+            Logger.getLogger(AgregarMedicamentoController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     public void setPacienteSeleccionado(Paciente paciente) {
@@ -78,7 +81,7 @@ public class AgregarMedicamentoController implements Initializable {
             recetaActual.setPaciente(pacienteSeleccionado);
             recetaActual.setFechaEntrega(LocalDate.now());
             recetaActual.setEstado("Confeccionada");
-            recetaActual.setMedicamentos(new ArrayList<>());
+            recetaActual.setMedicamento(new RecetaDetalle());
         }
 
         try {

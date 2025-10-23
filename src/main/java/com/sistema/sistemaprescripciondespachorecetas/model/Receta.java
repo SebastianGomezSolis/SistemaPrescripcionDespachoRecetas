@@ -1,34 +1,33 @@
 package com.sistema.sistemaprescripciondespachorecetas.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Receta {
-    private String id;                           // Id unico consecutivo de la receta
+    private int id;                           // Id unico consecutivo de la receta
+    private String identificacion;
     private Paciente paciente;                   // Paciente que se le atribuye la receta
-    private List<RecetaDetalle> medicamentos;;             // Medicamento que se receta
+    private RecetaDetalle medicamentos;;             // Medicamento que se receta
     private LocalDate fechaEntrega;
     private String estado;                       // Estado de la receta
-    private Medico medico;                       // Médico que la prescribe
 
     // Constructor sin parametros
-    public Receta() {
-        this.medicamentos = new ArrayList<>();
-    }
+    public Receta() {}
 
     // Constructor con parametros
-    public Receta(String id, Paciente paciente, LocalDate fechaEntrega, String estado) {
+    public Receta(int id, String identificacion, Paciente paciente, LocalDate fechaEntrega, String estado) {
         this.id = id;
+        this.identificacion = identificacion;
         this.paciente = paciente;
         this.fechaEntrega = fechaEntrega;
         this.estado = "Confeccionada";
-        this.medicamentos = new ArrayList<>();
     }
 
     // Getters y setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public String getIdentificacion() { return identificacion; }
+    public void setIdentificacion(String identificacion) { this.identificacion = identificacion; }
 
     public Paciente getPaciente() { return paciente; }
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
@@ -39,13 +38,7 @@ public class Receta {
     public String getEstado() { return estado; }
     public void setEstado(String estado) { this.estado = estado; }
 
-    public List<RecetaDetalle> getMedicamentos() { return medicamentos; }
-    public void setMedicamentos(List<RecetaDetalle> medicamentos) { this.medicamentos = medicamentos; }
+    public RecetaDetalle getMedicamento() { return medicamentos; }
+    public void setMedicamento(RecetaDetalle medicamentos) { this.medicamentos = medicamentos; }
 
-    public Medico getMedico() { return medico; }
-    public void setMedico(Medico medico) { this.medico = medico; }
-
-
-    // Metodo para agregar un detalle (medicamento con cantidad e indicaciones)
-    public void agregarMedicamento(RecetaDetalle detalle) { this.medicamentos.add(detalle); }
 }

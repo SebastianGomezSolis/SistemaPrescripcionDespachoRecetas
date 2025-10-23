@@ -1,30 +1,22 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.AdministradorLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.FarmaceutaLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicoLogica;
-import com.sistema.sistemaprescripciondespachorecetas.model.Administrador;
-import com.sistema.sistemaprescripciondespachorecetas.model.Farmaceuta;
-import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
-import com.sistema.sistemaprescripciondespachorecetas.model.Usuario;
-import com.sistema.sistemaprescripciondespachorecetas.utilitarios.RutasArchivos;
+import com.sistema.sistemaprescripciondespachorecetas.logica.*;
+import com.sistema.sistemaprescripciondespachorecetas.model.*;
 import com.sistema.sistemaprescripciondespachorecetas.utilitarios.Sesion;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 
-import javafx.fxml.Initializable;
 import java.net.URL;
-import java.util.ResourceBundle;
-
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     @FXML private TextField txtUsuario;
@@ -80,7 +72,7 @@ public class LoginController implements Initializable {
 
                 Usuario usuarioAutenticado = validarCredenciales(usuario, password);
                 if (usuarioAutenticado != null) {
-                    List<String> permisos = asignarPermisosPorPrefijo(usuarioAutenticado.getId());
+                    List<String> permisos = asignarPermisosPorPrefijo(usuarioAutenticado.getIdentificacion());
                     Sesion.iniciarSesion(usuarioAutenticado, permisos);
                     try {
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com.sistema.sistemaprescripciondespachorecetas/view/GestionMedicos.fxml"));
@@ -118,19 +110,19 @@ public class LoginController implements Initializable {
 
         try {
             if (id.startsWith("MED")) {
-                Medico medico = new MedicoLogica(RutasArchivos.MEDICOS).findById(id);
+                Medico medico = new MedicoLogica().findByIdentificacion(id);
                 if (medico != null && medico.getClave().equals(password)) {
                     return medico;
                 }
 
             } else if (id.startsWith("FAR")) {
-                Farmaceuta farma = new FarmaceutaLogica(RutasArchivos.FARMACEUTAS).findById(id);
+                Farmaceuta farma = new FarmaceutaLogica().findByIdentificacion(id);
                 if (farma != null && farma.getClave().equals(password)) {
                     return farma;
                 }
 
             } else if (id.startsWith("ADM")) {
-                Administrador admin = new AdministradorLogica(RutasArchivos.ADMINISTRADORES).findById(id);
+                Administrador admin = new AdministradorLogica().findByIdentificacion(id);
                 if (admin != null && admin.getClave().equals(password)) {
                     return admin;
                 }
@@ -202,7 +194,7 @@ public class LoginController implements Initializable {
 
                     for (String ruta : rutasPosibles) {
                         try {
-                            java.net.URL url = getClass().getResource(ruta);
+                            URL url = getClass().getResource(ruta);
                             if (url != null) {
                                 System.out.println("ENCONTRADO en: " + ruta);
                                 System.out.println("URL completa: " + url);
@@ -260,31 +252,20 @@ public class LoginController implements Initializable {
 
     private void verificarAdministradorPorDefecto() {
         try {
-            AdministradorLogica logica = new AdministradorLogica(RutasArchivos.ADMINISTRADORES);
-            List<Administrador> existentes = logica.findAll();
+            AdministradorLogica logica = new AdministradorLogica();
+            // Nuevo método que agregaste (igual que para médico/farma)
+            Administrador admin = logica.findByIdentificacion("ADM001");
 
-            if (existentes.isEmpty()) {
-                Administrador admin = new Administrador("ADM001", "ADM001");
-                logica.create(admin);
-            } else {
-                // Verificar si existe el administrador ADM001, si no, crearlo
-                Administrador adminTest = logica.findById("ADM001");
-                if (adminTest == null) {
-                    // Limpiar administradores incorrectos si existen
-                    try {
-                        logica.deleteById("Admin");
-                    } catch (Exception e) {
-                        // Ignorar si no existe
-                    }
-
-                    // Crear el administrador correcto
-                    Administrador admin = new Administrador("ADM001", "ADM001");
-                    logica.create(admin);
-                }
+            if (admin == null) {
+                // Si tu constructor de Administrador es (int id, String identificacion, String clave):
+                // pasa id=0 o usa otro constructor sin id; el PK lo asigna MySQL.
+                Administrador nuevo = new Administrador(0, "ADM001", "ADM001");
+                logica.create(nuevo);
             }
         } catch (Exception e) {
             System.err.println("Error al verificar administrador por defecto: " + e.getMessage());
         }
     }
+
 
 }

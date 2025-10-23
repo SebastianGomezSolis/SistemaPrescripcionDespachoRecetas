@@ -1,10 +1,7 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
-import com.sistema.sistemaprescripciondespachorecetas.model.Medicamento;
-import com.sistema.sistemaprescripciondespachorecetas.model.Paciente;
-import com.sistema.sistemaprescripciondespachorecetas.model.Receta;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.RecetaLogica;
-import com.sistema.sistemaprescripciondespachorecetas.model.RecetaDetalle;
+import com.sistema.sistemaprescripciondespachorecetas.logica.RecetaLogica;
+import com.sistema.sistemaprescripciondespachorecetas.model.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Spinner;
@@ -12,18 +9,13 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.nio.file.Paths;
-import java.util.ArrayList;
-
 public class RecetaController {
 
     @FXML private Spinner<Integer> spp_Cantidad;
     @FXML private Spinner<Integer> spp_duracion;
     @FXML private TextField txt_IndicacionesMedicamentos;
 
-    private static final String RUTA_RECETA = Paths.get(
-            System.getProperty("user.dir"), "bd", "recetas.xml").toString();
-    private final RecetaLogica recetaLogica = new RecetaLogica(RUTA_RECETA);
+    private final RecetaLogica recetaLogica = new RecetaLogica();
 
     private Receta recetaActual;
     private RecetaDetalle recetaDetalleSeleccionado;
@@ -39,9 +31,6 @@ public class RecetaController {
 
     public void setRecetaActual(Receta receta) {
         this.recetaActual = receta;
-        if (recetaActual.getMedicamentos() == null) {
-            recetaActual.setMedicamentos(new ArrayList<>());
-        }
     }
 
     public void setReceta(RecetaDetalle detalle, boolean editar) {
@@ -84,7 +73,7 @@ public class RecetaController {
                 detalle.setCantidad(spp_Cantidad.getValue());
                 detalle.setDiasDuracion(spp_duracion.getValue());
                 detalle.setIndicaciones(txt_IndicacionesMedicamentos.getText());
-                recetaActual.getMedicamentos().add(detalle);
+                recetaActual.setMedicamento(detalle);
             }
 
             Stage stage = (Stage) spp_Cantidad.getScene().getWindow();
@@ -118,8 +107,8 @@ public class RecetaController {
         this.modoEdicion = modoEdicion;
 
         //inicializamos lista si está vacía
-        if (recetaActual.getMedicamentos() == null) {
-            recetaActual.setMedicamentos(new ArrayList<>());
+        if (recetaActual.getMedicamento() == null) {
+            recetaActual.setMedicamento(new RecetaDetalle());
         }
 
         // (modoEdicion = false)
@@ -130,14 +119,13 @@ public class RecetaController {
         }
 
         // mostrar el primer medicamento automáticamente
-        if (!recetaActual.getMedicamentos().isEmpty()) {
-            RecetaDetalle detalle = recetaActual.getMedicamentos().get(0);
-            spp_Cantidad.getValueFactory().setValue(detalle.getCantidad());
-            spp_duracion.getValueFactory().setValue(detalle.getDiasDuracion());
-            txt_IndicacionesMedicamentos.setText(detalle.getIndicaciones());
-
-            this.medicamentoSeleccionado = detalle.getMedicamento();
-            this.recetaDetalleSeleccionado = detalle;
+        RecetaDetalle det = recetaActual.getMedicamento();
+        if (det != null) {
+            spp_Cantidad.getValueFactory().setValue(det.getCantidad() > 0 ? det.getCantidad() : 1);
+            spp_duracion.getValueFactory().setValue(det.getDiasDuracion() > 0 ? det.getDiasDuracion() : 1);
+            txt_IndicacionesMedicamentos.setText(det.getIndicaciones() != null ? det.getIndicaciones() : "");
+            this.medicamentoSeleccionado = det.getMedicamento();
+            this.recetaDetalleSeleccionado = det;
         }
     }
 

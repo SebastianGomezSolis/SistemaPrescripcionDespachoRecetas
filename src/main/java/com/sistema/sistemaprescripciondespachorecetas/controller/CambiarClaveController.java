@@ -1,18 +1,18 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.AdministradorLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.FarmaceutaLogica;
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.MedicoLogica;
+import com.sistema.sistemaprescripciondespachorecetas.logica.AdministradorLogica;
+import com.sistema.sistemaprescripciondespachorecetas.logica.FarmaceutaLogica;
+import com.sistema.sistemaprescripciondespachorecetas.logica.MedicoLogica;
 import com.sistema.sistemaprescripciondespachorecetas.model.Administrador;
 import com.sistema.sistemaprescripciondespachorecetas.model.Farmaceuta;
 import com.sistema.sistemaprescripciondespachorecetas.model.Medico;
 import com.sistema.sistemaprescripciondespachorecetas.model.Usuario;
 import com.sistema.sistemaprescripciondespachorecetas.utilitarios.Sesion;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.stage.Stage;
-
-import com.sistema.sistemaprescripciondespachorecetas.utilitarios.RutasArchivos;
 
 public class CambiarClaveController {
 
@@ -94,13 +94,13 @@ public class CambiarClaveController {
         try {
 
             if (id.startsWith("MED")) {
-                return new MedicoLogica(RutasArchivos.MEDICOS).findById(id);
+                return new MedicoLogica().findByIdentificacion(id);
 
             } else if (id.startsWith("FAR")) {
-                //return new FarmaceutaLogica(RutasArchivos.FARMACEUTAS).findById(id);
+                return new FarmaceutaLogica().findByIdentificacion(id);
 
             } else if (id.startsWith("ADM")) {
-                return new AdministradorLogica(RutasArchivos.ADMINISTRADORES).findById(id);
+                return new AdministradorLogica().findByIdentificacion(id);
             }
         } catch (Exception e) {
             mostrarAlerta("Error", "Ocurrio un error al encontrar usuario: " + e.getMessage(), Alert.AlertType.ERROR);
@@ -110,24 +110,24 @@ public class CambiarClaveController {
     }
 
     private void actualizarClave(Usuario usuario, String nuevaClave) throws Exception {
-        String id = usuario.getId();
+        String id = usuario.getIdentificacion();
         usuario.setClave(nuevaClave);
 
         if (id.startsWith("MED") && usuario instanceof Medico medico) {
-            new MedicoLogica(RutasArchivos.MEDICOS).update(medico);
+            new MedicoLogica().update(medico);
 
         } else if (id.startsWith("FAR") && usuario instanceof Farmaceuta farma) {
-           // new FarmaceutaLogica(RutasArchivos.FARMACEUTAS).update(farma);
+            new FarmaceutaLogica().update(farma);
 
         } else if (id.startsWith("ADM") && usuario instanceof Administrador admin) {
-            new AdministradorLogica(RutasArchivos.ADMINISTRADORES).update(admin);
+            new AdministradorLogica().update(admin);
 
         } else {
             throw new Exception("Tipo de usuario no reconocido: " + id);
         }
 
         // Actualizar la sesión si el usuario actual cambió su clave
-        if (Sesion.getUsuarioActual() != null && Sesion.getUsuarioActual().getId().equals(id)) {
+        if (Sesion.getUsuarioActual() != null && Sesion.getUsuarioActual().getIdentificacion().equals(id)) {
             Sesion.actualizarUsuario(usuario);
         }
     }

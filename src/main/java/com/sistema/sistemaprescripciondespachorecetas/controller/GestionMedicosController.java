@@ -1,7 +1,6 @@
 package com.sistema.sistemaprescripciondespachorecetas.controller;
 
-import com.sistema.sistemaprescripciondespachorecetas.logic.logica.*;
-
+import com.sistema.sistemaprescripciondespachorecetas.logica.*;
 import com.sistema.sistemaprescripciondespachorecetas.model.*;
 import com.sistema.sistemaprescripciondespachorecetas.utilitarios.Sesion;
 import javafx.beans.property.SimpleStringProperty;
@@ -21,7 +20,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class GestionMedicosController implements Initializable {
@@ -153,7 +157,6 @@ public class GestionMedicosController implements Initializable {
     @FXML private TableView<Receta> TV_Historico;
     @FXML private TableColumn<Receta, String> colIdHistorico;
     @FXML private TableColumn<Receta, String> colPacienteHistorico;
-    @FXML private TableColumn<Receta, String> colMedicoHistorico;
     @FXML private TableColumn<Receta, String> colFechaHistorico;
     @FXML private TableColumn<Receta, String> colEstadoHistorico;
     @FXML private ComboBox<String> CB_Receta;
@@ -164,7 +167,6 @@ public class GestionMedicosController implements Initializable {
     @FXML private TableView<Receta> TV_Despacho;
     @FXML private TableColumn<Receta, String> colIDRecetaDespacho;
     @FXML private TableColumn<Receta, String> colPacienteDespacho;
-    @FXML private TableColumn<Receta, String> colMedicoDespacho;
     @FXML private TableColumn<Receta, String> colFechaRetiroDespacho;
     @FXML private TableColumn<Receta, String> colEstadoDespacho;
     @FXML private ComboBox<String> CB_RecetaDespacho;
@@ -187,204 +189,172 @@ public class GestionMedicosController implements Initializable {
     private final ObservableList<Receta> listaHistoricoRecetas = FXCollections.observableArrayList();
     private final ObservableList<Receta> listaDespachoRecetas = FXCollections.observableArrayList();
 
-
-    private static final String RUTA_MEDICOS = java.nio.file.Paths
-            .get(System.getProperty("user.dir"), "bd", "medicos.xml")
-            .toString();
-
-    {
-        System.out.println("[DEBUG] RUTA_MEDICOS controller = " + RUTA_MEDICOS);
-    }
-
-    private static final String RUTA_FARMACEUTAS = java.nio.file.Paths
-            .get(System.getProperty("user.dir"), "bd", "farmaceutas.xml")
-            .toString();
-
-    {
-        System.out.println("[DEBUG] RUTA_FARMACEUTAS controller = " + RUTA_FARMACEUTAS);
-    }
-
-    private static final String RUTA_PACIENTES = java.nio.file.Paths
-            .get(System.getProperty("user.dir"), "bd", "pacientes.xml")
-            .toString();
-
-    {
-        System.out.println("[DEBUG] RUTA_PACIENTES controller = " + RUTA_PACIENTES);
-    }
-
-    private static final String RUTA_MEDICAMENTOS = java.nio.file.Paths
-            .get(System.getProperty("user.dir"), "bd", "medicamentos.xml")
-            .toString();
-
-    {
-        System.out.println("[DEBUG] RUTA_MEDICAMENTOS controller = " + RUTA_MEDICAMENTOS);
-    }
-
-    private static final String RUTA_RECETAS = java.nio.file.Paths
-            .get(System.getProperty("user.dir"), "bd", "recetas.xml")
-            .toString();
-
-    {
-        System.out.println("[DEBUG] RUTA_RECETAS controller = " + RUTA_RECETAS);
-    }
-
-    private final MedicoLogica medicoLogica = new MedicoLogica(RUTA_MEDICOS);
-    private final FarmaceutaLogica farmaceutaLogica = new FarmaceutaLogica(RUTA_FARMACEUTAS);
-    private final PacienteLogica pacienteLogica = new PacienteLogica(RUTA_PACIENTES);
-    private final MedicamentoLogica medicamentoLogica = new MedicamentoLogica(RUTA_MEDICAMENTOS);
-    private final RecetaLogica recetaLogica = new RecetaLogica(RUTA_RECETAS);
+    private final MedicoLogica medicoLogica = new MedicoLogica();
+    private final FarmaceutaLogica farmaceutaLogica = new FarmaceutaLogica();
+    private final PacienteLogica pacienteLogica = new PacienteLogica();
+    private final MedicamentoLogica medicamentoLogica = new MedicamentoLogica();
+    private final RecetaLogica recetaLogica = new RecetaLogica();
     private DashBoardLogica dashBoardLogica;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("[DEBUG] Iniciando GestionMedicosController...");
-
-        // Configuración básica que siempre funciona
-        colIdMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-        colNombreMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        colEspecialidadMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEspecialidad()));
-
-        colIdFarmaceutas.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-        colNombreFarmaceutas.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-
-        colIdPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-        colNombrePaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        colTelefonoPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
-        colFechaNacimientoPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaNacimiento() != null ? cellData.getValue().getFechaNacimiento().toString() : ""));
-
-        colCodigoMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
-        colNombreMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        colDescripcionMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
-
-        colMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMedicamento().getNombre()));
-        colPresentacion.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMedicamento().getDescripcion()));
-        colCantidad.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getCantidad())));
-        colIndicaciones.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIndicaciones()));
-        colDuracion.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getDiasDuracion())));
-
-
-        colIdHistorico.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getId() != null ? r.getValue().getId() : "")
-        );
-        colPacienteHistorico.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getPaciente() != null ? r.getValue().getPaciente().getNombre() : "")
-        );
-        colMedicoHistorico.setCellValueFactory(r ->
-                new SimpleStringProperty(
-                        (r.getValue().getMedico() != null) ? r.getValue().getMedico().getNombre() : "Desconocido"
-                )
-        );
-        colFechaHistorico.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getFechaEntrega() != null ? r.getValue().getFechaEntrega().toString() : "")
-        );
-        colEstadoHistorico.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getEstado() != null ? r.getValue().getEstado() : "")
-        );
-
-
-        colIDRecetaDespacho.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getId() != null ? r.getValue().getId() : "")
-        );
-        colPacienteDespacho.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getPaciente() != null ? r.getValue().getPaciente().getNombre() : "")
-        );
-        colMedicoDespacho.setCellValueFactory(r ->
-                new SimpleStringProperty(
-                        (r.getValue().getMedico() != null) ? r.getValue().getMedico().getNombre() : "Desconocido"
-                )
-        );
-        colFechaRetiroDespacho.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getFechaEntrega() != null ? r.getValue().getFechaEntrega().toString() : "")
-        );
-        colEstadoDespacho.setCellValueFactory(r ->
-                new SimpleStringProperty(r.getValue().getEstado() != null ? r.getValue().getEstado() : "")
-        );
-
-        // Inicializar campo ID
-        txtIdMedico.setText(PREFIJO_ID);
-        txtIdMedico.positionCaret(PREFIJO_ID.length());
-
-        txtIdFarmaceutas.setText(PREFIJO_ID_FARMACEUTA);
-        txtIdFarmaceutas.positionCaret(PREFIJO_ID_FARMACEUTA.length());
-
-        txtIdPaciente.setText(PREFIJO_ID_PACIENTE);
-        txtIdPaciente.positionCaret(PREFIJO_ID_PACIENTE.length());
-
-        // Listener para prefijo
-        txtIdMedico.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.startsWith(PREFIJO_ID)) {
-                txtIdMedico.setText(PREFIJO_ID);
-                txtIdMedico.positionCaret(PREFIJO_ID.length());
-            }
-        });
-
-        txtIdFarmaceutas.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.startsWith(PREFIJO_ID_FARMACEUTA)) {
-                txtIdFarmaceutas.setText(PREFIJO_ID_FARMACEUTA);
-                txtIdFarmaceutas.positionCaret(PREFIJO_ID_FARMACEUTA.length());
-            }
-        });
-
-        txtIdPaciente.textProperty().addListener((obs, oldVal, newVal) -> {
-            if (!newVal.startsWith(PREFIJO_ID_PACIENTE)) {
-                txtIdPaciente.setText(PREFIJO_ID_PACIENTE);
-                txtIdPaciente.positionCaret(PREFIJO_ID_PACIENTE.length());
-            }
-        });
-
-
-        listaMedicos.addAll(medicoLogica.findAll());
-        tablaMedicos.setItems(listaMedicos);
-
-        listaFarmaceutas.addAll(farmaceutaLogica.findAll());
-        tablaFarmaceutas.setItems(listaFarmaceutas);
-
-        listaPacientes.addAll(pacienteLogica.findAll());
-        tablaPacientes.setItems(listaPacientes);
-
-        listaMedicamentos.addAll(medicamentoLogica.findAll());
-        tablaMedicamentos.setItems(listaMedicamentos);
-
-        listaHistoricoRecetas.setAll(recetaLogica.findAll());
-        TV_Historico.setItems(listaHistoricoRecetas);
-
-        listaDespachoRecetas.setAll(recetaLogica.findAll());
-        TV_Despacho.setItems(listaDespachoRecetas);
-
-
-        List<Receta> recetas = recetaLogica.findAll();
-        listaHistoricoRecetas.setAll(recetas);
-        TV_Historico.setItems(listaHistoricoRecetas);
-
-        listaDespachoRecetas.setAll(recetas);
-        TV_Despacho.setItems(listaDespachoRecetas);
-
-        // Cargar IDs únicos en el ComboBox
-        List<String> ids = recetas.stream()
-                .map(Receta::getId)
-                .distinct()
-                .collect(Collectors.toList());
-
-        CB_Receta.setItems(FXCollections.observableArrayList(ids));
-        CB_RecetaDespacho.setItems(FXCollections.observableArrayList(ids));
-
-        CB_NuevoEstadoDespacho.setItems(FXCollections.observableArrayList(
-                "Proceso", "Lista", "Entregada"));
-
-
-        //listaRecetas.addAll(recetaLogica.findAll());
-        refrescarTablaPrescripcion();
-
-        this.dashBoardLogica = new DashBoardLogica(recetaLogica);
         try {
-            cargarGraficos();
-            System.out.println("[DEBUG] Gráficos cargados exitosamente");
-        } catch (Exception e) {
-            System.err.println("[ERROR] Error al cargar gráficos: " + e.getMessage());
-            e.printStackTrace();
-        }
+            System.out.println("[DEBUG] Iniciando GestionMedicosController...");
 
+            // Configuración básica que siempre funciona
+            colIdMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentificacion()));
+            colNombreMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+            colEspecialidadMedico.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEspecialidad()));
+
+            colIdFarmaceutas.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentificacion()));
+            colNombreFarmaceutas.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+
+            colIdPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdentificacion()));
+            colNombrePaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+            colTelefonoPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTelefono()));
+            colFechaNacimientoPaciente.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFechaNacimiento() != null ? cellData.getValue().getFechaNacimiento().toString() : ""));
+
+            colCodigoMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCodigo()));
+            colNombreMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+            colDescripcionMedicamento.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion()));
+
+            colMedicamento.setCellValueFactory(cd -> new SimpleStringProperty(cd.getValue() != null && cd.getValue().getMedicamento() != null ? cd.getValue().getMedicamento().getNombre() : ""));
+
+            colPresentacion.setCellValueFactory(cd ->
+                    new SimpleStringProperty(
+                            cd.getValue() != null && cd.getValue().getMedicamento() != null
+                                    ? cd.getValue().getMedicamento().getDescripcion()
+                                    : ""
+                    )
+            );
+
+            colCantidad.setCellValueFactory(cd ->
+                    new SimpleStringProperty(String.valueOf(cd.getValue().getCantidad())));
+
+            colIndicaciones.setCellValueFactory(cd ->
+                    new SimpleStringProperty(
+                            cd.getValue().getIndicaciones() != null ? cd.getValue().getIndicaciones() : ""
+                    )
+            );
+
+            colDuracion.setCellValueFactory(cd ->
+                    new SimpleStringProperty(String.valueOf(cd.getValue().getDiasDuracion())));
+
+            colIdHistorico.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getIdentificacion() != null ? r.getValue().getIdentificacion() : "")
+            );
+            colPacienteHistorico.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getPaciente() != null ? r.getValue().getPaciente().getNombre() : "")
+            );
+            colFechaHistorico.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getFechaEntrega() != null ? r.getValue().getFechaEntrega().toString() : "")
+            );
+            colEstadoHistorico.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getEstado() != null ? r.getValue().getEstado() : "")
+            );
+
+
+            colIDRecetaDespacho.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getIdentificacion() != null ? r.getValue().getIdentificacion() : "")
+            );
+            colPacienteDespacho.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getPaciente() != null ? r.getValue().getPaciente().getNombre() : "")
+            );
+            colFechaRetiroDespacho.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getFechaEntrega() != null ? r.getValue().getFechaEntrega().toString() : "")
+            );
+            colEstadoDespacho.setCellValueFactory(r ->
+                    new SimpleStringProperty(r.getValue().getEstado() != null ? r.getValue().getEstado() : "")
+            );
+
+            // Inicializar campo ID
+            txtIdMedico.setText(PREFIJO_ID);
+            txtIdMedico.positionCaret(PREFIJO_ID.length());
+
+            txtIdFarmaceutas.setText(PREFIJO_ID_FARMACEUTA);
+            txtIdFarmaceutas.positionCaret(PREFIJO_ID_FARMACEUTA.length());
+
+            txtIdPaciente.setText(PREFIJO_ID_PACIENTE);
+            txtIdPaciente.positionCaret(PREFIJO_ID_PACIENTE.length());
+
+            // Listener para prefijo
+            txtIdMedico.textProperty().addListener((obs, oldVal, newVal) -> {
+                if (!newVal.startsWith(PREFIJO_ID)) {
+                    txtIdMedico.setText(PREFIJO_ID);
+                    txtIdMedico.positionCaret(PREFIJO_ID.length());
+                }
+            });
+
+            txtIdFarmaceutas.textProperty().addListener((obs, oldVal, newVal) -> {
+                if (!newVal.startsWith(PREFIJO_ID_FARMACEUTA)) {
+                    txtIdFarmaceutas.setText(PREFIJO_ID_FARMACEUTA);
+                    txtIdFarmaceutas.positionCaret(PREFIJO_ID_FARMACEUTA.length());
+                }
+            });
+
+            txtIdPaciente.textProperty().addListener((obs, oldVal, newVal) -> {
+                if (!newVal.startsWith(PREFIJO_ID_PACIENTE)) {
+                    txtIdPaciente.setText(PREFIJO_ID_PACIENTE);
+                    txtIdPaciente.positionCaret(PREFIJO_ID_PACIENTE.length());
+                }
+            });
+
+
+            listaMedicos.addAll(medicoLogica.findAll());
+            tablaMedicos.setItems(listaMedicos);
+
+            listaFarmaceutas.addAll(farmaceutaLogica.findAll());
+            tablaFarmaceutas.setItems(listaFarmaceutas);
+
+            listaPacientes.addAll(pacienteLogica.findAll());
+            tablaPacientes.setItems(listaPacientes);
+
+            listaMedicamentos.addAll(medicamentoLogica.findAll());
+            tablaMedicamentos.setItems(listaMedicamentos);
+
+            listaHistoricoRecetas.setAll(recetaLogica.findAll());
+            TV_Historico.setItems(listaHistoricoRecetas);
+
+            listaDespachoRecetas.setAll(recetaLogica.findAll());
+            TV_Despacho.setItems(listaDespachoRecetas);
+
+
+            List<Receta> recetas = recetaLogica.findAll();
+            listaHistoricoRecetas.setAll(recetas);
+            TV_Historico.setItems(listaHistoricoRecetas);
+
+            listaDespachoRecetas.setAll(recetas);
+            TV_Despacho.setItems(listaDespachoRecetas);
+
+            // Cargar IDs únicos en el ComboBox
+            List<String> ids = recetas.stream()
+                    .map(Receta::getIdentificacion)
+                    .distinct()
+                    .collect(Collectors.toList());
+
+            CB_Receta.setItems(FXCollections.observableArrayList(ids));
+            CB_RecetaDespacho.setItems(FXCollections.observableArrayList(ids));
+
+            CB_NuevoEstadoDespacho.setItems(FXCollections.observableArrayList(
+                    "Proceso", "Lista", "Entregada"));
+
+
+            //listaRecetas.addAll(recetaLogica.findAll());
+            refrescarTablaPrescripcion();
+
+            this.dashBoardLogica = new DashBoardLogica(recetaLogica);
+            try {
+                cargarGraficos();
+                System.out.println("[DEBUG] Gráficos cargados exitosamente");
+            } catch (Exception e) {
+                System.err.println("[ERROR] Error al cargar gráficos: " + e.getMessage());
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
 
@@ -427,12 +397,12 @@ public class GestionMedicosController implements Initializable {
     @FXML
     private void agregarMedico() {
         try {
-            String id = txtIdMedico.getText().trim();
+            String identificacion = txtIdMedico.getText().trim();
             String nombre = txtNombreMedico.getText().trim();
             String especialidad = txtEspecialidadMedico.getText().trim();
-            String numero = id.substring(PREFIJO_ID.length());
+            String numero = identificacion.substring(PREFIJO_ID.length());
 
-            if (id.isEmpty() || nombre.isEmpty() || especialidad.isEmpty()) {
+            if (identificacion.isEmpty() || nombre.isEmpty() || especialidad.isEmpty()) {
                 mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
                 return;
             }
@@ -442,9 +412,11 @@ public class GestionMedicosController implements Initializable {
                 return;
             }
 
-            Medico nuevoMedico = new Medico(id, id, nombre, especialidad);
+            Medico nuevoMedico = new Medico(0, identificacion, identificacion, nombre, especialidad);
 
-            if (medicoLogica.findById(id) != null) {
+            Medico existente = medicoLogica.findByIdentificacion(identificacion);
+            if (existente != null) {
+                nuevoMedico.setId(existente.getId());
                 medicoLogica.update(nuevoMedico);
                 mostrarAlerta("Médico modificado", "El médico ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
             } else {
@@ -510,7 +482,7 @@ public class GestionMedicosController implements Initializable {
             ObservableList<Medico> filtrados =
                     FXCollections.observableArrayList(
                             listaMedicos.stream()
-                                    .filter(m -> m.getId().toLowerCase().contains(criterio)
+                                    .filter(m -> m.getIdentificacion().toLowerCase().contains(criterio)
                                             || m.getNombre().toLowerCase().contains(criterio)
                                             || m.getEspecialidad().toLowerCase().contains(criterio))
                                     .collect(Collectors.toList())
@@ -524,9 +496,13 @@ public class GestionMedicosController implements Initializable {
 
     @FXML
     private void mostrarReporteMedico() {
-        listaMedicos.setAll(medicoLogica.findAll());
-        tablaMedicos.setItems(listaMedicos);
-        limpiarCamposMedico();
+       try {
+           listaMedicos.setAll(medicoLogica.findAll());
+           tablaMedicos.setItems(listaMedicos);
+           limpiarCamposMedico();
+       } catch (Exception e) {
+           Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, e);
+       }
     }
 
     @FXML
@@ -540,19 +516,23 @@ public class GestionMedicosController implements Initializable {
     }
 
     private void refrescarTablaMedico() {
-        listaMedicos.setAll(medicoLogica.findAll());
-        tablaMedicos.setItems(listaMedicos);
+        try {
+            listaMedicos.setAll(medicoLogica.findAll());
+            tablaMedicos.setItems(listaMedicos);
+        } catch (Exception e) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     // =========================== FARMACEUTAS ===========================
     @FXML
     private void agregarFarmaceuta() {
         try {
-            String id = txtIdFarmaceutas.getText().trim();
+            String identificacion = txtIdFarmaceutas.getText().trim();
             String nombre = txtNombreFarmaceutas.getText().trim();
-            String numero = id.substring(PREFIJO_ID_FARMACEUTA.length());
+            String numero = identificacion.substring(PREFIJO_ID_FARMACEUTA.length());
 
-            if (id.isEmpty() || nombre.isEmpty()) {
+            if (identificacion.isEmpty() || nombre.isEmpty()) {
                 mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
                 return;
             }
@@ -562,9 +542,11 @@ public class GestionMedicosController implements Initializable {
                 return;
             }
 
-            Farmaceuta nueveFarmaceuta = new Farmaceuta(id, id, nombre);
+            Farmaceuta nueveFarmaceuta = new Farmaceuta(0, identificacion, identificacion, nombre);
 
-            if (farmaceutaLogica.findById(id) != null) {
+            Farmaceuta existente = farmaceutaLogica.findByIdentificacion(identificacion);
+            if (existente != null) {
+                nueveFarmaceuta.setId(existente.getId());
                 farmaceutaLogica.update(nueveFarmaceuta);
                 mostrarAlerta("Farmaceuta modificado", "El farmaceuta ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
             } else {
@@ -602,7 +584,7 @@ public class GestionMedicosController implements Initializable {
             confirmacion.showAndWait().ifPresent(respuesta -> {
                 if (respuesta == ButtonType.OK) {
                     try {
-                        farmaceutaLogica.deleteByID(seleccionado.getId());
+                        farmaceutaLogica.deleteById(seleccionado.getId());
                         mostrarAlerta("Éxito", "El farmaceuta ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
                         refrescarTablaFarmaceuta();
                         limpiarCamposFarmaceuta();
@@ -630,7 +612,7 @@ public class GestionMedicosController implements Initializable {
             ObservableList<Farmaceuta> filtrados =
                     FXCollections.observableArrayList(
                             listaFarmaceutas.stream()
-                                    .filter(f -> f.getId().toLowerCase().contains(criterio)
+                                    .filter(f -> f.getIdentificacion().toLowerCase().contains(criterio)
                                             || f.getNombre().toLowerCase().contains(criterio))
                                     .collect(Collectors.toList())
                     );
@@ -643,9 +625,13 @@ public class GestionMedicosController implements Initializable {
 
     @FXML
     private void mostrarReporteFarmaceuta() {
-        listaFarmaceutas.setAll(farmaceutaLogica.findAll());
-        tablaFarmaceutas.setItems(listaFarmaceutas);
-        limpiarCamposFarmaceuta();
+        try {
+            listaFarmaceutas.setAll(farmaceutaLogica.findAll());
+            tablaFarmaceutas.setItems(listaFarmaceutas);
+            limpiarCamposFarmaceuta();
+        } catch (Exception error) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, error);
+        }
     }
 
     @FXML
@@ -658,33 +644,33 @@ public class GestionMedicosController implements Initializable {
     }
 
     private void refrescarTablaFarmaceuta() {
-        listaFarmaceutas.setAll(farmaceutaLogica.findAll());
-        tablaFarmaceutas.setItems(listaFarmaceutas);
+        try {
+            listaFarmaceutas.setAll(farmaceutaLogica.findAll());
+            tablaFarmaceutas.setItems(listaFarmaceutas);
+        } catch (Exception e) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     // =========================== PACIENTES ===========================
     @FXML
     private void agregarPaciente() {
         try {
-            String id = txtIdPaciente.getText().trim();
+            String identificacion = txtIdPaciente.getText().trim();
             String nombre = txtNombrePaciente.getText().trim();
             String telefono = txtTelefonoPaciente.getText().trim();
             LocalDate fechaNacimiento = dtpFechaNacimientoPaciente.getValue();
-            String numero = id.substring(PREFIJO_ID_PACIENTE.length());
 
-            if (id.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || fechaNacimiento == null) {
+            if (identificacion.isEmpty() || nombre.isEmpty() || telefono.isEmpty() || fechaNacimiento == null) {
                 mostrarAlerta("Error", "Todos los campos son obligatorios.", Alert.AlertType.ERROR);
                 return;
             }
 
-            if (!numero.matches("\\d+")) {
-                mostrarAlerta("Error", "El ID debe contener solo números después de " + PREFIJO_ID_FARMACEUTA, Alert.AlertType.ERROR);
-                return;
-            }
+            Paciente nuevoPaciente = new Paciente(0, identificacion, nombre, fechaNacimiento, telefono);
 
-            Paciente nuevoPaciente = new Paciente(id, nombre, fechaNacimiento, telefono);
-
-            if (pacienteLogica.findById(id) != null) {
+            Paciente existente = pacienteLogica.findByIdentificacion(identificacion);
+            if (existente != null) {
+                nuevoPaciente.setId(existente.getId());
                 pacienteLogica.update(nuevoPaciente);
                 mostrarAlerta("Paciente modificado", "El paciente ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
             } else {
@@ -698,6 +684,7 @@ public class GestionMedicosController implements Initializable {
             mostrarAlerta("Error", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
 
     @FXML
     private void eliminarPaciente() {
@@ -750,7 +737,7 @@ public class GestionMedicosController implements Initializable {
             ObservableList<Paciente> filtrados =
                     FXCollections.observableArrayList(
                             listaPacientes.stream()
-                                    .filter(p -> p.getId().toLowerCase().contains(criterio)
+                                    .filter(p -> p.getIdentificacion().toLowerCase().contains(criterio)
                                             || p.getNombre().toLowerCase().contains(criterio))
                                     .collect(Collectors.toList())
                     );
@@ -762,9 +749,13 @@ public class GestionMedicosController implements Initializable {
 
     @FXML
     private void mostrarReportePaciente() {
-        listaPacientes.setAll(pacienteLogica.findAll());
-        tablaPacientes.setItems(listaPacientes);
-        limpiarCamposPaciente();
+        try {
+            listaPacientes.setAll(pacienteLogica.findAll());
+            tablaPacientes.setItems(listaPacientes);
+            limpiarCamposPaciente();
+        } catch (Exception error) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, error);
+        }
     }
 
     @FXML
@@ -779,8 +770,12 @@ public class GestionMedicosController implements Initializable {
     }
 
     private void refrescarTablaPaciente() {
-        listaPacientes.setAll(pacienteLogica.findAll());
-        tablaPacientes.setItems(listaPacientes);
+        try {
+            listaPacientes.setAll(pacienteLogica.findAll());
+            tablaPacientes.setItems(listaPacientes);
+        } catch (Exception e) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
 
@@ -797,9 +792,12 @@ public class GestionMedicosController implements Initializable {
                 return;
             }
 
-            Medicamento nuevoMedicamento = new Medicamento(codigo,nombre, descripcion);
+            Medicamento nuevoMedicamento = new Medicamento(0, codigo, nombre, descripcion);
 
-            if (medicamentoLogica.findById(codigo) != null) {
+            Medicamento existente = medicamentoLogica.findByCodigo(codigo);
+
+            if (existente != null) {
+                nuevoMedicamento.setId(existente.getId()); // update requiere id > 0
                 medicamentoLogica.update(nuevoMedicamento);
                 mostrarAlerta("Medicamento modificado", "El medicamento ha sido modificado con éxito.", Alert.AlertType.INFORMATION);
             } else {
@@ -837,7 +835,7 @@ public class GestionMedicosController implements Initializable {
             confirmacion.showAndWait().ifPresent(respuesta -> {
                 if (respuesta == ButtonType.OK) {
                     try {
-                        medicamentoLogica.deleteById(seleccionado.getCodigo());
+                        medicamentoLogica.deleteById(seleccionado.getId());
                         mostrarAlerta("Éxito", "El medicamento ha sido eliminado correctamente.", Alert.AlertType.INFORMATION);
                         refrescarTablaMedicamento();
                         limpiarCampoMedicamento();
@@ -879,9 +877,13 @@ public class GestionMedicosController implements Initializable {
 
     @FXML
     private void mostrarReporteMedicamento() {
-        listaMedicamentos.setAll(medicamentoLogica.findAll());
-        tablaMedicamentos.setItems(listaMedicamentos);
-        limpiarCampoMedicamento();
+        try {
+            listaMedicamentos.setAll(medicamentoLogica.findAll());
+            tablaMedicamentos.setItems(listaMedicamentos);
+            limpiarCampoMedicamento();
+        } catch (Exception error) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, error);
+        }
     }
 
     @FXML
@@ -894,8 +896,12 @@ public class GestionMedicosController implements Initializable {
     }
 
     private void refrescarTablaMedicamento() {
-        listaMedicamentos.setAll(medicamentoLogica.findAll());
-        tablaMedicamentos.setItems(listaMedicamentos);
+        try {
+            listaMedicamentos.setAll(medicamentoLogica.findAll());
+            tablaMedicamentos.setItems(listaMedicamentos);
+        } catch (Exception e) {
+            Logger.getLogger(GestionMedicosController.class.getName()).log(Level.SEVERE, null, e);
+        }
     }
 
     // =========================== ALERTAS ===========================
@@ -931,7 +937,7 @@ public class GestionMedicosController implements Initializable {
                 recetaActual.setPaciente(pacienteSeleccionado);
                 recetaActual.setFechaEntrega(LocalDate.now());
                 recetaActual.setEstado("Confeccionada");
-                recetaActual.setMedicamentos(new ArrayList<>());
+                recetaActual.setMedicamento(new RecetaDetalle());
 
                 LBL_Nombre.setText(pacienteSeleccionado.getNombre());
                 refrescarTablaPrescripcion();
@@ -955,8 +961,7 @@ public class GestionMedicosController implements Initializable {
                 recetaActual.setPaciente(pacienteSeleccionado);
                 recetaActual.setFechaEntrega(LocalDate.now());
                 recetaActual.setEstado("Confeccionada");
-                recetaActual.setMedicamentos(new ArrayList<>());
-                recetaActual.setMedico(obtenerMedicoActual());
+                recetaActual.setMedicamento(new RecetaDetalle());
             }
 
 
@@ -991,7 +996,7 @@ public class GestionMedicosController implements Initializable {
     @FXML
     private void guardarReceta() {
         try {
-            if (recetaActual == null || recetaActual.getMedicamentos().isEmpty()) {
+            if (recetaActual == null) {
                 mostrarAlerta("Error", "No hay medicamentos en la receta.", Alert.AlertType.WARNING);
                 return;
             }
@@ -1012,9 +1017,8 @@ public class GestionMedicosController implements Initializable {
 
     @FXML
     private void descartarMedicamento() {
-        RecetaDetalle seleccionado = tablaPrescripcion.getSelectionModel().getSelectedItem();
-
-        if (seleccionado == null) {
+        RecetaDetalle sel = tablaPrescripcion.getSelectionModel().getSelectedItem();
+        if (sel == null) {
             mostrarAlerta("Error", "Seleccione un medicamento para eliminar.", Alert.AlertType.WARNING);
             return;
         }
@@ -1022,11 +1026,14 @@ public class GestionMedicosController implements Initializable {
         Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
         confirmacion.setTitle("Confirmar eliminación");
         confirmacion.setHeaderText("¿Desea eliminar el medicamento seleccionado?");
-        confirmacion.setContentText("Medicamento: " + seleccionado.getMedicamento().getNombre());
+        confirmacion.setContentText(
+                sel.getMedicamento() != null ? "Medicamento: " + sel.getMedicamento().getNombre() : ""
+        );
 
-        confirmacion.showAndWait().ifPresent(respuesta -> {
-            if (respuesta == ButtonType.OK) {
-                recetaActual.getMedicamentos().remove(seleccionado);
+        confirmacion.showAndWait().ifPresent(r -> {
+            if (r == ButtonType.OK && recetaActual != null) {
+                // Si tu Receta solo guarda UN RecetaDetalle:
+                recetaActual.setMedicamento(null);
                 refrescarTablaPrescripcion();
             }
         });
@@ -1072,19 +1079,18 @@ public class GestionMedicosController implements Initializable {
     private void limpiarM() {
         LBL_Nombre.setText("");
         dtpFechaRetiro.setValue(null);
-        if (recetaActual != null && recetaActual.getMedicamentos() != null) {
-            recetaActual.getMedicamentos().clear();
+        if (recetaActual != null) {
+            recetaActual.setMedicamento(null); // elimina el detalle, no lo dejes con medicamento=null
         }
         refrescarTablaPrescripcion();
     }
 
     private void refrescarTablaPrescripcion() {
         tablaPrescripcion.getItems().clear();
-        if (recetaActual != null && recetaActual.getMedicamentos() != null) {
-            tablaPrescripcion.getItems().addAll(recetaActual.getMedicamentos());
+        if (recetaActual != null && recetaActual.getMedicamento() != null) {
+            tablaPrescripcion.getItems().add(recetaActual.getMedicamento());
         }
     }
-
     // DASHBOARD
     public void cargarGraficos() {
         try {
@@ -1179,10 +1185,10 @@ public class GestionMedicosController implements Initializable {
 
            List<Receta> resultados = listaHistoricoRecetas.stream()
                    .filter(r -> {
-                       if (r.getId() == null) return false;
+                       if (r.getIdentificacion() == null) return false;
 
-                       boolean coincideCombo = criterioIdCombo.isEmpty() || r.getId().toLowerCase().contains(criterioIdCombo);
-                       boolean coincideTexto = criterioTexto.isEmpty() || r.getId().toLowerCase().contains(criterioTexto);
+                       boolean coincideCombo = criterioIdCombo.isEmpty() || r.getIdentificacion().toLowerCase().contains(criterioIdCombo);
+                       boolean coincideTexto = criterioTexto.isEmpty() || r.getIdentificacion().toLowerCase().contains(criterioTexto);
                        return coincideCombo && coincideTexto;
                    })
                    .collect(Collectors.toList());
@@ -1250,10 +1256,10 @@ public class GestionMedicosController implements Initializable {
 
         List<Receta> resultados = listaDespachoRecetas.stream()
                 .filter(r -> {
-                    if (r.getId() == null) return false;
+                    if (r.getIdentificacion() == null) return false;
 
-                    boolean coincideCombo = criterioIdCombo.isEmpty() || r.getId().toLowerCase().contains(criterioIdCombo);
-                    boolean coincideTexto = criterioTexto.isEmpty() || r.getId().toLowerCase().contains(criterioTexto);
+                    boolean coincideCombo = criterioIdCombo.isEmpty() || r.getIdentificacion().toLowerCase().contains(criterioIdCombo);
+                    boolean coincideTexto = criterioTexto.isEmpty() || r.getIdentificacion().toLowerCase().contains(criterioTexto);
                     return coincideCombo && coincideTexto;
                 })
                 .collect(Collectors.toList());

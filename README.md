@@ -23,7 +23,7 @@ El sistema está diseñado con una estructura modular que facilita la **escalabi
    - Sirve como puente de datos entre la interfaz y las demás capas.  
 
 5. **Base de Datos**  
-   - Implementada en **archivos XML**, lo que permite un almacenamiento ligero, legible y portable.  
+   - Implementada en una base de datos MySQL para almacenamiento estructurado y consultas eficientes.
 
 ---
 
@@ -32,8 +32,6 @@ El sistema está diseñado con una estructura modular que facilita la **escalabi
 La siguiente representación muestra la relación entre las capas y componentes:  
 
 <img width="440" height="824" alt="image" src="https://github.com/user-attachments/assets/a60c9181-b7b7-4d98-beef-bc02553ed971" />
-
-La base de datos serian los archivos xml.
 
 ---
 

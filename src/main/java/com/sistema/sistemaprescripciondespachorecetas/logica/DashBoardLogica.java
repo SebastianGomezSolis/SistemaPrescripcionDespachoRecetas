@@ -1,4 +1,4 @@
-package com.sistema.sistemaprescripciondespachorecetas.logic.logica;
+package com.sistema.sistemaprescripciondespachorecetas.logica;
 
 import com.sistema.sistemaprescripciondespachorecetas.model.Receta;
 
@@ -6,18 +6,23 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class DashBoardLogica {
     private final RecetaLogica recetaLogica;
 
-    public DashBoardLogica(String rutaXmlRecetas) {
-        this.recetaLogica = new RecetaLogica(rutaXmlRecetas);
-    }
-
     public DashBoardLogica(RecetaLogica recetaLogica) { this.recetaLogica = recetaLogica; }
 
-    public List<Receta> cargarRecetas() { return recetaLogica.findAll(); }
+    public List<Receta> cargarRecetas() {
+        try {
+            return recetaLogica.findAll();
+        } catch (Exception e) {
+            Logger.getLogger(DashBoardLogica.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return null;
+    }
 
     public int totalRecetas() { return cargarRecetas().size(); }
 

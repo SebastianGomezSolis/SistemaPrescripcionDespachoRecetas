@@ -1,6 +1,7 @@
 package com.sistema.sistemaprescripciondespachorecetas.model;
 
 public class RecetaDetalle {
+    private int id;
     private Medicamento medicamento;
     private int cantidad;
     private String indicaciones;
@@ -8,7 +9,8 @@ public class RecetaDetalle {
 
     public RecetaDetalle() {}
 
-    public RecetaDetalle(Medicamento medicamento, int cantidad, String indicaciones, int diasDuracion) {
+    public RecetaDetalle(int id,Medicamento medicamento, int cantidad, String indicaciones, int diasDuracion) {
+        this.id = id;
         this.medicamento = medicamento;
         this.cantidad = cantidad;
         this.indicaciones = indicaciones;
@@ -16,6 +18,9 @@ public class RecetaDetalle {
     }
 
     // Getters y setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
     public Medicamento getMedicamento() { return medicamento; }
     public void setMedicamento(Medicamento medicamento) { this.medicamento = medicamento; }
 
