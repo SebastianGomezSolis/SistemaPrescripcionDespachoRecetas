@@ -17,7 +17,7 @@ El sistema está diseñado con una estructura modular que facilita la **escalabi
    - Implementa el procesamiento central de las recetas (validaciones, cálculos y reglas de prescripción).  
 
 3. **Datos**  
-   - Manejo de persistencia de información utilizando **archivos XML** como base de datos.  
+   - Manejo de persistencia de información utilizando **MySQL** como base de datos.  
 
 4. **Modelos**  
    - Sirve como puente de datos entre la interfaz y las demás capas.  
@@ -62,7 +62,7 @@ El sistema contempla **tres tipos de usuarios**, cada uno con permisos y respons
 - **Interfaz gráfica:** JavaFX (con FXML)  
 - **Arquitectura:** N-capas  
 - **Patrón de diseño:** MVC  
-- **Persistencia de datos:** Archivos XML  
+- **Base de datos:** MySQL
 
 ---
 
@@ -82,7 +82,7 @@ El sistema contempla **tres tipos de usuarios**, cada uno con permisos y respons
 El sistema busca **automatizar la prescripción y despacho de recetas médicas**, ofreciendo:  
 - Registro y consulta de pacientes y medicamentos.  
 - Generación y validación de recetas.  
-- Persistencia en archivos XML.
+- Persistencia en MySQL.
 - Creacion de nuevos medicos y farmaceutas.
 - Diferentes vistas y permisos según el tipo de usuario.  
 - Interfaz intuitiva bajo el patrón MVC.
